@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import {
   HiArrowRightOnRectangle,
+  HiGift,
   HiLockClosed,
   HiOutlineCalendarDays,
   HiOutlineCog6Tooth,
@@ -61,6 +62,12 @@ function MainNav() {
         <li>
           <StyledNavLink to='/dashboard'>
             <HiOutlineHome /> Home
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to='/events'>
+            <HiGift />
+            Events
           </StyledNavLink>
         </li>
         <li>
