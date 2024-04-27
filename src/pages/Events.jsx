@@ -1,8 +1,13 @@
 import Row from '../ui/Row';
 import Heading from '../ui/Heading';
+import Button from '../ui/Button';
 import EventBoard from '../features/events/EventBoard';
+import { useState } from 'react';
+import CreateEventForm from '../features/events/CreateEventForm';
 
 function Events() {
+  const [showForm, setShowForm] = useState(false);
+
   return (
     <>
       <Row type='horizontal'>
@@ -13,6 +18,11 @@ function Events() {
       <Row type='horizontal'>
         <EventBoard />
       </Row>
+      <Button onClick={() => setShowForm((show) => !show)}>
+        Add new event
+      </Button>
+
+      {showForm && <CreateEventForm />}
     </>
   );
 }
