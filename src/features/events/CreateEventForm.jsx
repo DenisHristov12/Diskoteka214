@@ -1,14 +1,12 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
-
-import { createEditEvent } from '../../services/apiEvents';
 import Input from '../../ui/Input';
 import Form from '../../ui/Form';
 import Button from '../../ui/Button';
 import FileInput from '../../ui/FileInput';
 import Textarea from '../../ui/Textarea';
 import FormRow from '../../ui/FormRow';
+import { useCreateEvent } from './useCreateEvent';
+import { useEditEvent } from './useEditEvent';
 
 function CreateEventForm({ eventToEdit = {} }) {
   const { id: editId, ...editValues } = eventToEdit;
@@ -20,29 +18,9 @@ function CreateEventForm({ eventToEdit = {} }) {
 
   const { errors } = formState;
 
-  const queryClient = useQueryClient();
+  const { isCreating, createEvent } = useCreateEvent();
 
-  const { isLoading: isCreating, mutate: createEvent } = useMutation({
-    mutationFn: createEditEvent,
-    onSuccess: () => {
-      toast.success('New event successfully created!');
-
-      queryClient.invalidateQueries({ queryKey: ['events'] });
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
-
-  const { isLoading: isEditing, mutate: editEvent } = useMutation({
-    mutationFn: ({ newEventData, id }) => createEditEvent(newEventData, id),
-    onSuccess: () => {
-      toast.success('Event successfully edited!');
-
-      queryClient.invalidateQueries({ queryKey: ['events'] });
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  const { isEditing, editEvent } = useEditEvent();
 
   const isWorking = isCreating || isEditing;
 
@@ -50,9 +28,19 @@ function CreateEventForm({ eventToEdit = {} }) {
     const image = typeof data.image === 'string' ? data.image : data.image[0];
 
     if (isEditSession) {
-      editEvent({ newEventData: { ...data, image }, id: editId });
+      editEvent(
+        { newEventData: { ...data, image }, id: editId },
+        {
+          onSuccess: () => reset(),
+        }
+      );
     } else {
-      createEvent({ ...data, image });
+      createEvent(
+        { ...data, image },
+        {
+          onSuccess: () => reset(),
+        }
+      );
     }
 
     // console.log(data);

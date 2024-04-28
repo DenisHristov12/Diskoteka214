@@ -1,10 +1,8 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
+import { useDeleteEvent } from '. /useDeleteEvent';
 import Button from '../../ui/Button';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteEvent } from '../../services/apiEvents';
-import toast from 'react-hot-toast';
-import { useState } from 'react';
 import CreateEventForm from './CreateEventForm';
 
 const Poster = styled.div`
@@ -32,21 +30,9 @@ const ButtonBox = styled.div`
 `;
 
 function EventPoster({ event }) {
-  const queryClient = useQueryClient();
-
   const [showForm, setShowForm] = useState(false);
 
-  const { isLoading: isDeleting, mutate } = useMutation({
-    mutationFn: deleteEvent,
-    onSuccess: () => {
-      toast.success('Event has been deleted succesfully!');
-
-      queryClient.invalidateQueries({
-        queryKey: ['events'],
-      });
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  const { isDeleting, deleteEvent } = useDeleteEvent();
 
   return (
     <>
@@ -61,7 +47,7 @@ function EventPoster({ event }) {
           <Button
             size='fullWidth'
             variation='danger'
-            onClick={() => mutate(event.id)}
+            onClick={() => deleteEvent(event.id)}
             disabled={isDeleting}>
             Delete
           </Button>

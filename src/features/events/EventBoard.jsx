@@ -1,8 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
-import { getEvents } from '../../services/apiEvents';
+
 import Spinner from '../../ui/Spinner';
 import EventPoster from './EventPoster';
+import { useEvents } from './useEvents';
 
 const GridContainer = styled.div`
   width: 100%;
@@ -16,14 +16,7 @@ const GridContainer = styled.div`
 `;
 
 function EventBoard() {
-  const {
-    isLoading,
-    data: events,
-    error,
-  } = useQuery({
-    queryKey: ['events'],
-    queryFn: getEvents,
-  });
+  const { isLoading, events } = useEvents();
 
   if (isLoading) {
     return <Spinner />;
