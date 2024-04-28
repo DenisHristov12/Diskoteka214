@@ -1,25 +1,29 @@
-import styled from 'styled-components';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
+import { useForm } from 'react-hook-form';
 
+import { createEditEvent } from '../../services/apiEvents';
 import Input from '../../ui/Input';
 import Form from '../../ui/Form';
 import Button from '../../ui/Button';
 import FileInput from '../../ui/FileInput';
 import Textarea from '../../ui/Textarea';
-import { useForm } from 'react-hook-form';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createEvent } from '../../services/apiEvents';
-import toast from 'react-hot-toast';
 import FormRow from '../../ui/FormRow';
 
-function CreateEventForm() {
-  const { register, handleSubmit, reset, formState } = useForm();
+function CreateEventForm({ eventToEdit = {} }) {
+  const { id: editId, ...editValues } = eventToEdit;
+  const isEditSession = Boolean(editId);
+
+  const { register, handleSubmit, reset, formState } = useForm({
+    defaultValues: isEditSession ? editValues : {},
+  });
 
   const { errors } = formState;
 
   const queryClient = useQueryClient();
 
-  const { isLoading: isCreating, mutate } = useMutation({
-    mutationFn: createEvent,
+  const { isLoading: isCreating, mutate: createEvent } = useMutation({
+    mutationFn: createEditEvent,
     onSuccess: () => {
       toast.success('New event successfully created!');
 
@@ -29,8 +33,27 @@ function CreateEventForm() {
     onError: (err) => toast.error(err.message),
   });
 
+  const { isLoading: isEditing, mutate: editEvent } = useMutation({
+    mutationFn: ({ newEventData, id }) => createEditEvent(newEventData, id),
+    onSuccess: () => {
+      toast.success('Event successfully edited!');
+
+      queryClient.invalidateQueries({ queryKey: ['events'] });
+      reset();
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
+  const isWorking = isCreating || isEditing;
+
   function onSubmit(data) {
-    mutate({ ...data, image: data.image[0] });
+    const image = typeof data.image === 'string' ? data.image : data.image[0];
+
+    if (isEditSession) {
+      editEvent({ newEventData: { ...data, image }, id: editId });
+    } else {
+      createEvent({ ...data, image });
+    }
 
     // console.log(data);
   }
@@ -45,7 +68,7 @@ function CreateEventForm() {
         <Input
           type='date'
           id='date'
-          disabled={isCreating}
+          disabled={isWorking}
           {...register('date', {
             required: 'This field is required',
           })}
@@ -56,7 +79,7 @@ function CreateEventForm() {
         <Input
           type='number'
           id='entrance'
-          disabled={isCreating}
+          disabled={isWorking}
           {...register('entrance', {
             required: 'This field is required',
             validate: (value) => value >= 0 || 'Entrance must be 0 or greater!',
@@ -68,7 +91,7 @@ function CreateEventForm() {
         <Input
           type='text'
           id='musicType'
-          disabled={isCreating}
+          disabled={isWorking}
           {...register('musicType', {
             required: 'This field is required',
           })}
@@ -79,7 +102,7 @@ function CreateEventForm() {
         <Input
           type='text'
           id='alchoholType'
-          disabled={isCreating}
+          disabled={isWorking}
           {...register('alchoholType', {
             required: 'This field is required',
           })}
@@ -90,7 +113,7 @@ function CreateEventForm() {
         <Input
           type='text'
           id='promotions'
-          disabled={isCreating}
+          disabled={isWorking}
           {...register('promotions', {
             required: 'This field is required',
           })}
@@ -101,7 +124,7 @@ function CreateEventForm() {
         <Textarea
           type='text'
           id='description'
-          disabled={isCreating}
+          disabled={isWorking}
           defaultValue=''
           {...register('description', {
             required: 'This field is required',
@@ -114,7 +137,7 @@ function CreateEventForm() {
           id='image'
           accept='image/*'
           {...register('image', {
-            required: 'This field is required',
+            required: isEditSession ? false : 'This field is required',
           })}
         />
       </FormRow>
@@ -124,7 +147,9 @@ function CreateEventForm() {
         <Button variation='secondary' type='reset'>
           Cancel
         </Button>
-        <Button disabled={isCreating}>Add event</Button>
+        <Button disabled={isWorking}>
+          {isEditSession ? 'Edit event' : 'Add event'}
+        </Button>
       </FormRow>
     </Form>
   );

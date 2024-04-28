@@ -11,18 +11,32 @@ export async function getEvents() {
   return data;
 }
 
-export async function createEvent(newEvent) {
-  // https://ehkzfbcnwcykcbdhupaa.supabase.co/storage/v1/object/public/event-images/Diskoteka214.com.png
+export async function createEditEvent(newEvent, id) {
+  //   console.log(newEvent);
+  const hasImagePath = newEvent.image?.startsWith?.(supabaseUrl);
 
   const imageName = `${Math.random()}-${newEvent.image.name}`.replaceAll(
     '/',
     ''
   );
-  const imagePath = `${supabaseUrl}/storage/v1/object/public/event-images/${imageName}`;
+  const imagePath = hasImagePath
+    ? newEvent.image
+    : `${supabaseUrl}/storage/v1/object/public/event-images/${imageName}`;
 
-  const { data, error } = await supabase
-    .from('events')
-    .insert([{ ...newEvent, image: imagePath }]);
+  let query = supabase.from('events');
+
+  if (!id) {
+    query = query.insert([{ ...newEvent, image: imagePath }]);
+  }
+
+  if (id) {
+    query = query
+      .update({ ...newEvent, image: imagePath })
+      .eq('id', id)
+      .select();
+  }
+
+  const { data, error } = await query.select().single();
 
   if (error) {
     console.error(error);

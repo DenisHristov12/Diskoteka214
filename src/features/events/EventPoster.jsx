@@ -4,6 +4,8 @@ import Button from '../../ui/Button';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteEvent } from '../../services/apiEvents';
 import toast from 'react-hot-toast';
+import { useState } from 'react';
+import CreateEventForm from './CreateEventForm';
 
 const Poster = styled.div`
   height: 53vh;
@@ -32,6 +34,8 @@ const ButtonBox = styled.div`
 function EventPoster({ event }) {
   const queryClient = useQueryClient();
 
+  const [showForm, setShowForm] = useState(false);
+
   const { isLoading: isDeleting, mutate } = useMutation({
     mutationFn: deleteEvent,
     onSuccess: () => {
@@ -45,20 +49,26 @@ function EventPoster({ event }) {
   });
 
   return (
-    <Poster>
-      <Img src={event.image} alt='Poster' />
+    <>
+      <Poster>
+        <Img src={event.image} alt='Poster' />
 
-      <ButtonBox>
-        <Button size='fullWidth'>Details</Button>
-        <Button
-          size='fullWidth'
-          variation='danger'
-          onClick={() => mutate(event.id)}
-          disabled={isDeleting}>
-          Delete
-        </Button>
-      </ButtonBox>
-    </Poster>
+        <ButtonBox>
+          <Button size='fullWidth'>Details</Button>
+          <Button size='fullWidth' onClick={() => setShowForm((show) => !show)}>
+            Edit
+          </Button>
+          <Button
+            size='fullWidth'
+            variation='danger'
+            onClick={() => mutate(event.id)}
+            disabled={isDeleting}>
+            Delete
+          </Button>
+        </ButtonBox>
+      </Poster>
+      {showForm && <CreateEventForm eventToEdit={event} />}
+    </>
   );
 }
 
