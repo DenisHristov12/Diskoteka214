@@ -43,6 +43,10 @@ export async function createEditEvent(newEvent, id) {
     throw new Error('Events could not be created');
   }
 
+  if (hasImagePath) {
+    return data;
+  }
+
   const { error: storageError } = await supabase.storage
     .from('event-images')
     .upload(imageName, newEvent.image);

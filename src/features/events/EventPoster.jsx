@@ -1,12 +1,19 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-import { useDeleteEvent } from '. /useDeleteEvent';
+import { useDeleteEvent } from './useDeleteEvent';
 import Button from '../../ui/Button';
 import CreateEventForm from './CreateEventForm';
+import {
+  HiInformationCircle,
+  HiPencil,
+  HiSquare2Stack,
+  HiTrash,
+} from 'react-icons/hi2';
+import { useCreateEvent } from './useCreateEvent';
 
 const Poster = styled.div`
-  height: 53vh;
+  height: 65vh;
   padding: 0.6rem;
   display: flex;
   flex-direction: column;
@@ -34,21 +41,58 @@ function EventPoster({ event }) {
 
   const { isDeleting, deleteEvent } = useDeleteEvent();
 
+  const { isCreating, createEvent } = useCreateEvent();
+
+  const {
+    id: eventId,
+    date,
+    entrance,
+    musicType,
+    alchoholType,
+    promotions,
+    description,
+    image,
+  } = event;
+
+  function handleDuplicate() {
+    createEvent({
+      date,
+      entrance,
+      musicType,
+      alchoholType,
+      promotions,
+      description,
+      image,
+    });
+  }
+
   return (
     <>
       <Poster>
-        <Img src={event.image} alt='Poster' />
+        <Img src={image} alt='Poster' />
 
         <ButtonBox>
-          <Button size='fullWidth'>Details</Button>
+          <Button size='fullWidth'>
+            {/* <HiInformationCircle /> */}
+            Details
+          </Button>
           <Button size='fullWidth' onClick={() => setShowForm((show) => !show)}>
+            {/* <HiPencil /> */}
             Edit
+          </Button>
+          <Button
+            size='fullWidth'
+            disabled={isCreating}
+            onClick={handleDuplicate}>
+            {/* <HiSquare2Stack /> */}
+            Duplicate
           </Button>
           <Button
             size='fullWidth'
             variation='danger'
             onClick={() => deleteEvent(event.id)}
             disabled={isDeleting}>
+            {/* <HiTrash /> */}
             Delete
           </Button>
         </ButtonBox>
