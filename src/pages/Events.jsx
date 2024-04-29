@@ -1,28 +1,31 @@
+import EventBoard from '../features/events/EventBoard';
+import AddEvent from '../features/events/AddEvent';
 import Row from '../ui/Row';
 import Heading from '../ui/Heading';
-import Button from '../ui/Button';
-import EventBoard from '../features/events/EventBoard';
-import { useState } from 'react';
-import CreateEventForm from '../features/events/CreateEventForm';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 2.4rem;
+`;
 
 function Events() {
-  const [showForm, setShowForm] = useState(false);
-
   return (
     <>
       <Row type='horizontal'>
         <Heading as='h1'>All Events</Heading>
-        <p>Filter / Sort</p>
+        <Container>
+          <p>Filter / Sort</p>
+          <AddEvent />
+        </Container>
       </Row>
 
       <Row type='horizontal'>
         <EventBoard />
       </Row>
-      <Button onClick={() => setShowForm((show) => !show)}>
-        Add new event
-      </Button>
-
-      {showForm && <CreateEventForm />}
     </>
   );
 }

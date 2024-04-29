@@ -8,7 +8,7 @@ import FormRow from '../../ui/FormRow';
 import { useCreateEvent } from './useCreateEvent';
 import { useEditEvent } from './useEditEvent';
 
-function CreateEventForm({ eventToEdit = {} }) {
+function CreateEventForm({ eventToEdit = {}, onCloseModal }) {
   const { id: editId, ...editValues } = eventToEdit;
   const isEditSession = Boolean(editId);
 
@@ -31,14 +31,20 @@ function CreateEventForm({ eventToEdit = {} }) {
       editEvent(
         { newEventData: { ...data, image }, id: editId },
         {
-          onSuccess: () => reset(),
+          onSuccess: (data) => {
+            reset();
+            onCloseModal?.();
+          },
         }
       );
     } else {
       createEvent(
         { ...data, image },
         {
-          onSuccess: () => reset(),
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
         }
       );
     }
@@ -51,7 +57,9 @@ function CreateEventForm({ eventToEdit = {} }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit, onError)}
+      type={onCloseModal ? 'modal' : 'regular'}>
       <FormRow label='Event date' error={errors?.date?.message}>
         <Input
           type='date'
@@ -132,7 +140,10 @@ function CreateEventForm({ eventToEdit = {} }) {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation='secondary' type='reset'>
+        <Button
+          variation='secondary'
+          type='reset'
+          onClick={() => onCloseModal?.()}>
           Cancel
         </Button>
         <Button disabled={isWorking}>
