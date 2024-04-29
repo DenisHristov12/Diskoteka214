@@ -1,23 +1,17 @@
-import { useState } from 'react';
 import Button from '../../ui/Button';
 import CreateEventForm from './CreateEventForm';
 import Modal from '../../ui/Modal';
 
 function AddEvent() {
-  const [isOpenModal, setIsOpenModal] = useState(false);
-
   return (
-    <div>
-      <Button onClick={() => setIsOpenModal((show) => !show)}>
-        Add new event
-      </Button>
-
-      {isOpenModal && (
-        <Modal onClose={() => setIsOpenModal(false)}>
-          <CreateEventForm onCloseModal={() => setIsOpenModal(false)} />
-        </Modal>
-      )}
-    </div>
+    <Modal>
+      <Modal.Open opens='event-form'>
+        <Button>Add event</Button>
+      </Modal.Open>
+      <Modal.Window name='event-form'>
+        <CreateEventForm />
+      </Modal.Window>
+    </Modal>
   );
 }
 
