@@ -73,6 +73,10 @@ function Filter({ filterField, options }) {
           active={
             option.value === filteredEntrance ||
             option.value === filteredPromotions
+          }
+          disabled={
+            option.value === filteredEntrance ||
+            option.value === filteredPromotions
           }>
           {option.label}
         </FilterButton>

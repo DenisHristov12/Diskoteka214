@@ -24,9 +24,9 @@ function EventBoard() {
     return <Spinner />;
   }
 
+  //FILTER
   const filteredEntrance = searchParams.get('entrance') || 'all';
   const filteredPromotions = searchParams.get('promotions') || 'all';
-  // const all = searchParams.get('events');
 
   let filteredEvents;
 
@@ -50,9 +50,21 @@ function EventBoard() {
     filteredEvents = events.filter((event) => event.promotions !== '');
   }
 
+  //SORT
+  const sortBy = searchParams.get('sortBy') || 'date-asc';
+
+  const [field, direction] = sortBy.split('-');
+  const modifier = direction === 'asc' ? 1 : -1;
+  const sortedEvents = filteredEvents.sort((a, b) => {
+    if (field === 'date') {
+      return (new Date(b[field]) - new Date(a[field])) * modifier;
+    } else {
+      return (a[field] - b[field]) * modifier;
+    }
+  });
   return (
     <GridContainer>
-      {filteredEvents?.map((event) => (
+      {sortedEvents?.map((event) => (
         <EventPoster event={event} key={event.id} />
       ))}
     </GridContainer>
