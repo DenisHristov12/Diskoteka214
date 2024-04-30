@@ -93,13 +93,13 @@ function EventPoster({ event }) {
             <CreateEventForm eventToEdit={event} />
           </Modal.Window>
 
-          <Modal.Open>
+          <Modal.Open opens='delete'>
             <Button size='fullWidth' variation='danger'>
               {/* <HiTrash /> */}
               Delete
             </Button>
           </Modal.Open>
-          <Modal.Window>
+          <Modal.Window name='delete'>
             <ConfirmDelete
               resourceName='event'
               disabled={isDeleting}
