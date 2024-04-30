@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Spinner from '../../ui/Spinner';
 import EventPoster from './EventPoster';
 import { useEvents } from './useEvents';
+import { useSearchParams } from 'react-router-dom';
 
 const GridContainer = styled.div`
   width: 100%;
@@ -17,14 +18,41 @@ const GridContainer = styled.div`
 
 function EventBoard() {
   const { isLoading, events } = useEvents();
+  const [searchParams] = useSearchParams();
 
   if (isLoading) {
     return <Spinner />;
   }
 
+  const filteredEntrance = searchParams.get('entrance') || 'all';
+  const filteredPromotions = searchParams.get('promotions') || 'all';
+  // const all = searchParams.get('events');
+
+  let filteredEvents;
+
+  if (filteredEntrance === 'all' || filteredPromotions === 'all') {
+    filteredEvents = events;
+  }
+
+  if (filteredEntrance === 'free-entrance') {
+    filteredEvents = events.filter((event) => event.entrance === 0);
+  }
+
+  if (filteredEntrance === 'paid-entrance') {
+    filteredEvents = events.filter((event) => event.entrance > 0);
+  }
+
+  if (filteredPromotions === 'no-promotions') {
+    filteredEvents = events.filter((event) => event.promotions === '');
+  }
+
+  if (filteredPromotions === 'promotions') {
+    filteredEvents = events.filter((event) => event.promotions !== '');
+  }
+
   return (
     <GridContainer>
-      {events.map((event) => (
+      {filteredEvents?.map((event) => (
         <EventPoster event={event} key={event.id} />
       ))}
     </GridContainer>

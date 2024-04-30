@@ -111,7 +111,7 @@ function CreateEventForm({ eventToEdit = {}, onCloseModal }) {
           id='promotions'
           disabled={isWorking}
           {...register('promotions', {
-            required: 'This field is required',
+            // required: 'This field is required',
           })}
         />
       </FormRow>

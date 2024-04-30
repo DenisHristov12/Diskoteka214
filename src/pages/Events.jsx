@@ -3,6 +3,7 @@ import AddEvent from '../features/events/AddEvent';
 import Row from '../ui/Row';
 import Heading from '../ui/Heading';
 import styled from 'styled-components';
+import EventFilterSort from '../features/events/EventFilterSort';
 
 const Container = styled.div`
   display: flex;
@@ -18,7 +19,7 @@ function Events() {
       <Row type='horizontal'>
         <Heading as='h1'>All Events</Heading>
         <Container>
-          <p>Filter / Sort</p>
+          <EventFilterSort />
           <AddEvent />
         </Container>
       </Row>
