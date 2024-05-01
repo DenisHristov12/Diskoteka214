@@ -19,14 +19,13 @@ function BookingTable() {
 
   return (
     <Menus>
-      <Table columns='1fr 1fr 1fr 1fr 1fr 1fr 3.2rem'>
+      <Table columns='0.8fr 1.4fr 1fr 1.2fr 0.4fr 1.2rem'>
         <Table.Header>
           <div>Event</div>
           <div>Reservator</div>
           <div>Date</div>
           <div>Status</div>
           <div>People</div>
-          <div>Number</div>
           <div></div>
         </Table.Header>
 

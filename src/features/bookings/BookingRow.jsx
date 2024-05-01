@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   HiPencil,
   HiTrash,
@@ -42,23 +42,27 @@ const Stacked = styled.div`
   }
 `;
 
-const Amount = styled.div`
+const People = styled.div`
   font-family: 'Sono';
   font-weight: 500;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* background-color: red; */
+
+  /* text-align: center; */
 `;
 
 function BookingRow({
   booking: {
     id: bookingId,
     created_at,
-    startDate,
-    endDate,
-    numNights,
-    numGuests,
-    totalPrice,
+    date,
     status,
-    reservators: { fullName: guestName, email },
-    events: { name: cabinName },
+    reservators: { fullName: reservatorName, number, peopleNum },
+    events: { name: eventName },
   },
 }) {
   const { mutate: deleteBooking, isLoading: isDeleting } = useDeleteBooking();
@@ -66,40 +70,27 @@ function BookingRow({
 
   const navigate = useNavigate();
 
-  // We will not allow editing at this point, as it's too complex for bookings... People just need to delete a booking and create a new one
-
   const statusToTagName = {
     unconfirmed: 'blue',
-    'checked-in': 'green',
-    'checked-out': 'silver',
+    confirmed: 'green',
+    past: 'silver',
   };
 
   return (
     <Table.Row role='row'>
-      {/* <Cabin>{cabinName}</Cabin>
-
+      <Cabin>{eventName}</Cabin>
       <Stacked>
-        <span>{guestName}</span>
-        <span>{email}</span>
+        <span>{reservatorName}</span>
+        <span>{number}</span>
       </Stacked>
-
       <Stacked>
         <span>
-          {isToday(new Date(startDate))
-            ? 'Today'
-            : formatDistanceFromNow(startDate)}{' '}
-          &rarr; {numNights} night stay
+          {isToday(new Date(date)) ? 'Today' : formatDistanceFromNow(date)}
         </span>
-        <span>
-          {format(new Date(startDate), 'MMM dd yyyy')} &mdash;{' '}
-          {format(new Date(endDate), 'MMM dd yyyy')}
-        </span>
+        <span>{format(new Date(date), 'MMM dd yyyy')} </span>
       </Stacked>
-
       <Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag>
-
-      <Amount>{formatCurrency(totalPrice)}</Amount>
-
+      <People>{peopleNum}</People>
       <Modal>
         <Menus.Menu>
           <Menus.Toggle id={bookingId} />
@@ -138,23 +129,20 @@ function BookingRow({
         <Modal.Window name='delete'>
           <ConfirmDelete
             resource='booking'
-            // These options will be passed wherever the function gets called, and they determine what happens next
             onConfirm={(options) => deleteBooking(bookingId, options)}
             disabled={isDeleting}
           />
         </Modal.Window>
-      </Modal>{' '}
-      */}
+      </Modal>
       {/* <div>
-        <ButtonWithConfirm
+        <ButtonConfirm
           title='Delete booking'
           description='Are you sure you want to delete this booking? This action can NOT be undone.'
           confirmBtnLabel='Delete'
           onConfirm={() => deleteBooking(bookingId)}
-          disabled={isDeleting}
-        >
+          disabled={isDeleting}>
           Delete
-        </ButtonWithConfirm>
+        </ButtonConfirm>
 
         <Link to={`/bookings/${bookingId}`}>Details &rarr;</Link>
       </div> */}

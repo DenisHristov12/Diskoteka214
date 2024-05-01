@@ -60,6 +60,17 @@ function CreateEventForm({ eventToEdit = {}, onCloseModal }) {
     <Form
       onSubmit={handleSubmit(onSubmit, onError)}
       type={onCloseModal ? 'modal' : 'regular'}>
+      <FormRow label='Event name' error={errors?.name?.message}>
+        <Input
+          type='text'
+          id='name'
+          disabled={isWorking}
+          {...register('name', {
+            required: 'This field is required',
+          })}
+        />
+      </FormRow>
+
       <FormRow label='Event date' error={errors?.date?.message}>
         <Input
           type='date'

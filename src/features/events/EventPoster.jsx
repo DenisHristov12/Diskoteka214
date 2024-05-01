@@ -44,6 +44,7 @@ function EventPoster({ event }) {
 
   const {
     id: eventId,
+    name,
     date,
     entrance,
     musicType,
@@ -55,6 +56,7 @@ function EventPoster({ event }) {
 
   function handleDuplicate() {
     createEvent({
+      name,
       date,
       entrance,
       musicType,
