@@ -20,16 +20,16 @@ export function useBookings() {
   const sortBy = { field, direction };
 
   // // PAGINATION
-  // const page = !searchParams.get('page') ? 1 : Number(searchParams.get('page'));
+  const page = !searchParams.get('page') ? 1 : Number(searchParams.get('page'));
 
   // QUERY
   const {
     isLoading,
-    data: bookings,
+    data: { data: bookings, count } = {},
     error,
   } = useQuery({
-    queryKey: ['bookings', filter, sortBy],
-    queryFn: () => getBookings({ filter, sortBy }),
+    queryKey: ['bookings', filter, sortBy, page],
+    queryFn: () => getBookings({ filter, sortBy, page }),
   });
 
   // PRE-FETCHING
@@ -47,5 +47,5 @@ export function useBookings() {
   //     queryFn: () => getBookings({ filter, sortBy, page: page - 1 }),
   //   });
 
-  return { isLoading, error, bookings };
+  return { isLoading, error, bookings, count };
 }
