@@ -91,7 +91,7 @@ function BookingRow({
       </Stacked>
       <Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag>
       <People>{peopleNum}</People>
-      <Modal>
+      {/* <Modal>
         <Menus.Menu>
           <Menus.Toggle id={bookingId} />
           <Menus.List id={bookingId}>
@@ -133,7 +133,7 @@ function BookingRow({
             disabled={isDeleting}
           />
         </Modal.Window>
-      </Modal>
+      </Modal> */}
       {/* <div>
         <ButtonConfirm
           title='Delete booking'

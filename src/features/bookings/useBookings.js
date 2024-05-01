@@ -5,18 +5,19 @@ import { PAGE_SIZE } from '../../utils/constants';
 
 export function useBookings() {
   const queryClient = useQueryClient();
-  // const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-  // const filterValue = searchParams.get('status');
-  // const filter =
-  //   !filterValue || filterValue === 'all'
-  //     ? null
-  //     : { field: 'status', value: filterValue };
+  //FILTER
+  const filterValue = searchParams.get('status');
+  const filter =
+    !filterValue || filterValue === 'all'
+      ? null
+      : { field: 'status', value: filterValue, method: 'eq' };
 
-  // // SORT
-  // const sortByRaw = searchParams.get('sortBy') || 'startDate-desc';
-  // const [field, direction] = sortByRaw.split('-');
-  // const sortBy = { field, direction };
+  // SORT
+  const sortByRaw = searchParams.get('sortBy') || 'date-desc';
+  const [field, direction] = sortByRaw.split('-');
+  const sortBy = { field, direction };
 
   // // PAGINATION
   // const page = !searchParams.get('page') ? 1 : Number(searchParams.get('page'));
@@ -27,8 +28,8 @@ export function useBookings() {
     data: bookings,
     error,
   } = useQuery({
-    queryKey: ['bookings'],
-    queryFn: () => getBookings(),
+    queryKey: ['bookings', filter, sortBy],
+    queryFn: () => getBookings({ filter, sortBy }),
   });
 
   // PRE-FETCHING

@@ -38,9 +38,11 @@ const FilterButton = styled.button`
 function Filter({ filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const all = filterField[0];
-  const entrance = filterField[1];
-  const promotions = filterField[2];
+  const currentFilter = searchParams.get(filterField) || options.at(0).value;
+
+  const all = filterField.at(0);
+  const entrance = filterField.at(1);
+  const promotions = filterField.at(2);
 
   const filteredEntrance = searchParams.get(entrance) || options.at(0);
   const filteredPromotions = searchParams.get(promotions) || options.at(0);
@@ -60,6 +62,14 @@ function Filter({ filterField, options }) {
       searchParams.delete(promotions);
       // searchParams.set(all, value);
     }
+    setSearchParams(searchParams);
+  }
+
+  function handleClickUniversal(value) {
+    searchParams.set(filterField, value);
+    if (searchParams.get('page')) {
+      searchParams.set('page', 1);
+    }
 
     setSearchParams(searchParams);
   }
@@ -69,14 +79,20 @@ function Filter({ filterField, options }) {
       {options.map((option) => (
         <FilterButton
           key={option.value}
-          onClick={() => handleClick(option.value)}
+          onClick={() =>
+            filterField.length > 3
+              ? handleClickUniversal(option.value)
+              : handleClick(option.value)
+          }
           active={
             option.value === filteredEntrance ||
-            option.value === filteredPromotions
+            option.value === filteredPromotions ||
+            option.value === currentFilter
           }
           disabled={
             option.value === filteredEntrance ||
-            option.value === filteredPromotions
+            option.value === filteredPromotions ||
+            option.value === currentFilter
           }>
           {option.label}
         </FilterButton>
