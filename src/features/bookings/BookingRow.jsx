@@ -20,19 +20,6 @@ import { formatDistanceFromNow } from '../../utils/helpers';
 import { useCheckout } from '../check-in-out/useCheckout';
 import { format, isToday } from 'date-fns';
 
-// v1
-// const TableRow = styled.div`
-//   display: grid;
-//   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
-//   column-gap: 2.4rem;
-//   align-items: center;
-//   padding: 1.4rem 2.4rem;
-
-//   &:not(:last-child) {
-//     border-bottom: 1px solid var(--color-grey-100);
-//   }
-// `;
-
 const Cabin = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
@@ -70,8 +57,8 @@ function BookingRow({
     numGuests,
     totalPrice,
     status,
-    guests: { fullName: guestName, email },
-    cabins: { name: cabinName },
+    reservators: { fullName: guestName, email },
+    events: { name: cabinName },
   },
 }) {
   const { mutate: deleteBooking, isLoading: isDeleting } = useDeleteBooking();
@@ -89,7 +76,7 @@ function BookingRow({
 
   return (
     <Table.Row role='row'>
-      <Cabin>{cabinName}</Cabin>
+      {/* <Cabin>{cabinName}</Cabin>
 
       <Stacked>
         <span>{guestName}</span>
@@ -113,7 +100,6 @@ function BookingRow({
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
 
-      {/* VIDEO we could export this into own component... */}
       <Modal>
         <Menus.Menu>
           <Menus.Toggle id={bookingId} />
@@ -142,16 +128,13 @@ function BookingRow({
             )}
 
             <Menus.Button icon={<HiPencil />}>Edit booking</Menus.Button>
-            {/* <Menus.Button>Delete</Menus.Button> */}
 
-            {/* Now it gets a bit confusing... */}
             <Modal.Toggle opens='delete'>
               <Menus.Button icon={<HiTrash />}>Delete booking</Menus.Button>
             </Modal.Toggle>
           </Menus.List>
         </Menus.Menu>
 
-        {/* This needs to be OUTSIDE of the menu, which in no problem. The compound component gives us this flexibility */}
         <Modal.Window name='delete'>
           <ConfirmDelete
             resource='booking'
@@ -160,8 +143,8 @@ function BookingRow({
             disabled={isDeleting}
           />
         </Modal.Window>
-      </Modal>
-
+      </Modal>{' '}
+      */}
       {/* <div>
         <ButtonWithConfirm
           title='Delete booking'

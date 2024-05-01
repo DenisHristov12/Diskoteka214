@@ -4,6 +4,7 @@ import Spinner from '../../ui/Spinner';
 import EventPoster from './EventPoster';
 import { useEvents } from './useEvents';
 import { useSearchParams } from 'react-router-dom';
+import Empty from '../../ui/Empty';
 
 const GridContainer = styled.div`
   width: 100%;
@@ -22,6 +23,10 @@ function EventBoard() {
 
   if (isLoading) {
     return <Spinner />;
+  }
+
+  if (!events.length) {
+    return <Empty resourceName={'events'} />;
   }
 
   //FILTER
