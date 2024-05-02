@@ -60,7 +60,7 @@ function BookingDetail() {
       <BookingDataBox booking={booking} />
 
       <ButtonGroup>
-        {/*{status === 'unconfirmed' && (
+        {status === 'unconfirmed' && (
           <Button onClick={() => navigate(`/checkin/${bookingId}`)}>
             Check in
           </Button>
@@ -72,6 +72,7 @@ function BookingDetail() {
           </Button>
         )}
 
+        {/*
         <Modal>
           <Modal.Toggle opens='delete'>
             <Button variation='danger'>Delete booking</Button>
