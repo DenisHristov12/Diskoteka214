@@ -8,39 +8,34 @@ const FullPage = styled.div`
   height: 100vh;
   background-color: var(--color-grey-50);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 `;
 
 function ProtectedRoute({ children }) {
   const navigate = useNavigate();
 
-  // 1. Load authenticated user
+  // 1. Load the authenticated user
   const { isLoading, isAuthenticated } = useUser();
 
-  // 3.If no authenticated user redirect to login
+  // 2. If there is NO authenticated user, redirect to the /login
   useEffect(
     function () {
-      if (!isAuthenticated && !isLoading) {
-        navigate('/login');
-      }
+      if (!isAuthenticated && !isLoading) navigate('/login');
     },
     [isAuthenticated, isLoading, navigate]
   );
 
-  // 2. Show spinner
-  if (isLoading) {
+  // 3. While loading, show a spinner
+  if (isLoading)
     return (
       <FullPage>
         <Spinner />
       </FullPage>
     );
-  }
 
-  // 4. If user render app
-  if (isAuthenticated) {
-    return children;
-  }
+  // 4. If there IS a user, render the app
+  if (isAuthenticated) return children;
 }
 
 export default ProtectedRoute;
