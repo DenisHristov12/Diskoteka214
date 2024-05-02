@@ -26,7 +26,7 @@ const Box = styled.div`
 
 function CheckinBooking() {
   const [confirmPaid, setConfirmPaid] = useState(false);
-  const [addBreakfast, setAddBreakfast] = useState(false);
+  // const [addBreakfast, setAddBreakfast] = useState(false);
   const { booking, isLoading } = useBooking();
   // const { settings, isLoading: isLoadingSettings } = useSettings();
 
@@ -35,36 +35,24 @@ function CheckinBooking() {
   const moveBack = useMoveBack();
   const { checkin, isCheckingIn } = useCheckin();
 
-  if (isLoading) {
+  if (isLoading || isCheckingIn) {
     return <Spinner />;
   }
 
   const {
     id: bookingId,
-    guests,
-    totalPrice,
-    numGuests,
-    hasBreakfast,
-    numNights,
+    date,
+    events: { entrance },
+    reservators: { fullName },
   } = booking;
 
   // const optionalBreakfastPrice =
   //   settings.breakfastPrice * numNights * numGuests;
 
   function handleCheckin() {
-    // if (!confirmPaid) return;
-    // if (addBreakfast) {
-    //   checkin({
-    //     bookingId,
-    //     breakfast: {
-    //       hasBreakfast: true,
-    //       extrasPrice: optionalBreakfastPrice,
-    //       totalPrice: totalPrice + optionalBreakfastPrice,
-    //     },
-    //   });
-    // } else {
-    //   checkin({ bookingId, breakfast: {} });
-    // }
+    if (!confirmPaid) return;
+
+    checkin({ bookingId });
   }
 
   return (
@@ -90,18 +78,16 @@ function CheckinBooking() {
         </Box>
       )} */}
 
-      {/* <Box>
+      <Box>
         <Checkbox
           checked={confirmPaid}
           onChange={() => setConfirmPaid((confirm) => !confirm)}
           disabled={confirmPaid || isCheckingIn}
           id='confirm'>
-          I confirm that {reservators.fullName} has paid the total amount of{' '}
-          {!addBreakfast
-            ? formatCurrency(totalPrice)
-            : `${formatCurrency(totalPrice)} (${formatCurrency(totalPrice)}`}
+          I confirm that {fullName} has paid the total amount of{' '}
+          {formatCurrency(entrance)}
         </Checkbox>
-      </Box> */}
+      </Box>
 
       <ButtonGroup>
         <Button onClick={handleCheckin} disabled={!confirmPaid || isCheckingIn}>
