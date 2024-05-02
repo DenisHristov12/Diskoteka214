@@ -66,14 +66,15 @@ function BookingRow({
   },
 }) {
   const { mutate: deleteBooking, isLoading: isDeleting } = useDeleteBooking();
-  const { mutate: checkout, isLoading: isCheckingOut } = useCheckout();
+
+  const { checkout, isLoading: isCheckingOut } = useCheckout();
 
   const navigate = useNavigate();
 
   const statusToTagName = {
     unconfirmed: 'blue',
-    confirmed: 'green',
-    past: 'silver',
+    'checked-in': 'green',
+    'checked-out': 'silver',
   };
 
   return (
@@ -109,7 +110,7 @@ function BookingRow({
             </Menus.Button>
           )}
 
-          {status === 'confirmed' && (
+          {status === 'checked-in' && (
             <Menus.Button
               icon={<HiArrowUpOnSquare />}
               onClick={() => checkout(bookingId)}

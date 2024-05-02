@@ -17,6 +17,7 @@ import { useMoveBack } from '../../hooks/useMoveBack';
 import { useCheckout } from '../check-in-out/useCheckout';
 import ButtonText from '../../ui/ButtonText';
 import Empty from '../../ui/Empty';
+import CheckoutButton from '../check-in-out/CheckoutButton';
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -42,11 +43,12 @@ function BookingDetail() {
 
   const statusToTagName = {
     unconfirmed: 'blue',
-    confirmed: 'green',
-    past: 'silver',
+    'checked-in': 'green',
+    'checked-out': 'silver',
   };
 
   const { id: bookingId, status } = booking;
+
   return (
     <>
       <Row type='horizontal'>
@@ -66,11 +68,7 @@ function BookingDetail() {
           </Button>
         )}
 
-        {status === 'confirmed' && (
-          <Button onClick={() => checkout(bookingId)} disabled={isCheckingOut}>
-            Check out
-          </Button>
-        )}
+        {status === 'checked-in' && <CheckoutButton bookingId={bookingId} />}
 
         {/*
         <Modal>

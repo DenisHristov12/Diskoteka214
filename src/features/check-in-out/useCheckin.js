@@ -10,7 +10,7 @@ export function useCheckin() {
   const { mutate: checkin, isLoading: isCheckingIn } = useMutation({
     mutationFn: ({ bookingId }) =>
       updateBooking(bookingId, {
-        status: 'confirmed',
+        status: 'checked-in',
         isPaid: true,
       }),
 
