@@ -19,6 +19,7 @@ import Events from './pages/Events';
 import Booking from './pages/Booking';
 import Event from './pages/Event';
 import Checkin from './pages/Checkin';
+import ProtectedRoute from './ui/ProtectedRoute';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,7 +36,12 @@ function App() {
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
-          <Route element={<AppLayout />}>
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }>
             <Route index element={<Navigate replace to='dashboard' />} />
             <Route path='dashboard' element={<Dashboard />} />
             <Route path='events' element={<Events />} />
@@ -46,10 +52,10 @@ function App() {
             <Route path='users' element={<Users />} />
             <Route path='settings' element={<Settings />} />
             <Route path='account' element={<Account />} />
-            <Route path='login' element={<Login />} />
-            <Route path='register' element={<Register />} />
           </Route>
 
+          <Route path='login' element={<Login />} />
+          <Route path='register' element={<Register />} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
