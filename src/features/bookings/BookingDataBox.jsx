@@ -1,21 +1,21 @@
 import styled from 'styled-components';
 import { format } from 'date-fns';
 
-import { box } from 'styles/styles';
+// import { box } from '../../styles/GlobalStyles';
 import { formatDistanceFromNow } from '../../utils/helpers';
 import { isToday } from 'date-fns';
-import { formatCurrency } from '../../utils/helpers';
-import {
-  HiOutlineChatBubbleBottomCenterText,
-  HiOutlineCheckCircle,
-  HiOutlineCurrencyDollar,
-  HiOutlineHomeModern,
-} from 'react-icons/hi2';
-import DataItem from '../../ui/DataItem';
-import { Flag } from '../../ui/Flag';
+// import { formatCurrency } from '../../utils/helpers';
+// import {
+//   HiOutlineChatBubbleBottomCenterText,
+//   HiOutlineCheckCircle,
+//   HiOutlineCurrencyDollar,
+//   HiOutlineHomeModern,
+// } from 'react-icons/hi2';
+// import DataItem from '../../ui/DataItem';
+// import { Flag } from '../../ui/Flag';
 
 const StyledBookingDataBox = styled.section`
-  ${box} /* padding: 3.2rem 4rem; */
+  /* padding: 3.2rem 4rem; */
   overflow: hidden;
 `;
 
@@ -104,64 +104,31 @@ const Footer = styled.footer`
 function BookingDataBox({ booking }) {
   const {
     created_at,
-    startDate,
-    endDate,
-    numNights,
-    numGuests,
-    cabinPrice,
-    extrasPrice,
-    totalPrice,
-    hasBreakfast,
-    observations,
-    isPaid,
-    guests: { fullName: guestName, email, country, countryFlag, nationalID },
-    cabins: { name: cabinName },
+    date,
+    reservators: { fullName: reservatorName, peopleNum, number },
+    events: { name: eventName },
   } = booking;
 
   return (
     <StyledBookingDataBox>
       <Header>
-        <div>
-          <HiOutlineHomeModern />
-          <p>
-            {numNights} nights in Cabin <span>{cabinName}</span>
-          </p>
-        </div>
-
         <p>
-          {format(new Date(startDate), 'EEE, MMM dd yyyy')} (
-          {isToday(new Date(startDate))
-            ? 'Today'
-            : formatDistanceFromNow(startDate)}
-          ) &mdash; {format(new Date(endDate), 'EEE, MMM dd yyyy')}
+          {format(new Date(date), 'EEE, MMM dd yyyy')} (
+          {isToday(new Date(date)) ? 'Today' : formatDistanceFromNow(date)})
         </p>
       </Header>
 
       <Section>
         <Guest>
-          {countryFlag && <Flag src={countryFlag} alt={`Flag of ${country}`} />}
           <p>
-            {guestName} {numGuests > 1 ? `+ ${numGuests - 1} guests` : ''}
+            {reservatorName} {peopleNum > 1 ? `+ ${peopleNum - 1} guests` : ''}
           </p>
           <span>&bull;</span>
-          <p>{email}</p>
+          <p>{number}</p>
           <span>&bull;</span>
-          <p>National ID {nationalID}</p>
         </Guest>
 
-        {observations && (
-          <DataItem
-            icon={<HiOutlineChatBubbleBottomCenterText />}
-            label='Observations'>
-            {observations}
-          </DataItem>
-        )}
-
-        <DataItem icon={<HiOutlineCheckCircle />} label='Breakfast included?'>
-          {hasBreakfast ? 'Yes' : 'No'}
-        </DataItem>
-
-        <Price isPaid={isPaid}>
+        {/* <Price isPaid={isPaid}>
           <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
             {formatCurrency(totalPrice)}
 
@@ -172,7 +139,7 @@ function BookingDataBox({ booking }) {
           </DataItem>
 
           <p>{isPaid ? 'Paid' : 'Will pay at property'}</p>
-        </Price>
+        </Price> */}
       </Section>
 
       <Footer>

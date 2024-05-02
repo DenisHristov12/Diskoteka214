@@ -12,6 +12,7 @@ import {
 import { useCreateEvent } from './useCreateEvent';
 import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
+import { useNavigate } from 'react-router-dom';
 
 const Poster = styled.div`
   height: 65vh;
@@ -38,6 +39,8 @@ const ButtonBox = styled.div`
 `;
 
 function EventPoster({ event }) {
+  const navigate = useNavigate();
+
   const { isDeleting, deleteEvent } = useDeleteEvent();
 
   const { isCreating, createEvent } = useCreateEvent();
@@ -72,7 +75,7 @@ function EventPoster({ event }) {
       <Img src={image} alt='Poster' />
 
       <ButtonBox>
-        <Button size='fullWidth'>
+        <Button size='fullWidth' onClick={() => navigate(`/events/${eventId}`)}>
           {/* <HiInformationCircle /> */}
           Details
         </Button>

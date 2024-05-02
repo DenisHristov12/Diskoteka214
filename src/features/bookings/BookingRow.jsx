@@ -91,61 +91,17 @@ function BookingRow({
       </Stacked>
       <Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag>
       <People>{peopleNum}</People>
-      {/* <Modal>
-        <Menus.Menu>
-          <Menus.Toggle id={bookingId} />
-          <Menus.List id={bookingId}>
-            <Menus.Button
-              onClick={() => navigate(`/bookings/${bookingId}`)}
-              icon={<HiEye />}>
-              See details
-            </Menus.Button>
 
-            {status === 'unconfirmed' && (
-              <Menus.Button
-                onClick={() => navigate(`/checkin/${bookingId}`)}
-                icon={<HiArrowDownOnSquare />}>
-                Check in
-              </Menus.Button>
-            )}
-
-            {status === 'checked-in' && (
-              <Menus.Button
-                onClick={() => checkout(bookingId)}
-                disabled={isCheckingOut}
-                icon={<HiArrowUpOnSquare />}>
-                Check out
-              </Menus.Button>
-            )}
-
-            <Menus.Button icon={<HiPencil />}>Edit booking</Menus.Button>
-
-            <Modal.Toggle opens='delete'>
-              <Menus.Button icon={<HiTrash />}>Delete booking</Menus.Button>
-            </Modal.Toggle>
-          </Menus.List>
-        </Menus.Menu>
-
-        <Modal.Window name='delete'>
-          <ConfirmDelete
-            resource='booking'
-            onConfirm={(options) => deleteBooking(bookingId, options)}
-            disabled={isDeleting}
-          />
-        </Modal.Window>
-      </Modal> */}
-      {/* <div>
-        <ButtonConfirm
-          title='Delete booking'
-          description='Are you sure you want to delete this booking? This action can NOT be undone.'
-          confirmBtnLabel='Delete'
-          onConfirm={() => deleteBooking(bookingId)}
-          disabled={isDeleting}>
-          Delete
-        </ButtonConfirm>
-
-        <Link to={`/bookings/${bookingId}`}>Details &rarr;</Link>
-      </div> */}
+      <Menus.Menu>
+        <Menus.Toggle id={bookingId} />
+        <Menus.List id={bookingId}>
+          <Menus.Button
+            icon={<HiEye />}
+            onClick={() => navigate(`/bookings/${bookingId}`)}>
+            See details
+          </Menus.Button>
+        </Menus.List>
+      </Menus.Menu>
     </Table.Row>
   );
 }
