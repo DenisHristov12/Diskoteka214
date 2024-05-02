@@ -27,8 +27,8 @@ const HeadingGroup = styled.div`
 
 function BookingDetail() {
   const { booking, isLoading } = useBooking();
-  const { mutate: deleteBooking, isLoading: isDeleting } = useDeleteBooking();
-  const { mutate: checkout, isLoading: isCheckingOut } = useCheckout();
+  const { deleteBooking, isLoading: isDeleting } = useDeleteBooking();
+  // const { checkout, isLoading: isCheckingOut } = useCheckout();
 
   const moveBack = useMoveBack();
   const navigate = useNavigate();
@@ -70,20 +70,23 @@ function BookingDetail() {
 
         {status === 'checked-in' && <CheckoutButton bookingId={bookingId} />}
 
-        {/*
         <Modal>
-          <Modal.Toggle opens='delete'>
+          <Modal.Open opens='delete'>
             <Button variation='danger'>Delete booking</Button>
-          </Modal.Toggle>
+          </Modal.Open>
+
           <Modal.Window name='delete'>
             <ConfirmDelete
-              resource='booking'
-              onConfirm={(options) => deleteBooking(bookingId, options)}
+              resourceName='booking'
               disabled={isDeleting}
+              onConfirm={() =>
+                deleteBooking(bookingId, {
+                  onSettled: () => navigate(-1),
+                })
+              }
             />
           </Modal.Window>
         </Modal>
-        */}
 
         <Button variation='secondary' onClick={moveBack}>
           Back
