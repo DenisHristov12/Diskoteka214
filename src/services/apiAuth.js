@@ -57,26 +57,32 @@ export async function logout() {
 export async function updateCurrentUser({ password, fullName, avatar, user }) {
   // 1. Update password OR fullName
 
-  console.log(user);
-
   let query = supabase.from('users');
 
   if (password) {
-    query = query.update({ password }).eq('password', user.password).select();
+    console.log(password);
+    query = query
+      .update({ ...user, password })
+      .eq('id', user.id)
+      .select();
   }
 
   if (fullName) {
     query = query
       .update({ ...user, fullName })
-      .eq('fullName', user.fullName)
+      .eq('id', user.id)
       .select();
   }
 
   const { data, error } = await query.select().single();
 
+  console.log(data);
+
   if (error) {
     throw new Error(error.message);
   }
+
+  console.log(avatar);
 
   if (!avatar) {
     return data;
