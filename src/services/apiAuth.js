@@ -54,19 +54,25 @@ export async function logout() {
   }
 }
 
-export async function updateCurrentUser({ password, fullName, avatar }) {
+export async function updateCurrentUser({ password, fullName, avatar, user }) {
   // 1. Update password OR fullName
-  let updateData;
+
+  console.log(user);
+
+  let query = supabase.from('users');
 
   if (password) {
-    updateData = { password };
+    query = query.update({ password }).eq('password', user.password).select();
   }
 
   if (fullName) {
-    updateData = { data: { fullName } };
+    query = query
+      .update({ ...user, fullName })
+      .eq('fullName', user.fullName)
+      .select();
   }
 
-  const { data, error } = await supabase.auth.updateUser(updateData);
+  const { data, error } = await query.select().single();
 
   if (error) {
     throw new Error(error.message);
@@ -88,11 +94,17 @@ export async function updateCurrentUser({ password, fullName, avatar }) {
   }
 
   // 3. Update avatar in the user
-  const { data: updatedUser, error: error2 } = await supabase.auth.updateUser({
-    data: {
+  // const { data: updatedUser, error: error2 } = await supabase.auth.updateUser({
+  //   avatar: `${supabaseUrl}/storage/v1/object/public/avatars/${fileName}`,
+  // });
+
+  const { data: updatedUser, error: error2 } = await supabase
+    .from('users')
+    .update({
       avatar: `${supabaseUrl}/storage/v1/object/public/avatars/${fileName}`,
-    },
-  });
+    })
+    .eq('avatar', user.avatar)
+    .select();
 
   if (error2) {
     throw new Error(error2.message);

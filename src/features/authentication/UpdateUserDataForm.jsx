@@ -8,12 +8,8 @@ import Input from '../../ui/Input';
 import { useUpdateUser } from './useUpdateUser';
 
 function UpdateUserDataForm() {
-  const {
-    user: {
-      email,
-      user_metadata: { fullName: currentFullName },
-    },
-  } = useUser();
+  const { user } = useUser();
+  const { fullName: currentFullName, email } = user;
 
   const [fullName, setFullName] = useState(currentFullName);
   const [avatar, setAvatar] = useState(null);
@@ -28,7 +24,7 @@ function UpdateUserDataForm() {
     }
 
     updateUser(
-      { fullName, avatar },
+      { fullName, avatar, user },
       {
         onSuccess: () => {
           setAvatar(null);
@@ -38,7 +34,7 @@ function UpdateUserDataForm() {
     );
   }
 
-  function handleCancel(e) {
+  function handleCancel() {
     setFullName(currentFullName);
     setAvatar(null);
   }
