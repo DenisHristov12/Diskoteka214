@@ -4,6 +4,7 @@ import Row from '../ui/Row';
 import Heading from '../ui/Heading';
 import styled from 'styled-components';
 import EventFilterSort from '../features/events/EventFilterSort';
+import { useUser } from '../features/authentication/useUser';
 
 const Container = styled.div`
   display: flex;
@@ -14,13 +15,15 @@ const Container = styled.div`
 `;
 
 function Events() {
+  const { isAdmin } = useUser();
+
   return (
     <>
       <Row type='horizontal'>
         <Heading as='h1'>All Events</Heading>
         <Container>
           <EventFilterSort />
-          <AddEvent />
+          {isAdmin && <AddEvent />}
         </Container>
       </Row>
 

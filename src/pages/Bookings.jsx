@@ -5,9 +5,7 @@ import Heading from '../ui/Heading';
 import Row from '../ui/Row';
 
 function Bookings() {
-  const { user } = useUser();
-
-  const isAdmin = user?.roles?.roleName === 'admin';
+  const { isAdmin } = useUser();
 
   if (!isAdmin) {
     return (

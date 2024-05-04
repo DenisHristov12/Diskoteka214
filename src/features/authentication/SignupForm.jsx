@@ -4,6 +4,7 @@ import Form from '../../ui/Form';
 import FormRow from '../../ui/FormRow';
 import Input from '../../ui/Input';
 import { useSignup } from './useSignup';
+import { useUser } from './useUser';
 
 // Email regex: /\S+@\S+\.\S+/
 
@@ -11,6 +12,8 @@ function SignupForm() {
   const { signUp, isLoading } = useSignup();
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
+
+  const { isUser } = useUser();
 
   function onSubmit({ fullName, email, password }) {
     signUp(
@@ -27,7 +30,7 @@ function SignupForm() {
         <Input
           type='text'
           id='fullName'
-          disabled={isLoading}
+          disabled={isLoading || isUser}
           {...register('fullName', { required: 'This field is required' })}
         />
       </FormRow>
@@ -36,7 +39,7 @@ function SignupForm() {
         <Input
           type='email'
           id='email'
-          disabled={isLoading}
+          disabled={isLoading || isUser}
           {...register('email', {
             required: 'This field is required',
             pattern: {
@@ -53,7 +56,7 @@ function SignupForm() {
         <Input
           type='password'
           id='password'
-          disabled={isLoading}
+          disabled={isLoading || isUser}
           {...register('password', {
             required: 'This field is required',
             minLength: {
@@ -68,7 +71,7 @@ function SignupForm() {
         <Input
           type='password'
           id='passwordConfirm'
-          disabled={isLoading}
+          disabled={isLoading || isUser}
           {...register('passwordConfirm', {
             required: 'This field is required',
             validate: (value) =>
@@ -81,11 +84,11 @@ function SignupForm() {
         <Button
           variation='secondary'
           type='reset'
-          disabled={isLoading}
+          disabled={isLoading || isUser}
           onClick={reset}>
           Cancel
         </Button>
-        <Button disabled={isLoading}>Create new user</Button>
+        <Button disabled={isLoading || isUser}>Create new user</Button>
       </FormRow>
     </Form>
   );

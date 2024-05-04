@@ -25,8 +25,6 @@ const Avatar = styled.img`
 function UserAvatar() {
   const { user, isLoading } = useUser();
 
-  // console.log(user);
-
   if (isLoading) {
     return <SpinnerMini />;
   }

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { useDeleteEvent } from './useDeleteEvent';
 import Button from '../../ui/Button';
@@ -15,6 +15,15 @@ import ConfirmDelete from '../../ui/ConfirmDelete';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../authentication/useUser';
 
+const userTypes = {
+  user: css`
+    height: 50vh;
+  `,
+  admin: css`
+    height: 65vh;
+  `,
+};
+
 const Poster = styled.div`
   height: 65vh;
   padding: 0.6rem;
@@ -25,7 +34,13 @@ const Poster = styled.div`
 
   box-shadow: var(--shadow-md);
   /* background-color: red; */
+
+  ${(props) => userTypes[props.user]}
 `;
+
+Poster.defaultProps = {
+  user: 'user',
+};
 
 const Img = styled.img`
   height: auto;
@@ -71,12 +86,12 @@ function EventPoster({ event }) {
     });
   }
 
-  const { user } = useUser();
+  const { user, isAdmin } = useUser();
 
-  const isAdmin = user?.roles?.roleName === 'admin';
+  const role = user?.roles?.roleName;
 
   return (
-    <Poster>
+    <Poster user={role}>
       <Img src={image} alt='Poster' />
 
       <ButtonBox>

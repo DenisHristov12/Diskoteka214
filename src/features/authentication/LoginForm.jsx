@@ -13,6 +13,8 @@ function LoginForm() {
   const [password, setPassword] = useState('');
   const { login, isLoading } = useLogin();
 
+  const { isUser } = useUser();
+
   function handleSubmit(e) {
     e.preventDefault();
     if (!email || !password) {
@@ -39,7 +41,7 @@ function LoginForm() {
           autoComplete='username'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          disabled={isLoading}
+          disabled={isLoading || isUser}
         />
       </FormRowVertical>
 
@@ -50,11 +52,11 @@ function LoginForm() {
           autoComplete='current-password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          disabled={isLoading}
+          disabled={isLoading || isUser}
         />
       </FormRowVertical>
       <FormRowVertical>
-        <Button size='large' disabled={isLoading}>
+        <Button size='large' disabled={isLoading || isUser}>
           {!isLoading ? 'Log in' : <SpinnerMini />}
         </Button>
       </FormRowVertical>

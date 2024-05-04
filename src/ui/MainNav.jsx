@@ -57,10 +57,7 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 function MainNav() {
-  const { user } = useUser();
-  const isUser = Boolean(user);
-
-  const isAdmin = user?.roles?.roleName === 'admin';
+  const { isUser, isAdmin } = useUser();
 
   return (
     <nav>

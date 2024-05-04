@@ -13,11 +13,11 @@ export function useLogin() {
       // console.log(user);
       localStorage.setItem('user', JSON.stringify(user));
       toast.success('You have succesfully loged in!');
-      // queryClient.invalidateQueries({
-      //   queryKey: ['user'],
-      // });
       queryClient.setQueryData(['user'], { user });
       navigate('/dashboard', { replace: true });
+      queryClient.invalidateQueries({
+        queryKey: ['user'],
+      });
     },
     onError: (err) => {
       toast.error('Provided email or password are incorrect!');

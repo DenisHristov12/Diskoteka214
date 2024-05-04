@@ -3,6 +3,7 @@ import Logout from '../features/authentication/Logout';
 import ButtonIcon from './ButtonIcon';
 import { HiOutlineUser } from 'react-icons/hi2';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../features/authentication/useUser';
 
 const StyledHeaderMenu = styled.ul`
   display: flex;
@@ -10,15 +11,18 @@ const StyledHeaderMenu = styled.ul`
 `;
 
 function HeaderMenu() {
+  const { isUser } = useUser();
   const navigate = useNavigate();
 
   return (
     <StyledHeaderMenu>
-      <li>
-        <ButtonIcon onClick={() => navigate('/account')}>
-          <HiOutlineUser />
-        </ButtonIcon>
-      </li>
+      {isUser && (
+        <li>
+          <ButtonIcon onClick={() => navigate('/account')}>
+            <HiOutlineUser />
+          </ButtonIcon>
+        </li>
+      )}
       <li>
         <Logout />
       </li>

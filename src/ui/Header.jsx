@@ -15,8 +15,7 @@ const StyledHeader = styled.header`
 `;
 
 function Header() {
-  const { user } = useUser();
-  const isUser = Boolean(user);
+  const { isUser } = useUser();
 
   return (
     <StyledHeader>

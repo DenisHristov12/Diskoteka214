@@ -5,8 +5,6 @@ import Menus from '../../ui/Menus';
 import Pagination from '../../ui/Pagination';
 import Empty from '../../ui/Empty';
 import Spinner from '../../ui/Spinner';
-import { useUser } from '../authentication/useUser';
-import Heading from '../../ui/Heading';
 
 function BookingTable() {
   const { bookings, isLoading, count } = useBookings();

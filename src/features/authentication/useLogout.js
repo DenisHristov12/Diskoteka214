@@ -9,15 +9,11 @@ export function useLogout() {
   const { mutate: logout, isLoading } = useMutation({
     mutationFn: logoutApi,
     onSuccess: () => {
-      //later specify which queries to remove
       localStorage.removeItem('user');
-      queryClient.removeQueries({
-        queryKey: ['user'],
-      });
+      navigate('/login', { replace: true });
       queryClient.invalidateQueries({
         queryKey: ['user'],
       });
-      navigate('/login', { replace: true });
     },
   });
 
