@@ -54,22 +54,22 @@ export async function getCurrentUser() {
   // return data?.user;
 
   //localStorage user
-  // const userData = JSON.parse(localStorage.getItem('user'));
+  const userData = JSON.parse(localStorage.getItem('user'));
 
-  // console.log(userData);
+  console.log(userData);
 
-  const { data, error } = await supabase
-    .from('users')
-    .select('*')
-    .eq('id', supabase.auth.user().id);
+  // const { data, error } = await supabase
+  //   .from('users')
+  //   .select('*')
+  //   .eq('id', supabase.auth.user().id);
 
-  if (error) {
-    throw new Error(error.message);
-  }
+  // if (error) {
+  //   throw new Error(error.message);
+  // }
 
-  console.log(data);
+  // console.log(data);
 
-  return data;
+  return userData;
 }
 
 export async function logout() {
