@@ -1,13 +1,18 @@
 import supabase, { supabaseUrl } from './supabase';
 
 export async function signUp({ fullName, email, password }) {
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: { fullName, avatar: '' },
-    },
-  });
+  // const { data, error } = await supabase.auth.signUp({
+  //   email,
+  //   password,
+  //   options: {
+  //     data: { fullName, avatar: '' },
+  //   },
+  // });
+
+  const { data, error } = await supabase
+    .from('users')
+    .insert([{ email, password, fullName }])
+    .select();
 
   if (error) {
     throw new Error(error.message);
