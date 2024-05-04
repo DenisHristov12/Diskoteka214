@@ -10,6 +10,7 @@ import {
   HiOutlineHome,
   HiOutlineUsers,
 } from 'react-icons/hi2';
+import { useUser } from '../features/authentication/useUser';
 
 const NavList = styled.ul`
   display: flex;
@@ -56,6 +57,11 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 function MainNav() {
+  const { user } = useUser();
+  const isUser = Boolean(user);
+
+  const isAdmin = user?.roles?.roleName === 'admin';
+
   return (
     <nav>
       <NavList>
@@ -70,36 +76,44 @@ function MainNav() {
             Events
           </StyledNavLink>
         </li>
-        <li>
-          <StyledNavLink to='/bookings'>
-            <HiOutlineCalendarDays />
-            Bookings
-          </StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to='/users'>
-            <HiOutlineUsers />
-            Users
-          </StyledNavLink>
-        </li>
+        {isAdmin && (
+          <li>
+            <StyledNavLink to='/bookings'>
+              <HiOutlineCalendarDays />
+              Bookings
+            </StyledNavLink>
+          </li>
+        )}
+        {isAdmin && (
+          <li>
+            <StyledNavLink to='/users'>
+              <HiOutlineUsers />
+              Users
+            </StyledNavLink>
+          </li>
+        )}
         <li>
           <StyledNavLink to='/settings'>
             <HiOutlineCog6Tooth />
             Settings
           </StyledNavLink>
         </li>
-        <li>
-          <StyledNavLink to='/login'>
-            <HiLockClosed />
-            Login
-          </StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to='/register'>
-            <HiArrowRightOnRectangle />
-            Register
-          </StyledNavLink>
-        </li>
+        {!isUser && (
+          <li>
+            <StyledNavLink to='/login'>
+              <HiLockClosed />
+              Login
+            </StyledNavLink>
+          </li>
+        )}
+        {!isUser && (
+          <li>
+            <StyledNavLink to='/register'>
+              <HiArrowRightOnRectangle />
+              Register
+            </StyledNavLink>
+          </li>
+        )}
       </NavList>
     </nav>
   );

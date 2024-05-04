@@ -13,6 +13,7 @@ import { useCreateEvent } from './useCreateEvent';
 import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../authentication/useUser';
 
 const Poster = styled.div`
   height: 65vh;
@@ -70,6 +71,10 @@ function EventPoster({ event }) {
     });
   }
 
+  const { user } = useUser();
+
+  const isAdmin = user?.roles?.roleName === 'admin';
+
   return (
     <Poster>
       <Img src={image} alt='Poster' />
@@ -79,39 +84,43 @@ function EventPoster({ event }) {
           {/* <HiInformationCircle /> */}
           Details
         </Button>
-        <Button
-          size='fullWidth'
-          disabled={isCreating}
-          onClick={handleDuplicate}>
-          {/* <HiSquare2Stack /> */}
-          Duplicate
-        </Button>
-
-        <Modal>
-          <Modal.Open opens='edit'>
-            <Button size='fullWidth'>
-              {/* <HiPencil /> */}
-              Edit
+        {isAdmin && (
+          <>
+            <Button
+              size='fullWidth'
+              disabled={isCreating}
+              onClick={handleDuplicate}>
+              {/* <HiSquare2Stack /> */}
+              Duplicate
             </Button>
-          </Modal.Open>
-          <Modal.Window name='edit'>
-            <CreateEventForm eventToEdit={event} />
-          </Modal.Window>
 
-          <Modal.Open opens='delete'>
-            <Button size='fullWidth' variation='danger'>
-              {/* <HiTrash /> */}
-              Delete
-            </Button>
-          </Modal.Open>
-          <Modal.Window name='delete'>
-            <ConfirmDelete
-              resourceName='event'
-              disabled={isDeleting}
-              onConfirm={() => deleteEvent(eventId)}
-            />
-          </Modal.Window>
-        </Modal>
+            <Modal>
+              <Modal.Open opens='edit'>
+                <Button size='fullWidth'>
+                  {/* <HiPencil /> */}
+                  Edit
+                </Button>
+              </Modal.Open>
+              <Modal.Window name='edit'>
+                <CreateEventForm eventToEdit={event} />
+              </Modal.Window>
+
+              <Modal.Open opens='delete'>
+                <Button size='fullWidth' variation='danger'>
+                  {/* <HiTrash /> */}
+                  Delete
+                </Button>
+              </Modal.Open>
+              <Modal.Window name='delete'>
+                <ConfirmDelete
+                  resourceName='event'
+                  disabled={isDeleting}
+                  onConfirm={() => deleteEvent(eventId)}
+                />
+              </Modal.Window>
+            </Modal>
+          </>
+        )}
       </ButtonBox>
     </Poster>
   );

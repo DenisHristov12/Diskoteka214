@@ -10,7 +10,13 @@ export function useLogout() {
     mutationFn: logoutApi,
     onSuccess: () => {
       //later specify which queries to remove
-      queryClient.removeQueries();
+      localStorage.removeItem('user');
+      queryClient.removeQueries({
+        queryKey: ['user'],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['user'],
+      });
       navigate('/login', { replace: true });
     },
   });

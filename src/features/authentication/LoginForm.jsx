@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import Button from '../../ui/Button';
+import Heading from '../../ui/Heading';
 import Form from '../../ui/Form';
 import Input from '../../ui/Input';
 import FormRowVertical from '../../ui/FormRowVertical';
 import SpinnerMini from '../../ui/SpinnerMini';
 import { useLogin } from './useLogin';
+import { useUser } from './useUser';
 
 function LoginForm() {
   const [email, setEmail] = useState('');

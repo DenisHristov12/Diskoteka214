@@ -10,9 +10,13 @@ export function useLogin() {
   const { mutate: login, isLoading } = useMutation({
     mutationFn: ({ email, password }) => loginApi({ email, password }),
     onSuccess: (user) => {
-      //   console.log(user);
+      // console.log(user);
+      localStorage.setItem('user', JSON.stringify(user));
       toast.success('You have succesfully loged in!');
-      queryClient.setQueryData(['user'], user.user);
+      // queryClient.invalidateQueries({
+      //   queryKey: ['user'],
+      // });
+      queryClient.setQueryData(['user'], { user });
       navigate('/dashboard', { replace: true });
     },
     onError: (err) => {
