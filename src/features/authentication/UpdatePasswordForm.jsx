@@ -14,8 +14,10 @@ function UpdatePasswordForm() {
 
   const { updateUser, isUpdating } = useUpdateUser();
 
-  function onSubmit({ password }) {
-    updateUser(password, user, { onSuccess: () => reset() });
+  function onSubmit(obj) {
+    const password = obj.password;
+    console.log(password);
+    updateUser({ password, user }, { onSuccess: () => reset() });
   }
 
   function handleReset() {

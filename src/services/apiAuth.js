@@ -60,37 +60,32 @@ export async function updateCurrentUser({ password, fullName, avatar, user }) {
   let query = supabase.from('users');
 
   if (password) {
-    console.log(password);
-    query = query
-      .update({ ...user, password })
-      .eq('id', user.id)
-      .select();
+    // console.log(password);
+    query = query.update({ password }).eq('id', user.id).select();
   }
 
   if (fullName) {
-    query = query
-      .update({ ...user, fullName })
-      .eq('id', user.id)
-      .select();
+    query = query.update({ fullName }).eq('id', user.id).select();
   }
 
   const { data, error } = await query.select().single();
 
-  console.log(data);
+  // console.log(data);
 
   if (error) {
     throw new Error(error.message);
   }
 
-  console.log(avatar);
+  // console.log(avatar);
 
   if (!avatar) {
     return data;
   }
 
   // 2. Upload the avatar image
-  const fileName = `avatar-${data.user.id}-${Math.random()}`;
-
+  // console.log(data);
+  const fileName = `avatar-${data.id}-${Math.random()}`;
+  // console.log(fileName);
   const { error: storageError } = await supabase.storage
     .from('avatars')
     .upload(fileName, avatar);
@@ -109,8 +104,9 @@ export async function updateCurrentUser({ password, fullName, avatar, user }) {
     .update({
       avatar: `${supabaseUrl}/storage/v1/object/public/avatars/${fileName}`,
     })
-    .eq('avatar', user.avatar)
-    .select();
+    .eq('id', user.id)
+    .select()
+    .single();
 
   if (error2) {
     throw new Error(error2.message);
