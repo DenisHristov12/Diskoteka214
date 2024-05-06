@@ -16,7 +16,10 @@ export function useUpdateUser() {
         queryKey: ['user'],
       });
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => {
+      console.log(err.message);
+      toast.error(err.message);
+    },
   });
 
   return { updateUser, isUpdating };
