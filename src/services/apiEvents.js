@@ -11,6 +11,21 @@ export async function getEvents() {
   return data;
 }
 
+export async function getEvent(id) {
+  const { data, error } = await supabase
+    .from('events')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error('Event not found');
+  }
+
+  return data;
+}
+
 export async function createEditEvent(newEvent, id) {
   //   console.log(newEvent);
   const hasImagePath = newEvent.image?.startsWith?.(supabaseUrl);

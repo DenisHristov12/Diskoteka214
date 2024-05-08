@@ -29,25 +29,6 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  svg {
-    height: 3.2rem;
-    width: 3.2rem;
-  }
-
-  & div:first-child {
-    display: flex;
-    align-items: center;
-    gap: 1.6rem;
-    font-weight: 600;
-    font-size: 1.8rem;
-  }
-
-  & span {
-    font-family: 'Sono';
-    font-size: 2rem;
-    margin-left: 4px;
-  }
 `;
 
 const Section = styled.section`
