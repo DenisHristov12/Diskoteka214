@@ -57,7 +57,7 @@ export async function getBooking(id) {
 export async function createBooking(obj) {
   const { data, error } = await supabase
     .from('bookings')
-    .insert([{ obj }])
+    .insert([...obj])
     .select();
 
   if (error) {

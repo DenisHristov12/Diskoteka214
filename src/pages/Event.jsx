@@ -13,7 +13,7 @@ import { format, isToday } from 'date-fns';
 import { formatDistanceFromNow } from '../utils/helpers';
 import CreateEventForm from '../features/events/CreateEventForm';
 import { useUser } from '../features/authentication/useUser';
-import CreateBookingForm from '../features/bookings/CreateBookingForm';
+import { useCreateBooking } from '../features/bookings/useCreateBooking';
 
 const Container = styled.div`
   display: grid;
@@ -90,8 +90,9 @@ const Footer = styled.footer`
 function Event() {
   const { event, isLoading } = useEvent();
   const { deleteEvent, isLoading: isDeleting } = useDeleteEvent();
+  const { isCreating, createBooking } = useCreateBooking();
 
-  const { isAdmin, isUser } = useUser();
+  const { user, isAdmin, isUser } = useUser();
   // console.log(isAdmin);
   const moveBack = useMoveBack();
   const navigate = useNavigate();
@@ -116,6 +117,20 @@ function Event() {
     description,
     image,
   } = event;
+
+  function onCreate() {
+    const newBooking = {
+      date,
+      status: 'unconfirmed',
+      isPaid: false,
+      reservatorId: user.id,
+      eventId,
+    };
+
+    
+
+    createBooking(newBooking);
+  }
 
   return (
     <>
@@ -157,16 +172,13 @@ function Event() {
 
           <ButtonGroup isEvent='true'>
             <Modal>
-              {isUser && (
+              {/* {isUser && (
                 <>
-                  <Modal.Open opens='reserve'>
-                    <Button isEvent='true'>Reserve</Button>
-                  </Modal.Open>
-                  <Modal.Window name='reserve'>
-                    <CreateBookingForm />
-                  </Modal.Window>
+                  <Button isEvent='true' onClick={onCreate()}>
+                    Reserve
+                  </Button>
                 </>
-              )}
+              )} */}
 
               {isAdmin && (
                 <>
