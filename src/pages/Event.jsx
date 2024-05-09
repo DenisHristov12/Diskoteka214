@@ -118,17 +118,15 @@ function Event() {
     image,
   } = event;
 
+  const newBooking = {
+    date,
+    status: 'unconfirmed',
+    isPaid: false,
+    reservatorId: user.id,
+    eventId,
+  };
+
   function onCreate() {
-    const newBooking = {
-      date,
-      status: 'unconfirmed',
-      isPaid: false,
-      reservatorId: user.id,
-      eventId,
-    };
-
-    
-
     createBooking(newBooking);
   }
 
@@ -172,13 +170,13 @@ function Event() {
 
           <ButtonGroup isEvent='true'>
             <Modal>
-              {/* {isUser && (
+              {isUser && (
                 <>
-                  <Button isEvent='true' onClick={onCreate()}>
+                  <Button isEvent='true' onClick={onCreate}>
                     Reserve
                   </Button>
                 </>
-              )} */}
+              )}
 
               {isAdmin && (
                 <>
