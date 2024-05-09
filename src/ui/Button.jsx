@@ -55,6 +55,7 @@ const variations = {
 };
 
 const Button = styled.button`
+  height: ${(props) => props.isEvent && '5rem'};
   border: none;
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);

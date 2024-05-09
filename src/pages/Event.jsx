@@ -13,6 +13,7 @@ import { format, isToday } from 'date-fns';
 import { formatDistanceFromNow } from '../utils/helpers';
 import CreateEventForm from '../features/events/CreateEventForm';
 import { useUser } from '../features/authentication/useUser';
+import CreateBookingForm from '../features/bookings/CreateBookingForm';
 
 const Container = styled.div`
   display: grid;
@@ -54,7 +55,7 @@ const Image = styled.img`
 `;
 
 const Section = styled.section`
-  padding: 3.2rem 4rem 1.2rem;
+  padding: 3.2rem 4rem;
 
   font-size: 1.8rem;
 
@@ -90,7 +91,7 @@ function Event() {
   const { event, isLoading } = useEvent();
   const { deleteEvent, isLoading: isDeleting } = useDeleteEvent();
 
-  const { isAdmin } = useUser();
+  const { isAdmin, isUser } = useUser();
   // console.log(isAdmin);
   const moveBack = useMoveBack();
   const navigate = useNavigate();
@@ -156,24 +157,30 @@ function Event() {
 
           <ButtonGroup isEvent='true'>
             <Modal>
-              <Modal.Open opens='reserve'>
-                <Button>Reserve</Button>
-              </Modal.Open>
-              <Modal.Window name='reserve'>
-                <p>test</p>
-              </Modal.Window>
+              {isUser && (
+                <>
+                  <Modal.Open opens='reserve'>
+                    <Button isEvent='true'>Reserve</Button>
+                  </Modal.Open>
+                  <Modal.Window name='reserve'>
+                    <CreateBookingForm />
+                  </Modal.Window>
+                </>
+              )}
 
               {isAdmin && (
                 <>
                   <Modal.Open opens='edit'>
-                    <Button>Edit</Button>
+                    <Button isEvent='true'>Edit</Button>
                   </Modal.Open>
                   <Modal.Window name='edit'>
                     <CreateEventForm eventToEdit={event} />
                   </Modal.Window>
 
                   <Modal.Open opens='delete'>
-                    <Button variation='danger'>Delete</Button>
+                    <Button variation='danger' isEvent='true'>
+                      Delete
+                    </Button>
                   </Modal.Open>
 
                   <Modal.Window name='delete'>
@@ -191,7 +198,7 @@ function Event() {
               )}
             </Modal>
 
-            <Button variation='secondary' onClick={moveBack}>
+            <Button isEvent='true' variation='secondary' onClick={moveBack}>
               Back
             </Button>
 
