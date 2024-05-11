@@ -20,6 +20,10 @@ import Booking from './pages/Booking';
 import Event from './pages/Event';
 import Checkin from './pages/Checkin';
 import ProtectedRoute from './ui/ProtectedRoute';
+import Home from './pages/Home';
+import { useUser } from './features/authentication/useUser';
+import About from './pages/About';
+import Contacts from './pages/Contacts';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,6 +34,7 @@ const queryClient = new QueryClient({
   },
 });
 
+// const { isAdmin } = useUser();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -43,8 +48,15 @@ function App() {
               <AppLayout />
               // </ProtectedRoute>
             }>
+            {/* <Route
+              index
+              element={<Navigate replace to={isAdmin ? 'dashboard' : 'home'} />}
+            /> */}
             <Route index element={<Navigate replace to='dashboard' />} />
             <Route path='dashboard' element={<Dashboard />} />
+            <Route path='home' element={<Home />} />
+            <Route path='about' element={<About />} />
+            <Route path='contacts' element={<Contacts />} />
             <Route path='events' element={<Events />} />
             <Route path='events/:eventId' element={<Event />} />
             <Route path='bookings' element={<Bookings />} />

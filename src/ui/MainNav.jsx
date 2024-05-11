@@ -4,11 +4,13 @@ import styled from 'styled-components';
 import {
   HiArrowRightOnRectangle,
   HiGift,
+  HiInformationCircle,
   HiLockClosed,
   HiOutlineCalendarDays,
   HiOutlineCog6Tooth,
   HiOutlineHome,
   HiOutlineUsers,
+  HiPhone,
 } from 'react-icons/hi2';
 import { useUser } from '../features/authentication/useUser';
 
@@ -63,7 +65,7 @@ function MainNav() {
     <nav>
       <NavList>
         <li>
-          <StyledNavLink to='/dashboard'>
+          <StyledNavLink to={isAdmin ? '/dashboard' : '/home'}>
             <HiOutlineHome /> Home
           </StyledNavLink>
         </li>
@@ -71,6 +73,18 @@ function MainNav() {
           <StyledNavLink to='/events'>
             <HiGift />
             Events
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to='/about'>
+            <HiInformationCircle />
+            About
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to='/contacts'>
+            <HiPhone />
+            Contacts
           </StyledNavLink>
         </li>
         {isAdmin && (
