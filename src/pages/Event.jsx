@@ -97,7 +97,7 @@ function Event() {
   const moveBack = useMoveBack();
   const navigate = useNavigate();
 
-  if (isLoading) {
+  if (isLoading || isCreating) {
     return <Spinner />;
   }
 
@@ -158,10 +158,12 @@ function Event() {
                   : 'No promotions available for this event!'}
               </span>
             </SectionDiv>
-            <SectionDiv>
-              <p>Event description</p>
-              <span>{description}</span>
-            </SectionDiv>
+            {description && (
+              <SectionDiv>
+                <p>Event description</p>
+                <span>{description}</span>
+              </SectionDiv>
+            )}
             <SectionDiv>
               <p>Entrance</p>
               <span>{`${entrance !== 0 ? entrance + ' lv.' : 'free'}`}</span>
@@ -172,9 +174,20 @@ function Event() {
             <Modal>
               {isUser && (
                 <>
-                  <Button isEvent='true' onClick={onCreate}>
-                    Reserve
-                  </Button>
+                  <Modal.Open opens='reserve'>
+                    <Button isEvent='true' onClick={onCreate}>
+                      Reserve
+                    </Button>
+                  </Modal.Open>
+                  <Modal.Window name='reserve'>
+                    <>
+                      <p>
+                        We are using some of your personal information to make
+                        this reservation. Do you agree?
+                      </p>
+                      <Button>Agree</Button>
+                    </>
+                  </Modal.Window>
                 </>
               )}
 
