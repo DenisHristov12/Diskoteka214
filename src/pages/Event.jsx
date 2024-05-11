@@ -122,7 +122,7 @@ function Event() {
     date,
     status: 'unconfirmed',
     isPaid: false,
-    reservatorId: user.id,
+    reservatorId: user?.id,
     eventId,
   };
 
@@ -164,7 +164,7 @@ function Event() {
             </SectionDiv>
             <SectionDiv>
               <p>Entrance</p>
-              <span>{entrance} lv.</span>
+              <span>{`${entrance !== 0 ? entrance + ' lv.' : 'free'}`}</span>
             </SectionDiv>
           </Section>
 

@@ -21,7 +21,6 @@ import Event from './pages/Event';
 import Checkin from './pages/Checkin';
 import ProtectedRoute from './ui/ProtectedRoute';
 import Home from './pages/Home';
-import { useUser } from './features/authentication/useUser';
 import About from './pages/About';
 import Contacts from './pages/Contacts';
 
@@ -29,13 +28,15 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 0,
-      // refetchOnWindowFocus: false,
     },
   },
 });
 
-// const { isAdmin } = useUser();
 function App() {
+  const userData = JSON.parse(localStorage.getItem('user'));
+
+  const isAdmin = userData?.roles?.roleName === 'admin';
+
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
@@ -48,11 +49,10 @@ function App() {
               <AppLayout />
               // </ProtectedRoute>
             }>
-            {/* <Route
+            <Route
               index
               element={<Navigate replace to={isAdmin ? 'dashboard' : 'home'} />}
-            /> */}
-            <Route index element={<Navigate replace to='dashboard' />} />
+            />
             <Route path='dashboard' element={<Dashboard />} />
             <Route path='home' element={<Home />} />
             <Route path='about' element={<About />} />
