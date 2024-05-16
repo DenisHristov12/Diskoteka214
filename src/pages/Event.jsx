@@ -13,7 +13,10 @@ import { format, isToday } from 'date-fns';
 import { formatDistanceFromNow } from '../utils/helpers';
 import CreateEventForm from '../features/events/CreateEventForm';
 import { useUser } from '../features/authentication/useUser';
-import { useCreateBooking } from '../features/bookings/useCreateBooking';
+
+import ReserveForm from '../features/events/ReserveForm';
+
+import { useReservators } from '../features/events/useReservators';
 
 const Container = styled.div`
   display: grid;
@@ -90,14 +93,13 @@ const Footer = styled.footer`
 function Event() {
   const { event, isLoading } = useEvent();
   const { deleteEvent, isLoading: isDeleting } = useDeleteEvent();
-  const { isCreating, createBooking } = useCreateBooking();
+  const { reservators, isLoading: isLoadingReservators } = useReservators();
 
   const { user, isAdmin, isUser } = useUser();
-  // console.log(isAdmin);
   const moveBack = useMoveBack();
   const navigate = useNavigate();
 
-  if (isLoading || isCreating) {
+  if (isLoading) {
     return <Spinner />;
   }
 
@@ -118,17 +120,11 @@ function Event() {
     image,
   } = event;
 
-  const newBooking = {
-    date,
-    status: 'unconfirmed',
-    isPaid: false,
-    reservatorId: user?.id,
-    eventId,
-  };
+  const isReservator = reservators.find(
+    (res) => res.fullName === user.fullName && res.eventId === eventId
+  );
 
-  function onCreate() {
-    createBooking(newBooking);
-  }
+  // console.log(isReservator);
 
   return (
     <>
@@ -172,23 +168,19 @@ function Event() {
 
           <ButtonGroup isEvent='true'>
             <Modal>
-              {isUser && (
+              {isUser && !isReservator ? (
                 <>
                   <Modal.Open opens='reserve'>
-                    <Button isEvent='true' onClick={onCreate}>
-                      Reserve
-                    </Button>
+                    <Button isEvent='true'>Reserve</Button>
                   </Modal.Open>
                   <Modal.Window name='reserve'>
-                    <>
-                      <p>
-                        We are using some of your personal information to make
-                        this reservation. Do you agree?
-                      </p>
-                      <Button>Agree</Button>
-                    </>
+                    <ReserveForm />
                   </Modal.Window>
                 </>
+              ) : (
+                <Button isEvent='true' disabled='true' variation='secondary'>
+                  Reserved
+                </Button>
               )}
 
               {isAdmin && (
