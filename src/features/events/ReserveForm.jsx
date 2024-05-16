@@ -4,7 +4,6 @@ import { useUser } from '../authentication/useUser';
 import { useCreateBooking } from '../bookings/useCreateBooking';
 import { useEvent } from './useEvent';
 import { useCreateReservator } from './useCreateReservator';
-// import { useReservators } from './useReservators';
 import Input from '../../ui/Input';
 import Form from '../../ui/Form';
 import Button from '../../ui/Button';
@@ -19,7 +18,6 @@ function ReserveForm({ onCloseModal }) {
   const { errors } = formState;
 
   const { event, isLoading } = useEvent();
-  // const { reservators, isLoading: isLoadingReservators } = useReservators();
 
   const { user } = useUser();
 
@@ -36,12 +34,6 @@ function ReserveForm({ onCloseModal }) {
   if (isLoading) {
     return <Spinner />;
   }
-
-  // const reservator = reservators.find(
-  //   (res) => res.fullName === fullName && res.eventId === eventId
-  // );
-
-  // console.log(reservator);
 
   function onSubmit(data) {
     const newReservator = {
