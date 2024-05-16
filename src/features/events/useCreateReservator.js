@@ -7,12 +7,10 @@ export function useCreateReservator() {
 
   const { isLoading: isCreating, mutate: createReservator } = useMutation({
     mutationFn: apiCreateReservator,
-    onSuccess: (reservator) => {
-      localStorage.setItem('reservator', JSON.stringify(reservator));
+    onSuccess: () => {
       toast.success('New reservator successfully created!');
-      queryClient.setQueryData(['reservator'], { reservator });
       queryClient.invalidateQueries({
-        queryKey: ['reservators', 'reservator'],
+        queryKey: ['reservators'],
       });
     },
     onError: (err) => toast.error(err.message),

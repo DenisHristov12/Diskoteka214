@@ -11,12 +11,6 @@ export async function getReservators() {
   return data;
 }
 
-export async function getReservator() {
-  const reservatorData = JSON.parse(localStorage.getItem('reservator'));
-
-  return reservatorData;
-}
-
 export async function createReservator(obj) {
   // console.log(obj.id);
 
