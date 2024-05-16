@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
-  HiPencil,
   HiTrash,
   HiEye,
   HiArrowUpOnSquare,
@@ -61,7 +60,7 @@ function BookingRow({
     created_at,
     date,
     status,
-    reservators: { fullName: reservatorName, number, peopleNum },
+    reservators: { fullName: reservatorName, number, peopleNum, eventId },
     events: { name: eventName },
   },
 }) {

@@ -4,7 +4,7 @@ import { useUser } from '../authentication/useUser';
 import { useCreateBooking } from '../bookings/useCreateBooking';
 import { useEvent } from './useEvent';
 import { useCreateReservator } from './useCreateReservator';
-import { useReservators } from './useReservators';
+// import { useReservators } from './useReservators';
 import Input from '../../ui/Input';
 import Form from '../../ui/Form';
 import Button from '../../ui/Button';
@@ -19,7 +19,7 @@ function ReserveForm({ onCloseModal }) {
   const { errors } = formState;
 
   const { event, isLoading } = useEvent();
-  const { reservators, isLoading: isLoadingReservators } = useReservators();
+  // const { reservators, isLoading: isLoadingReservators } = useReservators();
 
   const { user } = useUser();
 
@@ -33,15 +33,15 @@ function ReserveForm({ onCloseModal }) {
 
   const { id: eventId, date } = event;
 
-  if (isLoadingReservators || isLoading) {
+  if (isLoading) {
     return <Spinner />;
   }
 
-  const reservator = reservators.find(
-    (res) => res.fullName === fullName && res.eventId === eventId
-  );
+  // const reservator = reservators.find(
+  //   (res) => res.fullName === fullName && res.eventId === eventId
+  // );
 
-  //   console.log(reservator);
+  // console.log(reservator);
 
   function onSubmit(data) {
     const newReservator = {
@@ -50,28 +50,27 @@ function ReserveForm({ onCloseModal }) {
       eventId,
     };
 
-    // console.log(newReservator);
-    createReservator(newReservator);
-    onCreateBooking();
-  }
+    console.log(newReservator);
+    createReservator(newReservator, {
+      onSuccess: (reservator) => {
+        const newBooking = {
+          date,
+          status: 'unconfirmed',
+          isPaid: false,
+          reservatorId: reservator?.id,
+          eventId,
+        };
 
-  function onCreateBooking() {
-    const newBooking = {
-      date,
-      status: 'unconfirmed',
-      isPaid: false,
-      reservatorId: reservator?.id,
-      eventId,
-    };
-
-    createBooking(newBooking, {
-      onSuccess: (data) => {
-        reset();
-        onCloseModal?.();
-        queryClient.invalidateQueries({ queryKey: ['reservators'] });
+        // console.log(newBooking);
+        createBooking(newBooking, {
+          onSuccess: (data) => {
+            reset();
+            onCloseModal?.();
+            queryClient.invalidateQueries({ queryKey: ['reservators'] });
+          },
+        });
       },
     });
-    // console.log(newBooking);
   }
 
   return (
