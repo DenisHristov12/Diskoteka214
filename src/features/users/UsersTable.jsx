@@ -1,3 +1,4 @@
+import Empty from '../../ui/Empty';
 import Menus from '../../ui/Menus';
 import Pagination from '../../ui/Pagination';
 import Spinner from '../../ui/Spinner';
@@ -14,20 +15,25 @@ function UsersTable() {
 
   console.log(usersData);
 
+  if (!usersData?.length) {
+    return <Empty resourceName={'users'} />;
+  }
+
   return (
     <Menus>
-      <Table columns='0.8fr 1fr 1fr 1.2rem'>
+      <Table columns='0.8fr 1fr 1.2fr 0.4fr 1.2rem'>
         <Table.Header>
           <div>Avatar</div>
           <div>User</div>
+          <div>Created</div>
           <div>Role</div>
           <div></div>
         </Table.Header>
 
         <Table.Body
           data={usersData}
-          render={(userData) => (
-            <UserRow key={userData.id} userData={userData} />
+          render={(usersData) => (
+            <UserRow key={usersData.id} user={usersData} />
           )}
         />
 

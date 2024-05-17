@@ -53,7 +53,7 @@ const Role = styled.div`
   font-weight: 500;
 
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   /* background-color: red; */
@@ -62,7 +62,7 @@ const Role = styled.div`
 `;
 
 function UserRow({
-  userData: {
+  user: {
     id: userId,
     created_at,
     email,
@@ -72,6 +72,7 @@ function UserRow({
     roles: { id: roleId, roleName },
   },
 }) {
+  //   console.log(user);
   const navigate = useNavigate();
 
   //   const statusToTagName = {
@@ -82,7 +83,8 @@ function UserRow({
 
   return (
     <Table.Row role='row'>
-      <Avatar>{avatar}</Avatar>
+      {/* <Avatar>{avatar}</Avatar> */}
+      <div>Test</div>
       <Stacked>
         <span>{fullName}</span>
         <span>{email}</span>
@@ -114,12 +116,12 @@ function UserRow({
         </Menus.Menu>
 
         {/* <Modal.Window name='delete'>
-          <ConfirmDelete
-            resourceName='booking'
-            onConfirm={() => deleteUser(userId)}
-            disabled={isDeleting}
-          />
-        </Modal.Window> */}
+            <ConfirmDelete
+              resourceName='booking'
+              onConfirm={() => deleteUser(userId)}
+              disabled={isDeleting}
+            />
+          </Modal.Window> */}
       </Modal>
     </Table.Row>
   );
