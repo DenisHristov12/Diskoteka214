@@ -19,7 +19,7 @@ import { formatDistanceFromNow } from '../../utils/helpers';
 import { useCheckout } from '../check-in-out/useCheckout';
 import { format, isToday } from 'date-fns';
 
-const Cabin = styled.div`
+const Event = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--color-grey-600);
@@ -78,7 +78,7 @@ function BookingRow({
 
   return (
     <Table.Row role='row'>
-      <Cabin>{eventName}</Cabin>
+      <Event>{eventName}</Event>
       <Stacked>
         <span>{reservatorName}</span>
         <span>{number}</span>
