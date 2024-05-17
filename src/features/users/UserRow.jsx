@@ -83,8 +83,7 @@ function UserRow({
 
   return (
     <Table.Row role='row'>
-      {/* <Avatar>{avatar}</Avatar> */}
-      <div>Test</div>
+      <Avatar src={avatar || 'default-user.jpg'} alt='avatar' />
       <Stacked>
         <span>{fullName}</span>
         <span>{email}</span>
