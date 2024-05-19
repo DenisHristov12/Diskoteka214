@@ -1,4 +1,5 @@
 import { useUser } from '../features/authentication/useUser';
+import AddUser from '../features/users/AddUser';
 import UserTableOperations from '../features/users/UserTableOperations';
 import UsersTable from '../features/users/UsersTable';
 import Heading from '../ui/Heading';
@@ -18,6 +19,7 @@ function Users() {
       <Row type='horizontal'>
         <Heading as='h1'>All users</Heading>
         <UserTableOperations />
+        {isAdmin && <AddUser />}
       </Row>
 
       <UsersTable />
