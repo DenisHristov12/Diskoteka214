@@ -1,11 +1,14 @@
 import AboutDetails from '../ui/AboutDetails';
 import HeroSection from '../ui/HeroSection';
+import TestimonialsSection from '../ui/TestimonialsSection';
 
 function About() {
   return (
     <>
       <HeroSection />
       <AboutDetails />
+      {/* <BenefitsSection /> */}
+      <TestimonialsSection />
     </>
   );
 
@@ -24,17 +27,6 @@ function About() {
 
   -Attention to Detail: From carefully curated playlists and themed decorations to personalized touches and special surprises, we pay close attention to every detail to ensure your celebration is truly unforgettable.
    */
-
-  //TESTIMONIALS
-  /* 
-  Hear what our satisfied guests have to say about their experiences
-
-  Ivan: "Dude, my birthday bash at [Your Website Name] was straight-up legendary! The vibes were electric, the tunes were fire, and the party never stopped! Massive shoutout to the squad at [Your Website Name] for turning my special day into an unforgettable fiesta. You guys rock!"
-
-  Kiril: "OMG, hosting my sweet sixteen with [Your Website Name] was an absolute blast! The venue was decked out with all the latest trends, the food was off the charts delish, and the DJ had us lit all night long. Thanks for making my big day totally lit!"
-
-  Dimitar: The drinks were flowing, the dance floor was poppin', and the vibes were next-level. Major props to the squad for hooking us up with the ultimate party experience. Can't wait to do it again!
-  */
 }
 
 export default About;
