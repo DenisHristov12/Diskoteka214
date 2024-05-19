@@ -1,12 +1,11 @@
-function About() {
-  return <div>About</div>;
+import HeroSection from '../ui/HeroSection';
 
-  //   HERO IMAGE HEADER
-  /* 
-    Every event in insanely different
-            Your best choice
-           See upcoming events
-   */
+function About() {
+  return (
+    <>
+      <HeroSection />;
+    </>
+  );
 
   //DETAILS
   /*
