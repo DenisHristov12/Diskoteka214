@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { createEditUser } from '../../services/apiUsers';
 
-export function useEditEvent() {
+export function useEditUser() {
   const queryClient = useQueryClient();
 
   const { isLoading: isEditing, mutate: editUser } = useMutation({

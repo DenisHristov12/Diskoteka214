@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import {
-  HiTrash,
-  HiEye,
-  HiArrowUpOnSquare,
-  HiArrowDownOnSquare,
-} from 'react-icons/hi2';
+import { HiPencil, HiTrash } from 'react-icons/hi2';
 import Menus from '../../ui/Menus';
 import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
@@ -14,6 +9,8 @@ import Table from '../../ui/Table';
 import { formatDistanceFromNow } from '../../utils/helpers';
 
 import { format, isToday } from 'date-fns';
+import { useDeleteUser } from './useDeleteUser';
+import CreateEditUserForm from './CreateEditUserForm';
 
 const Avatar = styled.img`
   display: block;
@@ -61,8 +58,9 @@ const Role = styled.div`
   /* text-align: center; */
 `;
 
-function UserRow({
-  user: {
+function UserRow({ user }) {
+  //   console.log(user);
+  const {
     id: userId,
     created_at,
     email,
@@ -70,16 +68,11 @@ function UserRow({
     avatar,
     role,
     roles: { id: roleId, roleName },
-  },
-}) {
-  //   console.log(user);
+  } = user;
+
   const navigate = useNavigate();
 
-  //   const statusToTagName = {
-  //     unconfirmed: 'blue',
-  //     'checked-in': 'green',
-  //     'checked-out': 'silver',
-  //   };
+  const { deleteUser, isDeleting } = useDeleteUser();
 
   return (
     <Table.Row role='row'>
@@ -102,11 +95,19 @@ function UserRow({
         <Menus.Menu>
           <Menus.Toggle id={userId} />
           <Menus.List id={userId}>
-            <Menus.Button
+            {/* <Menus.Button
               icon={<HiEye />}
               onClick={() => navigate(`/users/${userId}`)}>
               See details
-            </Menus.Button>
+            </Menus.Button> */}
+
+            <Modal.Open opens='edit'>
+              <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+            </Modal.Open>
+
+            <Modal.Window name='edit'>
+              <CreateEditUserForm userToEdit={user} />
+            </Modal.Window>
 
             <Modal.Open opens='delete'>
               <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
@@ -114,13 +115,13 @@ function UserRow({
           </Menus.List>
         </Menus.Menu>
 
-        {/* <Modal.Window name='delete'>
-            <ConfirmDelete
-              resourceName='booking'
-              onConfirm={() => deleteUser(userId)}
-              disabled={isDeleting}
-            />
-          </Modal.Window> */}
+        <Modal.Window name='delete'>
+          <ConfirmDelete
+            resourceName='user'
+            onConfirm={() => deleteUser(userId)}
+            disabled={isDeleting}
+          />
+        </Modal.Window>
       </Modal>
     </Table.Row>
   );

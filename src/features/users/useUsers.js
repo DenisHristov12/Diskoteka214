@@ -15,7 +15,7 @@ export function useUsers() {
       : { field: 'role', value: filterValue, method: 'eq' };
 
   // SORT
-  const sortByRaw = searchParams.get('sortBy') || 'created-desc';
+  const sortByRaw = searchParams.get('sortBy') || 'created_at-desc';
   const [field, direction] = sortByRaw.split('-');
   const sortBy = { field, direction };
 

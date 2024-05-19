@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { deletUser as deleteUserApi } from '../../services/apiUsers';
+import { deleteUser as deleteUserApi } from '../../services/apiUsers';
 
-export function useDeleteEvent() {
+export function useDeleteUser() {
   const queryClient = useQueryClient();
 
   const { isLoading: isDeleting, mutate: deleteUser } = useMutation({
