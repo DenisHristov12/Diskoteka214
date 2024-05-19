@@ -1,16 +1,13 @@
+import AboutDetails from '../ui/AboutDetails';
 import HeroSection from '../ui/HeroSection';
 
 function About() {
   return (
     <>
-      <HeroSection />;
+      <HeroSection />
+      <AboutDetails />
     </>
   );
-
-  //DETAILS
-  /*
-   We specialize in creating unforgettable party experiences for our guests, whether it's a birthday bash, anniversary extravaganza, or any other special event worth celebrating. With our passion for hospitality and commitment to excellence, we're here to turn your gatherings into memorable moments that you'll cherish forever.
-   */
 
   //BENEFITS
   /* 
