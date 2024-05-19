@@ -1,52 +1,41 @@
 import { PAGE_SIZE } from '../utils/constants';
 import supabase, { supabaseUrl } from './supabase';
 
-// export async function getUsers({ filter, sortBy, page }) {
-//   let query = supabase.from('users').select('*, roles(*)', {
-//     count: 'exact',
-//   });
+export async function getUsers({ filter, sortBy, page }) {
+  let query = supabase.from('users').select('*, roles(*)', {
+    count: 'exact',
+  });
 
-//   // FILTER
-//   if (filter) {
-//     query = query[filter.method || 'eq'](filter.field, filter.value);
-//   }
+  // // FILTER
+  if (filter) {
+    query = query[filter.method || 'eq'](filter.field, filter.value);
+  }
 
-//   // SORT
-//   if (sortBy) {
-//     query = query.order(sortBy.field, {
-//       ascending: sortBy.direction === 'asc',
-//     });
-//   }
+  // // SORT
+  if (sortBy) {
+    query = query.order(sortBy.field, {
+      ascending: sortBy.direction === 'asc',
+    });
+  }
 
-//   // PAGINATION
-//   if (page) {
-//     const from = (page - 1) * PAGE_SIZE;
-//     const to = from + PAGE_SIZE - 1;
+  // // PAGINATION
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
 
-//     query = query.range(from, to);
-//   }
+    query = query.range(from, to);
+  }
 
-//   const { data, error, count } = await query;
+  const { data, error, count } = await query;
 
-//   console.log(data);
-
-//   if (error) {
-//     console.error(error);
-//     throw new Error('Bookings could not be loaded');
-//   }
-
-//   return { data, count };
-// }
-
-export async function getUsers() {
-  const { data, error } = await supabase.from('users').select('*, roles(*)');
+  console.log(data);
 
   if (error) {
     console.error(error);
     throw new Error('Users could not be loaded');
   }
 
-  return data;
+  return { data, count };
 }
 
 export async function getUser(id) {

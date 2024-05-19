@@ -7,7 +7,7 @@ import UserRow from './UserRow';
 import { useUsers } from './useUsers';
 
 function UsersTable() {
-  const { usersData, isLoading } = useUsers();
+  const { usersData, isLoading, count } = useUsers();
 
   if (isLoading) {
     return <Spinner />;
@@ -37,7 +37,9 @@ function UsersTable() {
           )}
         />
 
-        <Table.Footer>{/* <Pagination count={count} /> */}</Table.Footer>
+        <Table.Footer>
+          <Pagination count={count} />
+        </Table.Footer>
       </Table>
     </Menus>
   );

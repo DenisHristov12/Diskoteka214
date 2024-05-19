@@ -9,27 +9,27 @@ function UserTableOperations() {
         filterField='role'
         options={[
           { value: 'all', label: 'All' },
-          { value: 'admin', label: 'Admins' },
-          { value: 'user', label: 'Users' },
+          { value: 1, label: 'Admins' },
+          { value: 2, label: 'Users' },
         ]}
       />
 
       <SortBy
         options={[
           {
-            value: 'created-desc',
+            value: 'created_at-desc',
             label: 'Sort by created date (recent first)',
           },
           {
-            value: 'created-asc',
+            value: 'created_at-asc',
             label: 'Sort by created date (earlier first)',
           },
           {
-            value: 'name-desc',
+            value: 'fullName-desc',
             label: 'Sort by name (Z-A)',
           },
           {
-            value: 'name-asc',
+            value: 'fullName-asc',
             label: 'Sort by name (A-Z)',
           },
         ]}
