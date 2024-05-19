@@ -1,9 +1,18 @@
+import styled from 'styled-components';
 import { useUser } from '../features/authentication/useUser';
 import AddUser from '../features/users/AddUser';
 import UserTableOperations from '../features/users/UserTableOperations';
 import UsersTable from '../features/users/UsersTable';
 import Heading from '../ui/Heading';
 import Row from '../ui/Row';
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 2.4rem;
+`;
 
 function Users() {
   const { isAdmin } = useUser();
@@ -18,8 +27,10 @@ function Users() {
     <>
       <Row type='horizontal'>
         <Heading as='h1'>All users</Heading>
-        <UserTableOperations />
-        {isAdmin && <AddUser />}
+        <Container>
+          <UserTableOperations />
+          {isAdmin && <AddUser />}
+        </Container>
       </Row>
 
       <UsersTable />
