@@ -82,9 +82,12 @@ export async function createEditUser(newUser, id) {
 
   const { data, error } = await query.select().single();
 
+  console.log(id);
+  console.log(data);
+
   if (error) {
     console.error(error);
-    throw new Error('User could not be created');
+    throw new Error('User could not be updated');
   }
 
   if (hasImagePath) {

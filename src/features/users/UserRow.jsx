@@ -105,15 +105,15 @@ function UserRow({ user }) {
               <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
             </Modal.Open>
 
-            <Modal.Window name='edit'>
-              <CreateEditUserForm userToEdit={user} />
-            </Modal.Window>
-
             <Modal.Open opens='delete'>
               <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
             </Modal.Open>
           </Menus.List>
         </Menus.Menu>
+
+        <Modal.Window name='edit'>
+          <CreateEditUserForm userToEdit={user} />
+        </Modal.Window>
 
         <Modal.Window name='delete'>
           <ConfirmDelete

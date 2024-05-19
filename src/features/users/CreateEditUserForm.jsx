@@ -28,12 +28,12 @@ function CreateEditUserForm({ userToEdit = {}, onCloseModal }) {
   const isWorking = isCreating || isEditing;
 
   function onSubmit(data) {
-    const image =
+    const avatar =
       typeof data.avatar === 'string' ? data.avatar : data.avatar[0];
 
     if (isEditSession) {
       editUser(
-        { newUserData: { ...data, image }, id: editId },
+        { newUserData: { ...data, avatar }, id: editId },
         {
           onSuccess: (data) => {
             reset();
@@ -43,7 +43,7 @@ function CreateEditUserForm({ userToEdit = {}, onCloseModal }) {
       );
     } else {
       createUser(
-        { ...data, image },
+        { ...data, avatar },
         {
           onSuccess: () => {
             reset();
