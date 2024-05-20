@@ -7,8 +7,8 @@ const TestimonialsContainer = styled.div`
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 3rem;
-  margin-bottom: 4rem;
+  font-size: 2.4rem;
+  margin-bottom: 9rem;
   color: #333;
 `;
 
@@ -22,23 +22,35 @@ const TestimonialsWrapper = styled.div`
 const TestimonialCard = styled.div`
   background-color: #fff;
   border-radius: 10px;
-  padding: 2rem;
-  max-width: 30rem;
+  padding: 2rem 2rem 4rem;
+  max-width: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: left;
+  text-align: center;
+  position: relative;
+  overflow: visible;
 `;
 
 const UserImage = styled.img`
-  width: 5rem;
-  height: 5rem;
+  width: 8rem;
+  height: 8rem;
   border-radius: 50%;
-  margin-bottom: 1.6rem;
+  border: 4px solid #fff;
+  position: absolute;
+  top: -4rem;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 const UserName = styled.h3`
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #eda641;
+  font-size: 1.6rem;
+  margin-top: 4.8rem;
+  color: #333;
+`;
+
+const UserTitle = styled.p`
+  font-size: 1.2rem;
+  color: #888;
+  margin-bottom: 2rem;
 `;
 
 const UserFeedback = styled.p`
@@ -50,18 +62,21 @@ const UserFeedback = styled.p`
 const testimonials = [
   {
     name: 'Ivan Nikolov',
+    title: 'Profesionalna Utaika',
     feedback:
       'Dude, my birthday was straight-up legendary! The vibes were electric, the tunes were fire, and the party never stopped! Massive shoutout to the squad for turning my special day into an unforgettable fiesta. You guys rock!',
     image: 'default-user.jpg',
   },
   {
     name: 'Kiril Kirilov',
+    title: 'Mafiot pod prikritie',
     feedback:
       'OMG, hosting my sweet 20  was an absolute blast! The venue was decked out with all the latest trends, the food was off the charts delish, and the DJ had us lit all night long. Thanks for making my big day totally lit!',
     image: 'default-user.jpg',
   },
   {
     name: 'Dimitar Dimitrov',
+    title: 'Bodyguard',
     feedback:
       "The drinks were flowing, the dance floor was poppin, and the vibes were next-level. Major props to the squad for hooking us up with the ultimate party experience. Honestly, the best party I have ever been! Can't wait to do it again!",
     image: 'default-user.jpg',
@@ -79,6 +94,7 @@ function TestimonialsSection() {
           <TestimonialCard key={index}>
             <UserImage src={testimonial.image} alt={testimonial.name} />
             <UserName>{testimonial.name}</UserName>
+            <UserTitle>{testimonial.title}</UserTitle>
             <UserFeedback>{testimonial.feedback}</UserFeedback>
           </TestimonialCard>
         ))}

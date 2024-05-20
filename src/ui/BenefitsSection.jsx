@@ -88,9 +88,8 @@ function BenefitsSection() {
   return (
     <BenefitsContainer>
       <SectionTitle>
-        From the moment you step through our doors, you'll be greeted with
-        warmth, hospitality, and a commitment to making your event absolutely
-        perfect.
+        You'll be greeted with warmth, hospitality, and a commitment to making
+        your event absolutely perfect.
       </SectionTitle>
       <BenefitsWrapper>
         {benefits.map((benefit, index) => (
