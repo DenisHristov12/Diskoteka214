@@ -13,8 +13,6 @@ function UsersTable() {
     return <Spinner />;
   }
 
-  console.log(usersData);
-
   if (!usersData?.length) {
     return <Empty resourceName={'users'} />;
   }

@@ -1,27 +1,14 @@
 import styled from 'styled-components';
 import { format } from 'date-fns';
-
-// import { box } from '../../styles/GlobalStyles';
 import { formatDistanceFromNow } from '../../utils/helpers';
 import { isToday } from 'date-fns';
-// import { formatCurrency } from '../../utils/helpers';
-// import {
-//   HiOutlineChatBubbleBottomCenterText,
-//   HiOutlineCheckCircle,
-//   HiOutlineCurrencyDollar,
-//   HiOutlineHomeModern,
-// } from 'react-icons/hi2';
-// import DataItem from '../../ui/DataItem';
-// import { Flag } from '../../ui/Flag';
 
 const StyledBookingDataBox = styled.section`
-  /* padding: 3.2rem 4rem; */
   overflow: hidden;
 `;
 
 const Header = styled.header`
   background-color: var(--color-brand-500);
-  /* padding: 2.4rem 4rem; */
   padding: 2rem 4rem;
   color: #e0e7ff;
   font-size: 1.8rem;
@@ -33,45 +20,32 @@ const Header = styled.header`
 
 const Section = styled.section`
   padding: 3.2rem 4rem 1.2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3.6rem;
 `;
+
+// const ImageContainer = styled.div`
+//   height: 20rem;
+//   width: 100%;
+// `;
+
+// const EventImage = styled.img`
+//   height: 100%;
+//   width: auto;
+// `;
 
 const Guest = styled.div`
   display: flex;
   align-items: center;
   gap: 1.2rem;
-  /* font-size: 1.8rem; */
   margin-bottom: 1.6rem;
   color: var(--color-grey-500);
 
   & p:first-of-type {
     font-weight: 500;
     color: var(--color-grey-700);
-  }
-`;
-
-const Price = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.6rem 3.2rem;
-  border-radius: var(--border-radius-sm);
-  margin-top: 2.4rem;
-
-  background-color: ${(props) =>
-    props.isPaid ? 'var(--color-green-100)' : 'var(--color-yellow-100)'};
-  color: ${(props) =>
-    props.isPaid ? 'var(--color-green-700)' : 'var(--color-yellow-700)'};
-
-  & p:last-child {
-    text-transform: uppercase;
-    font-size: 1.4rem;
-    font-weight: 600;
-  }
-
-  svg {
-    height: 2.4rem;
-    width: 2.4rem;
-    color: currentColor !important;
   }
 `;
 
@@ -87,19 +61,34 @@ function BookingDataBox({ booking }) {
     created_at,
     date,
     reservators: { fullName: reservatorName, peopleNum, number },
-    events: { name: eventName },
+    events: { name: eventName, image, date: eventDate },
   } = booking;
 
   return (
     <StyledBookingDataBox>
       <Header>
         <p>
-          {format(new Date(date), 'EEE, MMM dd yyyy')} (
-          {isToday(new Date(date)) ? 'Today' : formatDistanceFromNow(date)})
+          Made {format(new Date(created_at), 'EEE, MMM dd yyyy')} (
+          {isToday(new Date(created_at))
+            ? 'Today'
+            : formatDistanceFromNow(created_at)}
+          )
+        </p>
+
+        <p>
+          For {eventName} on {format(new Date(eventDate), 'EEE, MMM dd yyyy')} (
+          {isToday(new Date(eventDate))
+            ? 'Today'
+            : formatDistanceFromNow(eventDate)}
+          )
         </p>
       </Header>
 
       <Section>
+        {/* <ImageContainer>
+          <EventImage src={image} />
+        </ImageContainer> */}
+
         <Guest>
           <p>
             {reservatorName} {peopleNum > 1 ? `+ ${peopleNum - 1} guests` : ''}
@@ -108,19 +97,6 @@ function BookingDataBox({ booking }) {
           <p>{number}</p>
           <span>&bull;</span>
         </Guest>
-
-        {/* <Price isPaid={isPaid}>
-          <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
-            {formatCurrency(totalPrice)}
-
-            {hasBreakfast &&
-              ` (${formatCurrency(cabinPrice)} cabin + ${formatCurrency(
-                extrasPrice
-              )} breakfast)`}
-          </DataItem>
-
-          <p>{isPaid ? 'Paid' : 'Will pay at property'}</p>
-        </Price> */}
       </Section>
 
       <Footer>

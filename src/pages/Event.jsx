@@ -22,22 +22,16 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
   column-gap: 12.8rem;
-  /* align-content: space-between; */
-  /* background-color: red; */
 `;
 
 const DataBox = styled.div`
-  /* margin-left: 6.4rem; */
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
-
-  /* background-color: red; */
 `;
 
 const Header = styled.header`
   background-color: var(--color-brand-500);
-  /* padding: 2.4rem 4rem; */
   padding: 2rem 4rem;
   color: #e0e7ff;
   font-size: 1.8rem;
@@ -53,8 +47,6 @@ const Image = styled.img`
 
   justify-self: center;
   align-self: center;
-
-  /* background-color: red; */
 `;
 
 const Section = styled.section`
@@ -64,7 +56,6 @@ const Section = styled.section`
 
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
   gap: 2.4rem;
 `;
 
@@ -99,7 +90,7 @@ function Event() {
   const moveBack = useMoveBack();
   const navigate = useNavigate();
 
-  if (isLoading) {
+  if (isLoading || isLoadingReservators) {
     return <Spinner />;
   }
 

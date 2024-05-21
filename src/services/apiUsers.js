@@ -28,8 +28,6 @@ export async function getUsers({ filter, sortBy, page }) {
 
   const { data, error, count } = await query;
 
-  console.log(data);
-
   if (error) {
     console.error(error);
     throw new Error('Users could not be loaded');

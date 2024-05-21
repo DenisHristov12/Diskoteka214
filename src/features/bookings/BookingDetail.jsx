@@ -1,5 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useBooking } from './useBooking';
+import { useDeleteBooking } from './useDeleteBooking';
+import { useMoveBack } from '../../hooks/useMoveBack';
 
 import Spinner from '../../ui/Spinner';
 import BookingDataBox from './BookingDataBox';
@@ -11,11 +14,6 @@ import ButtonGroup from '../../ui/ButtonGroup';
 import Button from '../../ui/Button';
 import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
-
-import { useBooking } from './useBooking';
-import { useDeleteBooking } from './useDeleteBooking';
-import { useMoveBack } from '../../hooks/useMoveBack';
-import { useCheckout } from '../check-in-out/useCheckout';
 import Empty from '../../ui/Empty';
 import CheckoutButton from '../check-in-out/CheckoutButton';
 
@@ -28,7 +26,6 @@ const HeadingGroup = styled.div`
 function BookingDetail() {
   const { booking, isLoading } = useBooking();
   const { deleteBooking, isLoading: isDeleting } = useDeleteBooking();
-  // const { checkout, isLoading: isCheckingOut } = useCheckout();
 
   const moveBack = useMoveBack();
   const navigate = useNavigate();
