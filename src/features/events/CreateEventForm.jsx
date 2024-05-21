@@ -94,7 +94,7 @@ function CreateEventForm({ eventToEdit = {}, onCloseModal }) {
         />
       </FormRow>
 
-      <FormRow label='Music tyoe' error={errors?.musicType?.message}>
+      <FormRow label='Music type' error={errors?.musicType?.message}>
         <Input
           type='text'
           id='musicType'

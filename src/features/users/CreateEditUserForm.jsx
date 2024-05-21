@@ -13,6 +13,8 @@ function CreateEditUserForm({ userToEdit = {}, onCloseModal }) {
   const [choice, setChoice] = useState(2);
 
   const { id: editId, ...editValues } = userToEdit;
+
+  // console.log(editValues);
   const isEditSession = Boolean(editId);
 
   const { register, handleSubmit, reset, getValues, formState } = useForm({
@@ -28,12 +30,17 @@ function CreateEditUserForm({ userToEdit = {}, onCloseModal }) {
   const isWorking = isCreating || isEditing;
 
   function onSubmit(data) {
+    // console.log(data);
+    // const avatarEdit = data.avatar;
+
     const avatar =
       typeof data.avatar === 'string' ? data.avatar : data.avatar[0];
 
+    const newUser = { email: data.email, fullName: data.fullName, avatar };
+
     if (isEditSession) {
       editUser(
-        { newUserData: { ...data, avatar }, id: editId },
+        { newUserData: newUser, id: editId },
         {
           onSuccess: (data) => {
             reset();
@@ -45,7 +52,8 @@ function CreateEditUserForm({ userToEdit = {}, onCloseModal }) {
       createUser(
         { ...data, avatar },
         {
-          onSuccess: () => {
+          onSuccess: (dataS) => {
+            console.log(dataS);
             reset();
             onCloseModal?.();
           },
@@ -126,15 +134,7 @@ function CreateEditUserForm({ userToEdit = {}, onCloseModal }) {
         </FormRow>
       )}
 
-      <FormRow label='User role' error={errors?.alchoholType?.message}>
-        {/* <Input
-          type='text'
-          id='alchoholType'
-          disabled={isWorking}
-          {...register('alchoholType', {
-            required: 'This field is required',
-          })}
-        /> */}
+      <FormRow label='User role' error={errors?.role?.message}>
         <Select
           options={[
             {
@@ -146,17 +146,19 @@ function CreateEditUserForm({ userToEdit = {}, onCloseModal }) {
               label: 'Default user',
             },
           ]}
+          id='role'
           type='white'
-          value={choice}
-          onChange={(e) => setChoice(e.target.value)}
+          // value={choice}
+          // onChange={(e) => setChoice(e.target.value)}
+          {...register('role')}
         />
       </FormRow>
 
       <FormRow label='Avatar'>
         <FileInput
-          id='image'
+          id='avatar'
           accept='image/*'
-          {...register('image', {
+          {...register('avatar', {
             required: isEditSession ? false : 'This field is required',
           })}
         />
