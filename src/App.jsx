@@ -23,6 +23,7 @@ import ProtectedRoute from './ui/ProtectedRoute';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contacts from './pages/Contacts';
+// import 'leaflet/dist/leaflet.css';
 
 const queryClient = new QueryClient({
   defaultOptions: {

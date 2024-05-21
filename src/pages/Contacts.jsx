@@ -1,13 +1,7 @@
 import ContactsForm from '../ui/ContactsForm';
-import ContactsMap from '../ui/ContactsMap';
 
 function Contacts() {
-  return (
-    <>
-      <ContactsMap />
-      <ContactsForm />
-    </>
-  );
+  return <ContactsForm />;
 }
 
 export default Contacts;
