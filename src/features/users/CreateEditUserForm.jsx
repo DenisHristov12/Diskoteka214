@@ -7,17 +7,18 @@ import FormRow from '../../ui/FormRow';
 import { useCreateUser } from './useCreateUser';
 import { useEditUser } from './useEditUser';
 import Select from '../../ui/Select';
-import { useState } from 'react';
+import { useUsers } from './useUsers';
+import toast from 'react-hot-toast';
 
 function CreateEditUserForm({ userToEdit = {}, onCloseModal }) {
-  const [choice, setChoice] = useState(2);
-
   const { id: editId, ...editValues } = userToEdit;
+
+  const { usersData } = useUsers();
 
   // console.log(editValues);
   const isEditSession = Boolean(editId);
 
-  const { register, handleSubmit, reset, getValues, formState } = useForm({
+  const { register, handleSubmit, getValues, formState } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
 
@@ -30,35 +31,44 @@ function CreateEditUserForm({ userToEdit = {}, onCloseModal }) {
   const isWorking = isCreating || isEditing;
 
   function onSubmit(data) {
-    // console.log(data);
+    // console.log(Number(data.role));
     // const avatarEdit = data.avatar;
+
+    const isEmailUsed = usersData.some((user) => user.email === data.email);
 
     const avatar =
       typeof data.avatar === 'string' ? data.avatar : data.avatar[0];
 
-    const newUser = { email: data.email, fullName: data.fullName, avatar };
+    const newUser = isEditSession
+      ? { role: data.role, fullName: data.fullName, avatar }
+      : {
+          email: data.email,
+          password: data.password,
+          fullName: data.fullName,
+          role: Number(data.role),
+          avatar,
+        };
 
     if (isEditSession) {
       editUser(
         { newUserData: newUser, id: editId },
         {
           onSuccess: (data) => {
-            reset();
             onCloseModal?.();
           },
         }
       );
     } else {
-      createUser(
-        { ...data, avatar },
-        {
-          onSuccess: (dataS) => {
-            console.log(dataS);
-            reset();
-            onCloseModal?.();
-          },
-        }
-      );
+      if (isEmailUsed) {
+        toast.error('There alredy exists user with that email!');
+      }
+
+      createUser(newUser, {
+        onSuccess: (data) => {
+          console.log(data);
+          onCloseModal?.();
+        },
+      });
     }
 
     console.log(data);
@@ -138,11 +148,11 @@ function CreateEditUserForm({ userToEdit = {}, onCloseModal }) {
         <Select
           options={[
             {
-              value: 1,
+              value: '1',
               label: 'Admin',
             },
             {
-              value: 2,
+              value: '2',
               label: 'Default user',
             },
           ]}
@@ -158,9 +168,7 @@ function CreateEditUserForm({ userToEdit = {}, onCloseModal }) {
         <FileInput
           id='avatar'
           accept='image/*'
-          {...register('avatar', {
-            required: isEditSession ? false : 'This field is required',
-          })}
+          {...register('avatar', { required: 'This field is required' })}
         />
       </FormRow>
 

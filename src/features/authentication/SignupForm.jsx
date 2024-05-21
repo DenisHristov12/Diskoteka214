@@ -5,6 +5,8 @@ import FormRow from '../../ui/FormRow';
 import Input from '../../ui/Input';
 import { useSignup } from './useSignup';
 import { useUser } from './useUser';
+import { useUsers } from '../users/useUsers';
+import toast from 'react-hot-toast';
 
 // Email regex: /\S+@\S+\.\S+/
 
@@ -15,13 +17,21 @@ function SignupForm() {
 
   const { isUser } = useUser();
 
+  const { usersData } = useUsers();
+
   function onSubmit({ fullName, email, password }) {
-    signUp(
-      { fullName, email, password },
-      {
-        onSettled: () => reset(),
-      }
-    );
+    const isEmailUsed = usersData.some((user) => user.email === email);
+
+    if (isEmailUsed) {
+      toast.error('There alredy exists user with that email!');
+    } else {
+      signUp(
+        { fullName, email, password },
+        {
+          onSettled: () => reset(),
+        }
+      );
+    }
   }
 
   return (

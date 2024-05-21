@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { forwardRef } from 'react';
 
 const StyledSelect = styled.select`
   font-size: 1.4rem;
@@ -14,16 +16,32 @@ const StyledSelect = styled.select`
   box-shadow: var(--shadow-sm);
 `;
 
-function Select({ options, value, onChange, ...props }) {
-  return (
-    <StyledSelect value={value} onChange={onChange} {...props}>
-      {options.map((option) => (
-        <option value={option.value} key={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </StyledSelect>
-  );
-}
+const Select = forwardRef(({ options, value, onChange, ...props }, ref) => (
+  <StyledSelect ref={ref} value={value} onChange={onChange} {...props}>
+    {options.map((option) => (
+      <option value={option.value} key={option.value}>
+        {option.label}
+      </option>
+    ))}
+  </StyledSelect>
+));
+
+Select.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  type: PropTypes.string,
+};
+
+Select.defaultProps = {
+  value: undefined,
+  onChange: undefined,
+  type: 'default',
+};
 
 export default Select;
