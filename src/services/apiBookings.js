@@ -101,7 +101,7 @@ export async function deleteBooking(id) {
 export async function getBookingsAfterDate(date) {
   const { data, error } = await supabase
     .from('bookings')
-    .select('*')
+    .select('*, events(entrance)')
     .gte('created_at', date)
     .lte('created_at', getToday({ end: true }));
 
@@ -113,20 +113,20 @@ export async function getBookingsAfterDate(date) {
   return data;
 }
 
-// export async function getStaysAfterDate(date) {
-//   const { data, error } = await supabase
-//     .from('bookings')
-//     .select('*, reservators(fullName)')
-//     .gte('date', date)
-//     .lte('date', getToday());
+export async function getStaysAfterDate(date) {
+  const { data, error } = await supabase
+    .from('bookings')
+    .select('*, reservators(*)')
+    .gte('date', date)
+    .lte('date', getToday());
 
-//   if (error) {
-//     console.error(error);
-//     throw new Error('Bookings could not get loaded');
-//   }
+  if (error) {
+    console.error(error);
+    throw new Error('Bookings could not get loaded');
+  }
 
-//   return data;
-// }
+  return data;
+}
 
 // export async function getStaysTodayActivity() {
 //   const { data, error } = await supabase
