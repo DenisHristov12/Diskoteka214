@@ -1,4 +1,4 @@
-// import { useDarkMode } from 'context/DarkModeContext';
+import { useDarkMode } from '../../context/DarkModeContext';
 import {
   Cell,
   Legend,
@@ -113,9 +113,9 @@ function prepareData(startData, bookings) {
 }
 
 function GuestsChart({ bookings }) {
-  // const { isDarkMode } = useDarkMode();
-  // const startData = isDarkMode ? startDataDark : startDataLight;
-  const data = prepareData(startDataLight, bookings);
+  const { isDarkMode } = useDarkMode();
+  const startData = isDarkMode ? startDataDark : startDataLight;
+  const data = prepareData(startData, bookings);
 
   return (
     <ChartBox>
