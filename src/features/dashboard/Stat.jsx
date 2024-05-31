@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const StyledStat = styled.div`
+  background-color: var(--color-grey-0);
   padding: 1.6rem;
   display: grid;
   grid-template-columns: 6.4rem 1fr;

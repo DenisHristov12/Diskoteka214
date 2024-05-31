@@ -128,18 +128,18 @@ export async function getStaysAfterDate(date) {
   return data;
 }
 
-// export async function getStaysTodayActivity() {
-//   const { data, error } = await supabase
-//     .from('bookings')
-//     .select('*, reservators(fullName, peopleNum, number)')
-//     .or(
-//       `and(status.eq.unconfirmed,startDate.eq.${getToday()}),and(status.eq.checked-in,endDate.eq.${getToday()})`
-//     )
-//     .order('created_at');
+export async function getStaysTodayActivity() {
+  const { data, error } = await supabase
+    .from('bookings')
+    .select('*, reservators(*)')
+    .or(
+      `and(status.eq.unconfirmed,date.eq.${getToday()}),and(status.eq.checked-in)`
+    )
+    .order('created_at');
 
-//   if (error) {
-//     console.error(error);
-//     throw new Error('Bookings could not get loaded');
-//   }
-//   return data;
-// }
+  if (error) {
+    console.error(error);
+    throw new Error('Bookings could not get loaded');
+  }
+  return data;
+}

@@ -13,6 +13,8 @@ import Heading from '../../ui/Heading';
 const ChartBox = styled.div`
   padding: 2.4rem 3.2rem;
 
+  background-color: white;
+
   grid-column: 3 / span 2;
 
   & .recharts-pie-label-text {
