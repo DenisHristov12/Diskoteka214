@@ -2,14 +2,14 @@ import styled from 'styled-components';
 
 const TestimonialsContainer = styled.div`
   padding: 5rem 2rem;
-  background-color: #f9f9f9;
+  background-color: var(--color-grey-0);
   text-align: center;
 `;
 
 const SectionTitle = styled.h2`
   font-size: 2.4rem;
   margin-bottom: 9rem;
-  color: #333;
+  color: var(--color-grey-900);
 `;
 
 const TestimonialsWrapper = styled.div`
@@ -20,7 +20,7 @@ const TestimonialsWrapper = styled.div`
 `;
 
 const TestimonialCard = styled.div`
-  background-color: #fff;
+  background-color: var(--color-grey-200);
   border-radius: 10px;
   padding: 2rem 2rem 4rem;
   max-width: 300px;
@@ -44,19 +44,19 @@ const UserImage = styled.img`
 const UserName = styled.h3`
   font-size: 1.6rem;
   margin-top: 4.8rem;
-  color: #333;
+  color: var(--color-grey-900);
 `;
 
 const UserTitle = styled.p`
   font-size: 1.2rem;
-  color: #888;
+  color: var(--color-grey-600);
   margin-bottom: 2rem;
 `;
 
 const UserFeedback = styled.p`
   font-size: 1.4rem;
   line-height: 1.6;
-  color: #666;
+  color: var(--color-grey-500);
 `;
 
 const testimonials = [

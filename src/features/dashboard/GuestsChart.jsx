@@ -13,7 +13,7 @@ import Heading from '../../ui/Heading';
 const ChartBox = styled.div`
   padding: 2.4rem 3.2rem;
 
-  background-color: white;
+  background-color: var(--color-grey-0);
 
   grid-column: 3 / span 2;
 

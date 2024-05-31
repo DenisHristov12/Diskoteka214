@@ -8,14 +8,15 @@ import styled from 'styled-components';
 
 const BenefitsContainer = styled.div`
   padding: 5rem 2rem;
-  background-color: #f9f9f9;
+  background-color: var(--color-grey-0);
   text-align: center;
 `;
 
 const SectionTitle = styled.h2`
   font-size: 2rem;
   margin-bottom: 4rem;
-  color: #333;
+
+  color: var(--color-grey-900);
 `;
 
 const BenefitsWrapper = styled.div`
@@ -27,7 +28,7 @@ const BenefitsWrapper = styled.div`
 `;
 
 const BenefitCard = styled.div`
-  background-color: #fff;
+  background-color: var(--color-grey-200);
   border-radius: 10px;
   padding: 2rem;
   max-width: 25rem;
@@ -54,7 +55,8 @@ const BenefitTitle = styled.h3`
 const BenefitDescription = styled.p`
   font-size: 1.6rem;
   line-height: 1.4;
-  color: #666;
+
+  color: var(--color-grey-500);
 `;
 
 const benefits = [

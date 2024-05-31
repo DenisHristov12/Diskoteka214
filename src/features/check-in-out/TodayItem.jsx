@@ -8,7 +8,7 @@ import CheckoutButton from './CheckoutButton';
 
 const StyledTodayItem = styled.li`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 0.5fr 1fr;
   gap: 1.2rem;
   align-items: center;
 
@@ -34,6 +34,9 @@ function TodayItem({ activity }) {
       {status === 'unconfirmed' && <Tag type='blue'>Wait to confirm</Tag>}
 
       <Guest>{reservators.fullName}</Guest>
+      <div>
+        {reservators.peopleNum} {reservators.peopleNum > 1 ? 'guests' : 'guest'}
+      </div>
 
       {status === 'unconfirmed' && (
         <Button

@@ -5,8 +5,8 @@ const AboutContainer = styled.div`
   align-items: center;
   justify-content: space-around;
   padding: 5rem;
-  background-color: #f9f9f9;
-  color: #333;
+  background-color: var(--color-grey-0);
+  color: var(--color-grey-900);
   text-align: left;
 `;
 

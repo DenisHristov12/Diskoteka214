@@ -8,7 +8,7 @@ const HeroContainer = styled.div`
   justify-content: center;
   height: 80vh;
   background: url(${backgroundImage}) no-repeat center center/cover;
-  color: white;
+  color: #fff;
   text-align: center;
 `;
 

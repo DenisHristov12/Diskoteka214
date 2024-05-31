@@ -30,7 +30,7 @@ const ContactFormWrapper = styled.div`
   top: 50%;
   left: 25%;
   transform: translate(-50%, -50%);
-  background-color: #fff;
+  background-color: var(--color-grey-0);
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -39,7 +39,7 @@ const ContactFormWrapper = styled.div`
 
 const ContactDetails = styled.div`
   width: 100%;
-  background-color: #fff;
+  background-color: var(--color-grey-0);
   padding: 1.8rem 5rem;
   margin-top: 2.4rem;
 
