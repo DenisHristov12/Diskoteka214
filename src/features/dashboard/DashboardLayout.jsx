@@ -5,6 +5,7 @@ import Stats from './Stats';
 import { useRecentStays } from './useRecentStays';
 import { useEvents } from '../events/useEvents';
 import SalesChart from './SalesChart';
+import DurationChart from './DurationChart';
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -30,7 +31,7 @@ function DashboardLayout() {
 
   const eventsCapacity = events.reduce((acc, cur) => acc + cur.capacity, 0);
 
-  console.log(eventsCapacity);
+  // console.log(eventsCapacity);
 
   return (
     <StyledDashboardLayout>
@@ -41,7 +42,7 @@ function DashboardLayout() {
         eventsCapacity={eventsCapacity}
       />
       <div>Today's activity</div>
-      <div>Chart stay durations</div>
+      <DurationChart confirmedStays={confirmedStays} />
       <SalesChart bookings={bookings} numDays={numDays} />
     </StyledDashboardLayout>
   );
