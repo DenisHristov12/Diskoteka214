@@ -5,8 +5,8 @@ import Stats from './Stats';
 import { useRecentStays } from './useRecentStays';
 import { useEvents } from '../events/useEvents';
 import SalesChart from './SalesChart';
-import DurationChart from './DurationChart';
 import TodayActivity from '../check-in-out/TodayActivity';
+import GuestsChart from './GuestsChart';
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -27,7 +27,7 @@ function DashboardLayout() {
 
   const eventsCapacity = events.reduce((acc, cur) => acc + cur.capacity, 0);
 
-  // console.log(eventsCapacity);
+  // console.log(bookings.reservators.peopleNum);
 
   return (
     <StyledDashboardLayout>
@@ -38,7 +38,7 @@ function DashboardLayout() {
         eventsCapacity={eventsCapacity}
       />
       <TodayActivity />
-      <DurationChart confirmedStays={confirmedStays} />
+      <GuestsChart bookings={bookings} />
       <SalesChart bookings={bookings} numDays={numDays} />
     </StyledDashboardLayout>
   );

@@ -15,14 +15,14 @@ function Stats({ bookings, confirmedStays, numDays, eventsCapacity }) {
 
   const checkins = confirmedStays.length;
 
-  console.log(confirmedStays);
+  // console.log(confirmedStays);
 
   const occupation =
     (confirmedStays.reduce((acc, cur) => acc + cur.reservators.peopleNum, 0) /
       eventsCapacity) *
     100;
 
-  console.log(occupation);
+  // console.log(occupation);
 
   return (
     <>
