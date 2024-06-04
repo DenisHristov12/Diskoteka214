@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import backgroundImage from '../../public/party.jpg';
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
 const HeroContainer = styled.div`
@@ -7,7 +7,8 @@ const HeroContainer = styled.div`
   align-items: center;
   justify-content: center;
   height: 80vh;
-  background: url(${backgroundImage}) no-repeat center center/cover;
+  background: ${({ backgroundImage }) => `url(${backgroundImage})`} no-repeat
+    center center/cover;
   color: #fff;
   text-align: center;
 `;
@@ -44,26 +45,50 @@ const HeroButton = styled.button`
   }
 `;
 
-//   HERO IMAGE HEADER
-/* 
-    Every event in insanely different
-            Your best choice
-           See upcoming events
-   */
-function HeroSection() {
+function HeroSection({
+  backgroundImage,
+  title,
+  subtitle,
+  buttonText,
+  buttonAction,
+}) {
   const navigate = useNavigate();
 
+  function handleClick() {
+    if (buttonAction) {
+      buttonAction();
+    } else {
+      navigate('/events');
+    }
+  }
+
   return (
-    <HeroContainer>
+    <HeroContainer backgroundImage={backgroundImage}>
       <HeroContent>
-        <HeroTitle>Every event is insanely different</HeroTitle>
-        <HeroSubtitle>Your best choice</HeroSubtitle>
-        <HeroButton onClick={() => navigate('/events')}>
-          See upcoming events
-        </HeroButton>
+        {title && <HeroTitle>{title}</HeroTitle>}
+        {subtitle && <HeroSubtitle>{subtitle}</HeroSubtitle>}
+        {buttonText && (
+          <HeroButton onClick={handleClick}>{buttonText}</HeroButton>
+        )}
       </HeroContent>
     </HeroContainer>
   );
 }
+
+HeroSection.propTypes = {
+  backgroundImage: PropTypes.string,
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+  buttonText: PropTypes.string,
+  buttonAction: PropTypes.func,
+};
+
+HeroSection.defaultProps = {
+  backgroundImage: 'party.jpg',
+  title: 'Every event is insanely different',
+  subtitle: 'Your best choice',
+  buttonText: 'See upcoming events',
+  buttonAction: null,
+};
 
 export default HeroSection;

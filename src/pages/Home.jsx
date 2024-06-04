@@ -1,5 +1,14 @@
+import HeroSection from '../ui/HeroSection';
+import UpcomingEvents from '../ui/UpcomingEvents';
+
 function Home() {
-  return <div>Home</div>;
+  return (
+    <>
+      <HeroSection title='test' buttonText='Reserve now' />
+
+      <UpcomingEvents />
+    </>
+  );
 }
 
 export default Home;

@@ -1,3 +1,4 @@
+import { getToday } from '../utils/helpers';
 import supabase, { supabaseUrl } from './supabase';
 
 export async function getEvents() {
@@ -21,6 +22,20 @@ export async function getEvent(id) {
   if (error) {
     console.error(error);
     throw new Error('Event not found');
+  }
+
+  return data;
+}
+
+export async function getEventsAfterToday() {
+  const { data, error } = await supabase
+    .from('events')
+    .select('*')
+    .gte('date', getToday());
+
+  if (error) {
+    console.error(error);
+    throw new Error('Events could not be loaded');
   }
 
   return data;
