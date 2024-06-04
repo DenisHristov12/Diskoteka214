@@ -10,9 +10,9 @@ export function useSignup() {
   const { mutate: signUp, isLoading } = useMutation({
     mutationFn: signUpApi,
     onSuccess: (user) => {
-      // console.log(user);
+      // console.log(user[0]);
       //Please verify the new account from the user's email address.
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(user[0]));
       queryClient.setQueryData(['user'], { user });
       toast.success('Account succesfully created! ');
       navigate('/home', { replace: true });

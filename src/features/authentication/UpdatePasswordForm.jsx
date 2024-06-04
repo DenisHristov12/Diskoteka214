@@ -16,7 +16,7 @@ function UpdatePasswordForm() {
 
   function onSubmit(obj) {
     const password = obj.password;
-    console.log(password);
+    // console.log(password);
     updateUser({ password, user }, { onSuccess: () => reset() });
   }
 

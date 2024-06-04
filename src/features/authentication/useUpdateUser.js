@@ -17,6 +17,8 @@ export function useUpdateUser() {
         avatar: userData.avatar,
       };
 
+      // console.log(userData);
+
       localStorage.setItem('user', JSON.stringify(newUser));
       toast.success('User account successfully updated');
       queryClient.setQueryData(['user'], newUser);
