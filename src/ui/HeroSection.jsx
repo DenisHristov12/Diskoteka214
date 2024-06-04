@@ -56,7 +56,7 @@ function HeroSection() {
   return (
     <HeroContainer>
       <HeroContent>
-        <HeroTitle>Every event in insanely different</HeroTitle>
+        <HeroTitle>Every event is insanely different</HeroTitle>
         <HeroSubtitle>Your best choice</HeroSubtitle>
         <HeroButton onClick={() => navigate('/events')}>
           See upcoming events

@@ -103,12 +103,6 @@ function MainNav() {
             </StyledNavLink>
           </li>
         )}
-        <li>
-          <StyledNavLink to='/settings'>
-            <HiOutlineCog6Tooth />
-            Settings
-          </StyledNavLink>
-        </li>
         {!isUser && (
           <li>
             <StyledNavLink to='/login'>

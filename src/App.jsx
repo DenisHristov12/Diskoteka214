@@ -7,7 +7,6 @@ import { Toaster } from 'react-hot-toast';
 import GlobalStyles from './styles/GlobalStyles';
 import Dashboard from './pages/Dashboard';
 import Bookings from './pages/Bookings';
-import Settings from './pages/Settings';
 import Users from './pages/Users';
 import Account from './pages/Account';
 import Login from './pages/Login';
