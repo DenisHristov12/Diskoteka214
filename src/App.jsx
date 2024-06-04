@@ -70,7 +70,6 @@ function App() {
               <Route path='users' element={<Users />} />
               <Route path='login' element={<Login />} />
               <Route path='register' element={<Register />} />
-              <Route path='settings' element={<Settings />} />
               <Route path='account' element={<Account />} />
             </Route>
 
