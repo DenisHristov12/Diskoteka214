@@ -71,6 +71,7 @@ function EventPoster({ event }) {
     promotions,
     description,
     image,
+    capacity,
   } = event;
 
   function handleDuplicate() {
@@ -83,6 +84,7 @@ function EventPoster({ event }) {
       promotions,
       description,
       image,
+      capacity,
     });
   }
 

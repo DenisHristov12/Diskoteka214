@@ -7,8 +7,10 @@ import Textarea from '../../ui/Textarea';
 import FormRow from '../../ui/FormRow';
 import { useCreateEvent } from './useCreateEvent';
 import { useEditEvent } from './useEditEvent';
+import { useQueryClient } from '@tanstack/react-query';
 
 function CreateEventForm({ eventToEdit = {}, onCloseModal }) {
+  const queryClient = useQueryClient();
   const { id: editId, ...editValues } = eventToEdit;
   const isEditSession = Boolean(editId);
 
@@ -34,6 +36,9 @@ function CreateEventForm({ eventToEdit = {}, onCloseModal }) {
           onSuccess: (data) => {
             reset();
             onCloseModal?.();
+            queryClient.invalidateQueries({
+              queryKey: ['event'],
+            });
           },
         }
       );
@@ -134,6 +139,17 @@ function CreateEventForm({ eventToEdit = {}, onCloseModal }) {
           disabled={isWorking}
           defaultValue=''
           {...register('description', {
+            required: 'This field is required',
+          })}
+        />
+      </FormRow>
+
+      <FormRow label='Capacity' error={errors?.capacity?.message}>
+        <Input
+          type='number'
+          id='capacity'
+          disabled={isWorking}
+          {...register('capacity', {
             required: 'This field is required',
           })}
         />

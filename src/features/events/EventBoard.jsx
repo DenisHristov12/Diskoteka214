@@ -13,6 +13,7 @@ const GridContainer = styled.div`
   grid-template-columns: repeat(5, 1fr);
 
   column-gap: 1.2rem;
+  row-gap: 4.8rem;
 
   /* background-color: red; */
 `;

@@ -2,21 +2,25 @@ import styled from 'styled-components';
 import Button from './Button';
 
 const EventContainer = styled.div`
-  display: flex;
-  gap: 4.8rem;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1.5fr 1fr 1fr 0.8fr 1fr;
+  gap: 4rem;
+  /* width: 10rem; */
+
+  margin-bottom: 6.4rem;
 
   align-items: center;
-  /* justify-content: space-between; */
+  justify-items: start;
   /* background-color: blue; */
 
   & button {
-    margin-left: 15rem;
+    /* margin-left: 10rem; */
     position: relative;
     &::before {
       content: '';
       position: absolute;
       top: -5.3rem;
-      left: -10rem;
+      left: -3rem;
       background-color: transparent;
       width: 1px;
       height: 15rem;
@@ -34,52 +38,98 @@ const DataContainer = styled.div`
   height: 15rem;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 4rem;
   justify-content: flex-start;
 
   /* background-color: red; */
 `;
 
-const Name = styled.p`
+const Heading = styled.span`
   margin-bottom: 1.2rem;
-  font-size: 2.4rem;
+  font-size: 2rem;
   font-weight: 600;
   text-transform: capitalize;
 `;
-const Date = styled.p`
+const Date = styled.div`
   font-size: 1.6rem;
   font-weight: 500;
   text-transform: capitalize;
 `;
-const Entrance = styled.p`
+const Entrance = styled.div`
   font-size: 1.4rem;
   font-weight: 500;
 `;
 
 const Span = styled.span`
+  font-size: 1.6rem;
   font-weight: 600;
 `;
 
+const DataBox = styled.div`
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  /* justify-items: center; */
+  gap: 0.4rem;
+
+  /* background-color: red; */
+`;
+
 function UpcomingEvent({ event }) {
-  const { image, name, date, entrance } = event;
+  const {
+    image,
+    name,
+    date,
+    entrance,
+    musicType,
+    alchoholType,
+    promotions,
+    description,
+    capacity,
+  } = event;
 
   return (
     <EventContainer>
       <Image src={image} />
       <DataContainer>
-        <Name>{name}</Name>
-        <Date>
-          <Span>Date: </Span>
-          {date}
-        </Date>
-        <Entrance>
-          <Span>Entrance: </Span> {entrance}
-        </Entrance>
+        <Heading>{name}</Heading>
+        <DataBox>
+          <Date>
+            <Span>Date: </Span>
+            {date}
+          </Date>
+          <Entrance>
+            <Span>Entrance: </Span> {entrance}
+          </Entrance>
+        </DataBox>
       </DataContainer>
-      <DataContainer>For you</DataContainer>
-      <DataContainer>Promotions</DataContainer>
-      <DataContainer>Description</DataContainer>
-      <DataContainer>Places Left</DataContainer>
+      <DataContainer>
+        <Heading>For you</Heading>
+        <DataBox>
+          <div>
+            <Span>Music: </Span>
+            {musicType}
+          </div>
+          <div>
+            <Span>Alchohol: </Span>
+            {alchoholType}
+          </div>
+        </DataBox>
+      </DataContainer>
+      <DataContainer>
+        <Heading>Promotions</Heading>
+        <DataBox>{promotions ? promotions : 'No promotions available'}</DataBox>
+      </DataContainer>
+      <DataContainer>
+        <Heading>Description</Heading>
+        <DataBox>{description}</DataBox>
+      </DataContainer>
+      <DataContainer>
+        <Heading>Left</Heading>
+        <DataBox>
+          <div>{capacity} places</div>
+        </DataBox>
+      </DataContainer>
       <Button>Reserve</Button>
     </EventContainer>
   );

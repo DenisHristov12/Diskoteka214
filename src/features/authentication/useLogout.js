@@ -11,9 +11,7 @@ export function useLogout() {
     onSuccess: () => {
       localStorage.removeItem('user');
       navigate('/login', { replace: true });
-      queryClient.invalidateQueries({
-        queryKey: ['user'],
-      });
+      queryClient.invalidateQueries();
     },
   });
 

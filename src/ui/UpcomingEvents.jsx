@@ -5,7 +5,7 @@ import UpcomingEvent from './UpcomingEvent';
 import Heading from './Heading';
 
 const Layout = styled.div`
-  margin-top: 4.8rem;
+  margin-top: 6.4rem;
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
@@ -20,6 +20,8 @@ function UpcomingEvents() {
   if (isLoading) {
     return <Spinner />;
   }
+
+  console.log(eventsAfterToday);
 
   return (
     <Layout>

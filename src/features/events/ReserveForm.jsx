@@ -9,6 +9,8 @@ import Form from '../../ui/Form';
 import Button from '../../ui/Button';
 import FormRow from '../../ui/FormRow';
 import Spinner from '../../ui/Spinner';
+import toast from 'react-hot-toast';
+import { useEditEvent } from './useEditEvent';
 
 function ReserveForm({ onCloseModal }) {
   const queryClient = useQueryClient();
@@ -18,6 +20,7 @@ function ReserveForm({ onCloseModal }) {
   const { errors } = formState;
 
   const { event, isLoading } = useEvent();
+  const { isEditing, editEvent } = useEditEvent();
 
   const { user } = useUser();
 
@@ -29,40 +32,67 @@ function ReserveForm({ onCloseModal }) {
 
   const { fullName } = user;
 
-  const { id: eventId, date } = event;
+  const { id: eventId, date, capacity, image } = event;
 
   if (isLoading) {
     return <Spinner />;
   }
 
   function onSubmit(data) {
-    const newReservator = {
-      ...data,
-      fullName,
-      eventId,
-    };
+    // console.log(data.peopleNum);
 
-    console.log(newReservator);
-    createReservator(newReservator, {
-      onSuccess: (reservator) => {
-        const newBooking = {
-          date,
-          status: 'unconfirmed',
-          isPaid: false,
-          reservatorId: reservator?.id,
-          eventId,
-        };
+    if (data.peopleNum > capacity) {
+      toast.error('Exceeding event capacity!');
+    } else {
+      const newCapacity = capacity - data.peopleNum;
 
-        // console.log(newBooking);
-        createBooking(newBooking, {
-          onSuccess: (data) => {
-            reset();
-            onCloseModal?.();
-            queryClient.invalidateQueries({ queryKey: ['reservators'] });
+      const newEvent = {
+        ...event,
+        capacity: newCapacity,
+      };
+
+      editEvent(
+        {
+          newEventData: { ...newEvent, image },
+          id: eventId,
+        },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['event'] });
           },
-        });
-      },
-    });
+        }
+      );
+
+      const newReservator = {
+        ...data,
+        fullName,
+        eventId,
+      };
+
+      // console.log(newReservator);
+      createReservator(newReservator, {
+        onSuccess: (reservator) => {
+          const newBooking = {
+            date,
+            status: 'unconfirmed',
+            isPaid: false,
+            reservatorId: reservator?.id,
+            eventId,
+          };
+
+          // console.log(newBooking);
+          createBooking(newBooking, {
+            onSuccess: (data) => {
+              reset();
+              onCloseModal?.();
+              queryClient.invalidateQueries({
+                queryKey: ['reservators'],
+              });
+            },
+          });
+        },
+      });
+    }
   }
 
   return (

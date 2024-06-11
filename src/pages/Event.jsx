@@ -109,13 +109,17 @@ function Event() {
     promotions,
     description,
     image,
+    capacity,
   } = event;
 
-  const isReservator = reservators.find(
-    (res) => res.fullName === user.fullName && res.eventId === eventId
+  const isReservator = reservators.some(
+    (res) =>
+      res.fullName === user.fullName &&
+      res.number === user.number &&
+      res.eventId === eventId
   );
 
-  // console.log(isReservator);
+  console.log(isReservator);
 
   return (
     <>
@@ -154,6 +158,11 @@ function Event() {
             <SectionDiv>
               <p>Entrance</p>
               <span>{`${entrance !== 0 ? entrance + ' lv.' : 'free'}`}</span>
+            </SectionDiv>
+
+            <SectionDiv>
+              <p>Places left</p>
+              <span>{capacity}</span>
             </SectionDiv>
           </Section>
 
