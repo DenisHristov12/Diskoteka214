@@ -3,6 +3,7 @@ import Menus from '../../ui/Menus';
 import Pagination from '../../ui/Pagination';
 import Spinner from '../../ui/Spinner';
 import Table from '../../ui/Table';
+import { PAGE_SIZE } from '../../utils/constants';
 import UserRow from './UserRow';
 import { useUsers } from './useUsers';
 
@@ -36,7 +37,7 @@ function UsersTable() {
         />
 
         <Table.Footer>
-          <Pagination count={count} />
+          <Pagination count={count} pageSize={PAGE_SIZE} />
         </Table.Footer>
       </Table>
     </Menus>
