@@ -9,7 +9,7 @@ import ButtonGroup from '../ui/ButtonGroup';
 import Button from '../ui/Button';
 import Modal from '../ui/Modal';
 import ConfirmDelete from '../ui/ConfirmDelete';
-import { format, isToday } from 'date-fns';
+import { format, isBefore, isToday } from 'date-fns';
 import { formatDistanceFromNow } from '../utils/helpers';
 import CreateEventForm from '../features/events/CreateEventForm';
 import { useUser } from '../features/authentication/useUser';
@@ -119,7 +119,7 @@ function Event() {
       res.eventId === eventId
   );
 
-  console.log(isReservator);
+  // console.log(isReservator);
 
   return (
     <>

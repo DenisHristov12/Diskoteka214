@@ -14,6 +14,7 @@ import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../authentication/useUser';
+import { isBefore } from 'date-fns/isBefore';
 
 const userTypes = {
   user: css`
@@ -35,6 +36,8 @@ const Poster = styled.div`
   box-shadow: var(--shadow-md);
   /* background-color: red; */
 
+  filter: ${({ grayScale }) => (grayScale ? 'grayscale(100%)' : 'none')};
+
   ${(props) => userTypes[props.user]}
 `;
 
@@ -45,6 +48,8 @@ Poster.defaultProps = {
 const Img = styled.img`
   height: auto;
   width: 100%;
+
+  /* filter: ${({ grayScale }) => (grayScale ? 'grayscale(100%)' : 'none')}; */
 `;
 
 const ButtonBox = styled.div`
@@ -92,9 +97,13 @@ function EventPoster({ event }) {
 
   const role = user?.roles?.roleName;
 
+  const today = new Date();
+
+  const isBeforeToday = isBefore(date, today);
+
   return (
-    <Poster user={role}>
-      <Img src={image} alt='Poster' />
+    <Poster grayScale={isBeforeToday} user={role}>
+      <Img grayScale={isBeforeToday} src={image} alt='Poster' />
 
       <ButtonBox>
         <Button size='fullWidth' onClick={() => navigate(`/events/${eventId}`)}>
