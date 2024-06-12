@@ -5,6 +5,7 @@ import Menus from '../../ui/Menus';
 import Pagination from '../../ui/Pagination';
 import Empty from '../../ui/Empty';
 import Spinner from '../../ui/Spinner';
+import { PAGE_SIZE } from '../../utils/constants';
 
 function BookingTable() {
   const { bookings, isLoading, count } = useBookings();
@@ -37,7 +38,7 @@ function BookingTable() {
         />
 
         <Table.Footer>
-          <Pagination count={count} />
+          <Pagination count={count} pageSize={PAGE_SIZE} />
         </Table.Footer>
       </Table>
     </Menus>

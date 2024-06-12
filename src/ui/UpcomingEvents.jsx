@@ -3,6 +3,8 @@ import { useEventsAfterToday } from '../features/events/useEventsAfterToday';
 import Spinner from './Spinner';
 import UpcomingEvent from './UpcomingEvent';
 import Heading from './Heading';
+import Pagination from './Pagination';
+import { PAGE_SIZE_EVENTS } from '../utils/constants';
 
 const Layout = styled.div`
   margin-top: 6.4rem;
@@ -15,19 +17,20 @@ const Layout = styled.div`
 `;
 
 function UpcomingEvents() {
-  const { isLoading, eventsAfterToday } = useEventsAfterToday();
+  const { isLoading, eventsAfterToday, count } = useEventsAfterToday();
 
   if (isLoading) {
     return <Spinner />;
   }
 
-  console.log(eventsAfterToday);
+  // console.log(eventsAfterToday);
 
   return (
     <Layout>
       {eventsAfterToday.map((event) => (
         <UpcomingEvent event={event} />
       ))}
+      <Pagination count={count} pageSize={PAGE_SIZE_EVENTS} />
     </Layout>
   );
 }

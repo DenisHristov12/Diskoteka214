@@ -1,3 +1,4 @@
+import { PAGE_SIZE_EVENTS } from '../utils/constants';
 import { getToday } from '../utils/helpers';
 import supabase, { supabaseUrl } from './supabase';
 
@@ -27,18 +28,30 @@ export async function getEvent(id) {
   return data;
 }
 
-export async function getEventsAfterToday() {
-  const { data, error } = await supabase
+export async function getEventsAfterToday({ page }) {
+  let query = supabase
     .from('events')
-    .select('*')
+    .select('*', {
+      count: 'exact',
+    })
     .gte('date', getToday());
+
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE_EVENTS;
+    const to = from + PAGE_SIZE_EVENTS - 1;
+
+    query = query.range(from, to);
+  }
+
+  const { data, error, count } = await query;
+  // console.log(data);
 
   if (error) {
     console.error(error);
     throw new Error('Events could not be loaded');
   }
 
-  return data;
+  return { data, count };
 }
 
 export async function createEditEvent(newEvent, id) {
