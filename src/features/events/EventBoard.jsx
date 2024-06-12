@@ -5,6 +5,8 @@ import EventPoster from './EventPoster';
 import { useEvents } from './useEvents';
 import { useSearchParams } from 'react-router-dom';
 import Empty from '../../ui/Empty';
+import { useUser } from '../authentication/useUser';
+import { useEventsAfterTodayNoPagination } from './useEventsAfterTodayNoPagination';
 
 const GridContainer = styled.div`
   width: 100%;
@@ -19,16 +21,23 @@ const GridContainer = styled.div`
 `;
 
 function EventBoard() {
-  const { isLoading, events } = useEvents();
+  const { isLoading, events: adminEvents } = useEvents();
+  const { isLoading: isLoading2, eventsAfterTodayNoPagination } =
+    useEventsAfterTodayNoPagination();
+
+  const { isAdmin } = useUser();
+
   const [searchParams] = useSearchParams();
 
-  if (isLoading) {
+  if (isLoading || isLoading2) {
     return <Spinner />;
   }
 
-  if (!events.length) {
+  if (!adminEvents.length || !eventsAfterTodayNoPagination.length) {
     return <Empty resourceName={'events'} />;
   }
+
+  const events = isAdmin ? adminEvents : eventsAfterTodayNoPagination;
 
   //FILTER
   const filteredEntrance = searchParams.get('entrance') || 'all';
