@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 import Button from './Button';
+import { useNavigate } from 'react-router-dom';
+import { useReservators } from '../features/events/useReservators';
+import { useUser } from '../features/authentication/useUser';
+import Spinner from './Spinner';
 
 const EventContainer = styled.div`
   display: grid;
@@ -77,6 +81,7 @@ const DataBox = styled.div`
 
 function UpcomingEvent({ event }) {
   const {
+    id: eventId,
     image,
     name,
     date,
@@ -87,6 +92,23 @@ function UpcomingEvent({ event }) {
     description,
     capacity,
   } = event;
+
+  const { reservators, isLoading: isLoadingReservators } = useReservators();
+
+  const { user, isAdmin, isUser } = useUser();
+
+  const navigate = useNavigate();
+
+  if (isLoadingReservators) {
+    return <Spinner />;
+  }
+
+  const isReservator = reservators.some(
+    (res) =>
+      res.fullName === user?.fullName &&
+      res.number === user?.number &&
+      res.eventId === eventId
+  );
 
   return (
     <EventContainer>
@@ -130,7 +152,17 @@ function UpcomingEvent({ event }) {
           <div>{capacity} places</div>
         </DataBox>
       </DataContainer>
-      <Button>Reserve</Button>
+
+      {!isReservator ? (
+        <Button
+          onClick={() => navigate(isUser ? `/events/${eventId}` : '/login')}>
+          Reserve
+        </Button>
+      ) : (
+        <Button disabled='true' variation='secondary'>
+          Reserved
+        </Button>
+      )}
     </EventContainer>
   );
 }
