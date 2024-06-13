@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import styled from 'styled-components';
+import { useState } from 'react';
 
 const StyledAppLayout = styled.div`
   display: grid;
@@ -14,7 +15,11 @@ const Main = styled.main`
   background-color: var(--color-grey-50);
   padding: 4rem 4.8rem 6.4rem;
 
+  grid-column: ${({ isOpen }) => (isOpen ? '1 / -1' : '2 / -1')};
+
   overflow: scroll;
+
+  /* background-color: red; */
 
   &::-webkit-scrollbar {
     display: none;
@@ -23,20 +28,26 @@ const Main = styled.main`
 
 const Container = styled.div`
   max-width: 120rem;
-  margin: 0 auto;
+  margin: ${({ isOpen }) => (!isOpen ? '0 auto' : '0')};
   display: flex;
   flex-direction: column;
   gap: 3.2rem;
 `;
 
 function AppLayout() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function setState() {
+    setIsOpen((isOpen) => !isOpen);
+  }
+
   return (
     <StyledAppLayout>
-      <Header />
-      <Sidebar />
+      <Header isOpen={isOpen} setIsOpen={setState} />
+      <Sidebar isOpen={isOpen} setIsOpen={setState} />
 
-      <Main>
-        <Container>
+      <Main isOpen={isOpen}>
+        <Container isOpen={isOpen}>
           <Outlet />
         </Container>
       </Main>

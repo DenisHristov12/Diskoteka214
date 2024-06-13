@@ -2,25 +2,44 @@ import styled from 'styled-components';
 import HeaderMenu from './HeaderMenu';
 import UserAvatar from '../features/authentication/UserAvatar';
 import { useUser } from '../features/authentication/useUser';
+import { useState } from 'react';
+import Button from './Button';
+import { HiMenu } from 'react-icons/hi';
 
 const StyledHeader = styled.header`
+  background-color: red;
   background-color: var(--color-grey-0);
   padding: 1.2rem 4.8rem;
   border-bottom: 1px solid var(--color-grey-100);
 
+  grid-column: ${({ isOpen }) => (!isOpen ? '2 / -1' : '1 / -1')};
+
+  display: flex;
+  gap: 2.4rem;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const Container = styled.div`
   display: flex;
   gap: 2.4rem;
   align-items: center;
   justify-content: flex-end;
 `;
 
-function Header() {
+function Header({ isOpen, setIsOpen }) {
   const { isUser } = useUser();
 
   return (
-    <StyledHeader>
-      {isUser && <UserAvatar />}
-      <HeaderMenu />
+    <StyledHeader isOpen={isOpen}>
+      <Button onClick={setIsOpen} size='medium'>
+        <HiMenu />
+      </Button>
+
+      <Container>
+        {isUser && <UserAvatar />}
+        <HeaderMenu />
+      </Container>
     </StyledHeader>
   );
 }
