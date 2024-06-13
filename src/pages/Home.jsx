@@ -4,7 +4,7 @@ import UpcomingEvents from '../ui/UpcomingEvents';
 function Home() {
   return (
     <>
-      <HeroSection title='test' buttonText='Reserve now' />
+      {/* <HeroSection /> */}
 
       <UpcomingEvents />
     </>

@@ -1,64 +1,74 @@
+import HeroSlider, {
+  Slide,
+  ButtonsNav,
+  Nav,
+  OverlayContainer,
+} from 'hero-slider';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
-import HeroSlider, { Slide, Nav } from 'hero-slider';
 
-// const HeroContainer = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   height: 80vh;
-//   background: ${({ backgroundImage }) => `url(${backgroundImage})`} no-repeat
-//     center center/cover;
-//   color: #fff;
-//   text-align: center;
-// `;
+// const StyledHeroSlider = styled(HeroSlider)`
+//   & {
+//     position: relative;
+//     width: 100%;
+//     height: 100vh;
+//     overflow: hidden;
+//   }
 
-// const HeroContent = styled.div`
-//   max-width: 60rem;
-//   padding: 2rem;
-//   background: rgba(0, 0, 0, 0.5);
-//   border-radius: 1rem;
-// `;
-
-// const HeroTitle = styled.h1`
-//   font-size: 3rem;
-//   margin-bottom: 2rem;
-// `;
-
-// const HeroSubtitle = styled.p`
-//   font-size: 1.6rem;
-//   margin-bottom: 4rem;
-// `;
-
-// const HeroButton = styled.button`
-//   padding: 1rem 2rem;
-//   font-size: 1.2rem;
-//   color: #fff;
-//   background-color: #ff7f50;
-//   border: none;
-//   border-radius: 5px;
-//   cursor: pointer;
-//   transition: all 0.3s ease;
-
-//   &:hover {
-//     background-color: #ff6347;
+//   & .slide {
+//     position: absolute;
+//     width: 100%;
+//     height: 100%;
+//     background-size: cover;
+//     background-position: center;
 //   }
 // `;
 
-const HeroSliderComponent = () => {
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.1);
+`;
+
+const Title = styled.h1`
+  margin: 0 auto;
+  padding: 0;
+  text-transform: uppercase;
+  width: 90%;
+  text-align: center;
+  font-size: 3.5rem;
+`;
+const Subtitle = styled.h2`
+  margin: 24px auto 0;
+  padding: 0;
+  width: 80%;
+  text-align: center;
+  font-size: 1.75rem;
+`;
+
+const hallstatt = 'https://i.imgur.com/Yszno5e.jpg';
+const hvitserkur = 'https://i.imgur.com/ZBzbir7.jpg';
+const jacksonville = 'https://i.imgur.com/xpeJkkR.jpg';
+const moraineLake = 'https://i.imgur.com/0NAc45h.jpg';
+
+const app = () => {
   return (
     <HeroSlider
-      slidingAnimation='fade'
       orientation='horizontal'
-      initialSlide={0}
+      initialSlide={1}
       onBeforeChange={(previousSlide, nextSlide) =>
         console.log('onBeforeChange', previousSlide, nextSlide)
       }
       onChange={(nextSlide) => console.log('onChange', nextSlide)}
       onAfterChange={(nextSlide) => console.log('onAfterChange', nextSlide)}
       style={{
-        backgroundColor: 'rgba(0, 0, 0, 0.33)',
+        backgroundColor: '#000',
       }}
       settings={{
         slidingDuration: 500,
@@ -68,27 +78,54 @@ const HeroSliderComponent = () => {
         autoplayDuration: 5000,
         height: '100vh',
       }}>
+      {/* <OverlayContainer>
+        <Wrapper>
+          <Title>Zoom Slider</Title>
+          <Subtitle>
+            Slides' backgroundAnimation prop set to 'zoom' (you may reload the
+            page if it's already over)
+          </Subtitle>
+        </Wrapper>
+      </OverlayContainer> */}
+
       <Slide
-        shouldRenderMask
-        label='Slide 1'
+        navDescription='Hallstatt - Austria'
         background={{
-          backgroundImageSrc: 'https://via.placeholder.com/1920x1080',
+          backgroundImage: hallstatt,
+          backgroundAnimation: 'zoom',
         }}
       />
+
       <Slide
-        shouldRenderMask
-        label='Slide 2'
+        navDescription='Hvitserkur - Iceland'
         background={{
-          backgroundImageSrc:
-            'https://via.placeholder.com/1920x1080/FF0000/FFFFFF',
+          backgroundImage: hvitserkur,
+          backgroundAnimation: 'zoom',
         }}
       />
+
       <Slide
-        shouldRenderMask
-        label='Slide 3'
+        navDescription='Jacksonville - USA'
         background={{
-          backgroundImageSrc:
-            'https://via.placeholder.com/1920x1080/00FF00/000000',
+          backgroundImage: jacksonville,
+          backgroundAnimation: 'zoom',
+        }}
+      />
+
+      <Slide
+        navDescription='Moraine Lake - Canada'
+        background={{
+          backgroundImage: moraineLake,
+          backgroundAnimation: 'zoom',
+        }}
+      />
+
+      <ButtonsNav
+        isNullAfterThreshold
+        position={{
+          top: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
         }}
       />
       <Nav />
@@ -96,4 +133,4 @@ const HeroSliderComponent = () => {
   );
 };
 
-export default HeroSliderComponent;
+export default app;
