@@ -2,28 +2,25 @@ import styled from 'styled-components';
 import HeaderMenu from './HeaderMenu';
 import UserAvatar from '../features/authentication/UserAvatar';
 import { useUser } from '../features/authentication/useUser';
-import { useState } from 'react';
 import Button from './Button';
 import { HiMenu } from 'react-icons/hi';
+import { motion } from 'framer-motion';
 
 const StyledHeader = styled.header`
-  background-color: red;
   background-color: var(--color-grey-0);
   padding: 1.2rem 4.8rem;
   border-bottom: 1px solid var(--color-grey-100);
 
-  grid-column: ${({ isOpen }) => (!isOpen ? '2 / -1' : '1 / -1')};
+  /* grid-column: ${({ isOpen }) => (!isOpen ? '2 / -1' : '1 / -1')}; */
+  grid-column: 1 / -1;
 
   display: flex;
   gap: 2.4rem;
   align-items: center;
   justify-content: space-between;
-
-  /* background-color: red; */
 `;
 
 const Container = styled.div`
-  /* justify-self: flex-end; */
   margin-left: auto;
   display: flex;
   gap: 2.4rem;
@@ -32,9 +29,9 @@ const Container = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  /* background-color: red; */
-  display: ${({ hideButton }) => (!hideButton ? 'none' : 'flex')};
-  /* justify-self: flex-start; */
+  display: ${({ hideButton }) => (hideButton ? 'none' : 'flex')};
+
+  /* transition: display 2s ease-in-out; */
 `;
 
 function Header({ isOpen, setIsOpen, hideButton }) {

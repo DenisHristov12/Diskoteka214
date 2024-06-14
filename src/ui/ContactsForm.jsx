@@ -13,6 +13,10 @@ import Heading from './Heading';
 import { Link } from 'react-router-dom';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 
+const StyledMapContainer = styled(MapContainer)`
+  z-index: 99;
+`;
+
 const ContactsContainer = styled.div`
   width: 100%;
   height: 75vh;
@@ -21,7 +25,6 @@ const ContactsContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* margin-bottom: 2rem; */
 `;
 
 const ContactFormWrapper = styled.div`
@@ -34,7 +37,7 @@ const ContactFormWrapper = styled.div`
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  z-index: 1000; // Ensure it appears above the map
+  z-index: 998;
 `;
 
 const ContactDetails = styled.div`
@@ -133,7 +136,7 @@ function ContactsForm() {
   return (
     <>
       <ContactsContainer>
-        <MapContainer
+        <StyledMapContainer
           center={POSITION}
           zoom={16}
           scrollWheelZoom={false}
@@ -145,7 +148,7 @@ function ContactsForm() {
           <Marker position={POSITION}>
             <Popup>Diskoteka 214</Popup>
           </Marker>
-        </MapContainer>
+        </StyledMapContainer>
 
         <ContactFormWrapper>
           <Form onSubmit={handleSubmit(onSubmit)}>
