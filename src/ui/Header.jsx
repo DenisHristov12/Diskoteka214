@@ -24,6 +24,7 @@ const StyledHeader = styled.header`
 
 const Container = styled.div`
   /* justify-self: flex-end; */
+  margin-left: auto;
   display: flex;
   gap: 2.4rem;
   align-items: center;
