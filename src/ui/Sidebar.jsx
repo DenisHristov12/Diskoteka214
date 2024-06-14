@@ -8,7 +8,7 @@ import { useState } from 'react';
 const StyledSidebar = styled.aside`
   background-color: var(--color-grey-0);
   /* background-color: red; */
-  padding: 3.2rem 2.4rem;
+  padding: 1.2rem 2.4rem;
   border-right: 1px solid var(--color-grey-100);
 
   grid-row: 1 / -1;
@@ -24,7 +24,7 @@ const ButtonContainer = styled.div`
   align-self: flex-end;
 `;
 
-function Sidebar({ isOpen, setIsOpen }) {
+function Sidebar({ isOpen, setIsOpen, hideButton }) {
   return (
     <StyledSidebar isOpen={isOpen}>
       <ButtonContainer>

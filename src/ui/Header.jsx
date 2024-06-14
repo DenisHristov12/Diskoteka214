@@ -27,14 +27,22 @@ const Container = styled.div`
   justify-content: flex-end;
 `;
 
-function Header({ isOpen, setIsOpen }) {
+const ButtonContainer = styled.div`
+  /* background-color: red; */
+  display: ${({ hideButton }) => (!hideButton ? 'none' : 'flex')};
+  align-self: flex-end;
+`;
+
+function Header({ isOpen, setIsOpen, hideButton }) {
   const { isUser } = useUser();
 
   return (
     <StyledHeader isOpen={isOpen}>
-      <Button onClick={setIsOpen} size='medium'>
-        <HiMenu />
-      </Button>
+      <ButtonContainer hideButton={hideButton}>
+        <Button onClick={setIsOpen} size='medium'>
+          <HiMenu />
+        </Button>
+      </ButtonContainer>
 
       <Container>
         {isUser && <UserAvatar />}

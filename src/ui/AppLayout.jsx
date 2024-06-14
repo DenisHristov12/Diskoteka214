@@ -37,14 +37,18 @@ const Container = styled.div`
 function AppLayout() {
   const [isOpen, setIsOpen] = useState(false);
 
+  console.log(isOpen);
+
+  const hideButton = isOpen;
+
   function setState() {
     setIsOpen((isOpen) => !isOpen);
   }
 
   return (
     <StyledAppLayout>
-      <Header isOpen={isOpen} setIsOpen={setState} />
-      <Sidebar isOpen={isOpen} setIsOpen={setState} />
+      <Header hideButton={hideButton} isOpen={isOpen} setIsOpen={setState} />
+      <Sidebar hideButton={hideButton} isOpen={isOpen} setIsOpen={setState} />
 
       <Main isOpen={isOpen}>
         <Container isOpen={isOpen}>
