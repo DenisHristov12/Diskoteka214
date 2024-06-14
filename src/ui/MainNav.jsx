@@ -1,5 +1,6 @@
-import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
+import { useUser } from '../features/authentication/useUser';
 
 import {
   HiArrowRightOnRectangle,
@@ -7,12 +8,11 @@ import {
   HiInformationCircle,
   HiLockClosed,
   HiOutlineCalendarDays,
-  HiOutlineCog6Tooth,
   HiOutlineHome,
   HiOutlineUsers,
   HiPhone,
 } from 'react-icons/hi2';
-import { useUser } from '../features/authentication/useUser';
+import { respondToMobile, respondToSmallLaptop } from '../styles/mediaQueries';
 
 const NavList = styled.ul`
   display: flex;
@@ -56,40 +56,68 @@ const StyledNavLink = styled(NavLink)`
   &.active:visited svg {
     color: var(--color-brand-600);
   }
+
+  ${respondToSmallLaptop(`&:link,
+  &:visited {
+    font-size: 1.4rem;
+
+    gap: 1rem;
+  }
+  
+  & svg {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+  `)}
+
+  ${respondToMobile(`&:link,
+  &:visited {
+    font-size: 1.2rem;
+
+    gap: 0.8rem;
+  }
+  
+  & svg {
+    width: 2rem;
+    height: 2rem;
+  }
+  `)}
 `;
 
-function MainNav() {
+function MainNav({ closeSidebar }) {
   const { isUser, isAdmin } = useUser();
 
   return (
     <nav>
       <NavList>
         <li>
-          <StyledNavLink to={isAdmin ? '/dashboard' : '/home'}>
+          <StyledNavLink
+            onClick={closeSidebar}
+            to={isAdmin ? '/dashboard' : '/home'}>
             <HiOutlineHome /> Home
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to='/events'>
+          <StyledNavLink onClick={closeSidebar} to='/events'>
             <HiGift />
             Events
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to='/about'>
+          <StyledNavLink onClick={closeSidebar} to='/about'>
             <HiInformationCircle />
             About
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to='/contacts'>
+          <StyledNavLink onClick={closeSidebar} to='/contacts'>
             <HiPhone />
             Contacts
           </StyledNavLink>
         </li>
         {isAdmin && (
           <li>
-            <StyledNavLink to='/bookings'>
+            <StyledNavLink onClick={closeSidebar} to='/bookings'>
               <HiOutlineCalendarDays />
               Bookings
             </StyledNavLink>
@@ -97,7 +125,7 @@ function MainNav() {
         )}
         {isAdmin && (
           <li>
-            <StyledNavLink to='/users'>
+            <StyledNavLink onClick={closeSidebar} to='/users'>
               <HiOutlineUsers />
               Users
             </StyledNavLink>
@@ -105,7 +133,7 @@ function MainNav() {
         )}
         {!isUser && (
           <li>
-            <StyledNavLink to='/login'>
+            <StyledNavLink onClick={closeSidebar} to='/login'>
               <HiLockClosed />
               Login
             </StyledNavLink>
@@ -113,7 +141,7 @@ function MainNav() {
         )}
         {!isUser && (
           <li>
-            <StyledNavLink to='/register'>
+            <StyledNavLink onClick={closeSidebar} to='/register'>
               <HiArrowRightOnRectangle />
               Register
             </StyledNavLink>

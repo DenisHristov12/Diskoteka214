@@ -16,6 +16,7 @@
     "@tanstack/react-query-devtools": "^5.32.0",
     "date-fns": "^3.6.0",
     "emailjs": "^4.0.3",
+    "framer-motion": "^11.2.10",
     "hero-slider": "^3.2.1",
     "leaflet": "^1.9.4",
     "react": "^18.2.0",

@@ -3,23 +3,33 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 import styled from 'styled-components';
 import { useState } from 'react';
+import {
+  respondToBiggerTablets,
+  respondToLandscapeTablets,
+  respondToMobile,
+} from '../styles/mediaQueries';
 
 const StyledAppLayout = styled.div`
   display: grid;
-  grid-template-columns: 26rem 1fr;
+  /* grid-template-columns: 26rem 1fr; */
+  grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
   height: 100vh;
+
+  ${respondToLandscapeTablets(`
+    grid-template-columns: 22rem 1fr;
+  `)}
+
+  ${respondToMobile(`
+    grid-template-columns: 18rem 1fr;
+  `)}
 `;
 
 const Main = styled.main`
   background-color: var(--color-grey-50);
   padding: 4rem 4.8rem 6.4rem;
 
-  grid-column: ${({ isOpen }) => (isOpen ? '1 / -1' : '2 / -1')};
-
   overflow: scroll;
-
-  /* background-color: red; */
 
   &::-webkit-scrollbar {
     display: none;
@@ -28,7 +38,7 @@ const Main = styled.main`
 
 const Container = styled.div`
   max-width: 150rem;
-  margin: ${({ isOpen }) => (!isOpen ? '0 auto' : '0')};
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 3.2rem;
@@ -37,7 +47,7 @@ const Container = styled.div`
 function AppLayout() {
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log(isOpen);
+  // console.log(isOpen);
 
   const hideButton = isOpen;
 
@@ -48,10 +58,10 @@ function AppLayout() {
   return (
     <StyledAppLayout>
       <Header hideButton={hideButton} isOpen={isOpen} setIsOpen={setState} />
-      <Sidebar hideButton={hideButton} isOpen={isOpen} setIsOpen={setState} />
+      <Sidebar isOpen={isOpen} setIsOpen={setState} />
 
-      <Main isOpen={isOpen}>
-        <Container isOpen={isOpen}>
+      <Main>
+        <Container>
           <Outlet />
         </Container>
       </Main>

@@ -3,39 +3,76 @@ import Logo from './Logo';
 import MainNav from './MainNav';
 import Button from './Button';
 import { HiMenu } from 'react-icons/hi';
-import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { respondToLandscapeTablets } from '../styles/mediaQueries';
 
 const StyledSidebar = styled.aside`
   background-color: var(--color-grey-0);
-  /* background-color: red; */
   padding: 1.2rem 2.4rem;
   border-right: 1px solid var(--color-grey-100);
 
-  grid-row: 1 / -1;
+  width: 26rem;
+  height: 100vh;
 
-  display: ${({ isOpen }) => (isOpen ? 'none' : 'flex')};
+  position: fixed;
+  top: 0;
+  left: ${({ isOpen }) => (isOpen ? '0' : '-26rem')};
+
+  transition: all 0.5s ease-in-out;
+
   flex-direction: column;
   gap: 3.2rem;
+
+  display: flex;
+  z-index: 1000;
+
+  ${respondToLandscapeTablets(`
+    padding: 1.2rem 0.8rem;
+  `)}
+`;
+
+const Backdrop = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  z-index: 999;
 `;
 
 const ButtonContainer = styled.div`
-  /* background-color: red; */
   display: flex;
   align-self: flex-end;
 `;
 
-function Sidebar({ isOpen, setIsOpen, hideButton }) {
-  return (
-    <StyledSidebar isOpen={isOpen}>
-      <ButtonContainer>
-        <Button onClick={setIsOpen} size='medium'>
-          <HiMenu />
-        </Button>
-      </ButtonContainer>
+function Sidebar({ isOpen, setIsOpen }) {
+  function closeSidebar() {
+    setIsOpen(false);
+  }
 
-      <Logo />
-      <MainNav />
-    </StyledSidebar>
+  return (
+    <>
+      <Backdrop
+        initial={false}
+        animate={isOpen ? 'open' : 'closed'}
+        variants={{ open: { opacity: 1 }, closed: { opacity: 0 } }}
+        transition={{ duration: 0.3 }}
+        isOpen={isOpen}
+        onClick={() => setIsOpen(false)} // Close sidebar when backdrop is clicked
+      />
+      <StyledSidebar isOpen={isOpen}>
+        <ButtonContainer>
+          <Button onClick={setIsOpen} size='medium'>
+            <HiMenu />
+          </Button>
+        </ButtonContainer>
+
+        <Logo />
+        <MainNav closeSidebar={closeSidebar} />
+      </StyledSidebar>
+    </>
   );
 }
 
