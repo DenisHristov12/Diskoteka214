@@ -18,9 +18,12 @@ const StyledHeader = styled.header`
   gap: 2.4rem;
   align-items: center;
   justify-content: space-between;
+
+  /* background-color: red; */
 `;
 
 const Container = styled.div`
+  /* justify-self: flex-end; */
   display: flex;
   gap: 2.4rem;
   align-items: center;
@@ -30,7 +33,7 @@ const Container = styled.div`
 const ButtonContainer = styled.div`
   /* background-color: red; */
   display: ${({ hideButton }) => (!hideButton ? 'none' : 'flex')};
-  align-self: flex-end;
+  /* justify-self: flex-start; */
 `;
 
 function Header({ isOpen, setIsOpen, hideButton }) {
