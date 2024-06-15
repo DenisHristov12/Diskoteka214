@@ -12,7 +12,8 @@ const Layout = styled.div`
   flex-direction: column;
   gap: 2.4rem;
 
-  padding: 2.4rem 4.8rem;
+  padding: 2.4rem 9.6rem;
+
   /* background-color: red; */
 `;
 
@@ -28,7 +29,7 @@ function UpcomingEvents() {
   return (
     <Layout>
       {eventsAfterToday.map((event) => (
-        <UpcomingEvent event={event} />
+        <UpcomingEvent event={event} key={event.id} />
       ))}
       <Pagination count={count} pageSize={PAGE_SIZE_EVENTS} />
     </Layout>

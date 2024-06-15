@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import styled from 'styled-components';
@@ -27,7 +27,8 @@ const StyledAppLayout = styled.div`
 
 const Main = styled.main`
   background-color: var(--color-grey-50);
-  padding: 4rem 4.8rem 6.4rem;
+  padding: ${(props) => (props.isHome ? '0' : '4rem 4.8rem 6.4rem')};
+  margin: 0;
 
   overflow: scroll;
 
@@ -38,7 +39,7 @@ const Main = styled.main`
 
 const Container = styled.div`
   max-width: 150rem;
-  margin: 0 auto;
+  margin: ${(props) => (!props.isHome ? '0' : '0 auto')};
   display: flex;
   flex-direction: column;
   gap: 3.2rem;
@@ -46,6 +47,11 @@ const Container = styled.div`
 
 function AppLayout() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const location = useLocation();
+  const isHome = location.pathname === '/home';
+
+  console.log(isHome);
 
   // console.log(isOpen);
 
@@ -60,7 +66,7 @@ function AppLayout() {
       <Header hideButton={hideButton} isOpen={isOpen} setIsOpen={setState} />
       <Sidebar isOpen={isOpen} setIsOpen={setState} />
 
-      <Main>
+      <Main isHome={isHome}>
         <Container>
           <Outlet />
         </Container>

@@ -1,10 +1,12 @@
-import HeroSection from '../ui/HeroSection';
 import UpcomingEvents from '../ui/UpcomingEvents';
+import ZoomSlider from '../ui/ZoomSlider';
+
+// console.log(app);
 
 function Home() {
   return (
     <>
-      {/* <HeroSection /> */}
+      <ZoomSlider />
 
       <UpcomingEvents />
     </>
