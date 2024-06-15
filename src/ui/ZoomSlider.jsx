@@ -1,38 +1,56 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HiArrowDownLeft, HiArrowLeft, HiArrowRight } from 'react-icons/hi2';
 import styled, { css, keyframes } from 'styled-components';
 
+const slideIn = keyframes`
+ 
+    0% {
+      right: -50%;
+    }
+    100% {
+      right: 0%;
+    }
+  
+`;
+const slideOut = keyframes`
+ 
+    0% {
+      left: -50%;
+    }
+    100% {
+      left: 0%;
+    }
+  
+`;
+
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 92vh;
   position: relative;
 `;
 
-const ImageContainer = styled.img`
-  @keyframes fade-in {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
+const ImageContainer = styled.div`
+  width: 100%;
+  height: 100%;
 
-  @keyframes fade-out {
-    0% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
+  position: absolute;
+  right: 0;
+  animation: ${slideIn} 2s ease;
 
+  ${(props) =>
+    props.direction === 'forward'
+      ? css`
+          animation: ${slideIn} 1s ease;
+        `
+      : css`
+          animation: ${slideOut} 1s ease;
+        `}
+`;
+
+const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-
-  animation-duration: 0.5s; /* Adjust duration as needed */
-  animation-timing-function: ease-in-out; /* Adjust timing function as needed */
 `;
 
 const NavButton = styled.button`
@@ -110,10 +128,20 @@ const images = [
 ];
 
 function ZoomSlider() {
+  const [image, setImage] = useState('');
   const [imageIndex, setImageIndex] = useState(0);
+  const [direction, setDirection] = useState('forward');
+
+  useEffect(
+    function () {
+      setImage(images[imageIndex].image);
+    },
+    [imageIndex]
+  );
 
   function handleNext() {
-    setImageIndex((imageIndex) => (imageIndex += 1));
+    setImageIndex((prevIndex) => prevIndex + 1);
+    setDirection('forward');
 
     if (imageIndex === images.length - 1) {
       setImageIndex(0);
@@ -121,7 +149,8 @@ function ZoomSlider() {
   }
 
   function handlePrev() {
-    setImageIndex((imageIndex) => (imageIndex -= 1));
+    setImageIndex((prevIndex) => prevIndex - 1);
+    setDirection('backwards');
 
     if (imageIndex === 0) {
       setImageIndex(images.length - 1);
@@ -130,8 +159,14 @@ function ZoomSlider() {
 
   return (
     <Container>
-      <ImageContainer src={images[imageIndex].image} />
-      <Title>{images[imageIndex].title}</Title>
+      {images[imageIndex].image === image && (
+        <ImageContainer direction={direction}>
+          <Image src={image} />
+
+          <Title>{images[imageIndex].title}</Title>
+        </ImageContainer>
+      )}
+
       <NavButton onClick={handlePrev}>
         <HiArrowLeft />
       </NavButton>
