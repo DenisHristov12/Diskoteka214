@@ -4,6 +4,12 @@ export const respondToSmallLaptop = (content) => `
   }
 `;
 
+export const respondToBiggerTablets = (content) => `
+  @media (min-height: 64em) {
+    ${content}
+  }
+`;
+
 export const respondToLandscapeTablets = (content) => `
   @media (max-width: 48em) {
     ${content}
@@ -16,8 +22,8 @@ export const respondToMobile = (content) => `
   }
 `;
 
-export const respondToBiggerTablets = (content) => `
-  @media (min-height: 64em) {
+export const respondToMobileSmall = (content) => `
+  @media (max-width: 20em) {
     ${content}
   }
 `;

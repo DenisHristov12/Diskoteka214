@@ -2,6 +2,11 @@ import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { PAGE_SIZE, PAGE_SIZE_EVENTS } from '../utils/constants';
+import {
+  respondToLandscapeTablets,
+  respondToMobile,
+  respondToSmallLaptop,
+} from '../styles/mediaQueries';
 
 const StyledPagination = styled.div`
   width: 100%;
@@ -14,6 +19,12 @@ const P = styled.p`
   font-size: 1.4rem;
   margin-left: 0.8rem;
 
+  ${respondToLandscapeTablets(`font-size: 1.2rem`)}
+
+  ${respondToMobile(`
+   margin-left: 0rem;
+    font-size: 1rem`)}
+
   & span {
     font-weight: 600;
   }
@@ -22,6 +33,9 @@ const P = styled.p`
 const Buttons = styled.div`
   display: flex;
   gap: 0.6rem;
+
+  ${respondToMobile(`
+   gap: 0rem;`)}
 `;
 
 const PaginationButton = styled.button`
@@ -51,12 +65,22 @@ const PaginationButton = styled.button`
   & svg {
     height: 1.8rem;
     width: 1.8rem;
+
+    ${respondToLandscapeTablets(`height: 1.6rem;
+    width: 1.6rem;`)}
+
+    ${respondToMobile(`height: 1.2rem;
+    width: 1.2rem;`)}
   }
 
   &:hover:not(:disabled) {
     background-color: var(--color-brand-600);
     color: var(--color-brand-50);
   }
+
+  ${respondToLandscapeTablets(`font-size: 1.2rem`)}
+
+  ${respondToMobile(`font-size: 1rem`)}
 `;
 
 function Pagination({ count, pageSize }) {
@@ -88,7 +112,7 @@ function Pagination({ count, pageSize }) {
   return (
     <StyledPagination>
       <P>
-        Showing <span>{(currPage - 1) * pageSize + 1}</span> to{' '}
+        <span>{(currPage - 1) * pageSize + 1}</span> to{' '}
         <span>{currPage === pageCount ? count : currPage * pageSize}</span> of{' '}
         <span>{count}</span> results
       </P>

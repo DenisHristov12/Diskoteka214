@@ -11,18 +11,9 @@ import {
 
 const StyledAppLayout = styled.div`
   display: grid;
-  /* grid-template-columns: 26rem 1fr; */
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
   height: 100vh;
-
-  ${respondToLandscapeTablets(`
-    grid-template-columns: 22rem 1fr;
-  `)}
-
-  ${respondToMobile(`
-    grid-template-columns: 18rem 1fr;
-  `)}
 `;
 
 const Main = styled.main`
@@ -51,7 +42,7 @@ function AppLayout() {
   const location = useLocation();
   const isHome = location.pathname === '/home';
 
-  console.log(isHome);
+  // console.log(isHome);
 
   // console.log(isOpen);
 

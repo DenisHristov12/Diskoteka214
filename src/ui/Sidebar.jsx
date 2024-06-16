@@ -28,6 +28,7 @@ const StyledSidebar = styled.aside`
 
   ${respondToLandscapeTablets(`
     padding: 1.2rem 0.8rem;
+    width: 22rem;
   `)}
 `;
 

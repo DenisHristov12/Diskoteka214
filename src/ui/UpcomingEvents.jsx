@@ -5,6 +5,7 @@ import UpcomingEvent from './UpcomingEvent';
 import Heading from './Heading';
 import Pagination from './Pagination';
 import { PAGE_SIZE_EVENTS } from '../utils/constants';
+import { respondToMobile, respondToMobileSmall } from '../styles/mediaQueries';
 
 const Layout = styled.div`
   margin-top: 6.4rem;
@@ -14,7 +15,16 @@ const Layout = styled.div`
 
   padding: 2.4rem 9.6rem;
 
-  /* background-color: red; */
+  ${respondToMobile(`margin-top: 6.4rem;
+
+  padding: 2rem 6.4rem;
+  `)}
+
+  ${respondToMobileSmall(`margin-top: 3.6rem;
+  gap: 1.4rem;
+
+  padding: 2rem 4.8rem;
+  `)}
 `;
 
 function UpcomingEvents() {
@@ -23,8 +33,6 @@ function UpcomingEvents() {
   if (isLoading) {
     return <Spinner />;
   }
-
-  // console.log(eventsAfterToday);
 
   return (
     <Layout>

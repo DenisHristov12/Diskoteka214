@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
-import { HiArrowDownLeft, HiArrowLeft, HiArrowRight } from 'react-icons/hi2';
+import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
 import styled, { css, keyframes } from 'styled-components';
+import {
+  respondToBiggerTablets,
+  respondToLandscapeTablets,
+} from '../styles/mediaQueries';
 
 const slideIn = keyframes`
  
@@ -54,8 +58,14 @@ const Image = styled.img`
 `;
 
 const NavButton = styled.button`
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 3rem;
+  height: 3rem;
+
+  ${respondToLandscapeTablets(`
+  width: 2rem;
+  height: 2rem;
+    `)}
+
   outline: none;
   border: none;
   background: none;
@@ -76,6 +86,15 @@ const NavButton = styled.button`
       : css`
           left: 2%;
         `}
+
+  & svg {
+    width: 3rem;
+    height: 3rem;
+
+    ${respondToLandscapeTablets(`
+    width: 2rem;
+    height: 2rem;`)}
+  }
 `;
 
 const Title = styled.h3`
@@ -87,6 +106,9 @@ const Title = styled.h3`
   transform: translate(-50%, 0);
   box-shadow: 0px 4px 10px 15px rgba(3, 3, 3, 0.9),
     inset 0 --3em 3em rgba(3, 3, 3, 0.5);
+
+  ${respondToLandscapeTablets(`
+    font-size: 1.4rem;`)}
 `;
 
 const DotContainer = styled.div`
@@ -114,6 +136,10 @@ const Dot = styled.div`
       : css`
           background-color: var(--color-grey-0);
         `}
+
+  ${respondToLandscapeTablets(`
+    width: 0.6rem;
+    height: 0.6rem;`)}
 `;
 
 const images = [
@@ -168,10 +194,10 @@ function ZoomSlider() {
       )}
 
       <NavButton onClick={handlePrev}>
-        <HiArrowLeft />
+        <HiChevronLeft />
       </NavButton>
       <NavButton right onClick={handleNext}>
-        <HiArrowRight />
+        <HiChevronRight />
       </NavButton>
       <DotContainer>
         {images.map((dot, i) => (

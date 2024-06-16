@@ -8,10 +8,9 @@ import { motion } from 'framer-motion';
 
 const StyledHeader = styled.header`
   background-color: var(--color-grey-0);
-  padding: 1.2rem 4.8rem;
+  padding: 1.2rem 2.4rem;
   border-bottom: 1px solid var(--color-grey-100);
 
-  /* grid-column: ${({ isOpen }) => (!isOpen ? '2 / -1' : '1 / -1')}; */
   grid-column: 1 / -1;
 
   display: flex;
@@ -31,7 +30,7 @@ const Container = styled.div`
 const ButtonContainer = styled.div`
   display: ${({ hideButton }) => (hideButton ? 'none' : 'flex')};
 
-  /* transition: display 2s ease-in-out; */
+  transition: display 2s ease;
 `;
 
 function Header({ isOpen, setIsOpen, hideButton }) {
@@ -46,8 +45,8 @@ function Header({ isOpen, setIsOpen, hideButton }) {
       </ButtonContainer>
 
       <Container>
-        {isUser && <UserAvatar />}
         <HeaderMenu />
+        {isUser && <UserAvatar />}
       </Container>
     </StyledHeader>
   );

@@ -1,4 +1,8 @@
 import styled, { css } from 'styled-components';
+import {
+  respondToMobileSmall,
+  respondToSmallLaptop,
+} from '../styles/mediaQueries';
 
 const sizes = {
   small: css`
@@ -12,6 +16,16 @@ const sizes = {
     font-size: 1.4rem;
     padding: 1.2rem 1.6rem;
     font-weight: 500;
+
+    ${respondToSmallLaptop(`
+      font-size: 1.2rem;
+    padding: 1rem 1.4rem;
+    `)}
+
+    ${respondToMobileSmall(`
+      font-size: 0.8rem;
+    padding: 0.6rem 1rem;
+    `)}
   `,
   large: css`
     font-size: 1.6rem;
