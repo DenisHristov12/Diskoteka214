@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
+import {
+  respondToLandscapeTablets,
+  respondToSmallLaptop,
+} from '../styles/mediaQueries';
 
 const StyledSelect = styled.select`
   font-size: 1.4rem;
@@ -14,6 +18,9 @@ const StyledSelect = styled.select`
   background-color: var(--color-grey-0);
   font-weight: 500;
   box-shadow: var(--shadow-sm);
+
+  ${respondToSmallLaptop(`font-size: 1.2rem;`)}
+  ${respondToLandscapeTablets(`font-size: 1rem;`)}
 `;
 
 const Select = forwardRef(({ options, value, onChange, ...props }, ref) => (

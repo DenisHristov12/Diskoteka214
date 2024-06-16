@@ -1,5 +1,9 @@
 import { useSearchParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import {
+  respondToLandscapeTablets,
+  respondToSmallLaptop,
+} from '../styles/mediaQueries';
 
 const StyledFilter = styled.div`
   border: 1px solid var(--color-grey-100);
@@ -8,7 +12,7 @@ const StyledFilter = styled.div`
   border-radius: var(--border-radius-sm);
   padding: 0.4rem;
   display: flex;
-  gap: 0.4rem;
+  gap: 0.2rem;
 `;
 
 const FilterButton = styled.button`
@@ -25,7 +29,6 @@ const FilterButton = styled.button`
   border-radius: var(--border-radius-sm);
   font-weight: 500;
   font-size: 1.4rem;
-  /* To give the same height as select */
   padding: 0.44rem 0.8rem;
   transition: all 0.3s;
 
@@ -33,6 +36,9 @@ const FilterButton = styled.button`
     background-color: var(--color-brand-600);
     color: var(--color-brand-50);
   }
+
+  ${respondToSmallLaptop(`font-size: 1.2rem;`)}
+  ${respondToLandscapeTablets(`font-size: 1rem;`)}
 `;
 
 function Filter({ filterField, options }) {

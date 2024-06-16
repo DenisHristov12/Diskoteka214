@@ -11,6 +11,7 @@ import {
   respondToSmallLaptop,
 } from '../styles/mediaQueries';
 import { useEffect, useState } from 'react';
+import useWidth from '../hooks/useWidth';
 
 const EventContainer = styled.div`
   display: grid;
@@ -138,13 +139,7 @@ function UpcomingEvent({ event }) {
 
   const navigate = useNavigate();
 
-  const [width, setWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const width = useWidth();
 
   if (isLoadingReservators) {
     return <Spinner />;

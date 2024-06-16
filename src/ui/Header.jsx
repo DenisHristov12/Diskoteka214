@@ -2,9 +2,8 @@ import styled from 'styled-components';
 import HeaderMenu from './HeaderMenu';
 import UserAvatar from '../features/authentication/UserAvatar';
 import { useUser } from '../features/authentication/useUser';
-import Button from './Button';
-import { HiMenu } from 'react-icons/hi';
-import { motion } from 'framer-motion';
+import { HiBars4 } from 'react-icons/hi2';
+import { ButtonMenu } from './ButtonMenu';
 
 const StyledHeader = styled.header`
   background-color: var(--color-grey-0);
@@ -39,9 +38,9 @@ function Header({ isOpen, setIsOpen, hideButton }) {
   return (
     <StyledHeader isOpen={isOpen}>
       <ButtonContainer hideButton={hideButton}>
-        <Button onClick={setIsOpen} size='medium'>
-          <HiMenu />
-        </Button>
+        <ButtonMenu onClick={setIsOpen} size='medium'>
+          <HiBars4 />
+        </ButtonMenu>
       </ButtonContainer>
 
       <Container>

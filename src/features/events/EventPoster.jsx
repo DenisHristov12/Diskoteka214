@@ -15,18 +15,26 @@ import ConfirmDelete from '../../ui/ConfirmDelete';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../authentication/useUser';
 import { isBefore } from 'date-fns/isBefore';
+import {
+  respondToLandscapeTablets,
+  respondToMobile,
+  respondToMobileSmall,
+} from '../../styles/mediaQueries';
 
 const userTypes = {
   user: css`
     height: 50vh;
   `,
   admin: css`
-    height: 65vh;
+    height: 75vh;
+
+    ${respondToLandscapeTablets(`height: 55vh;`)}
+    ${respondToMobileSmall(`height: 45vh;`)}
   `,
 };
 
 const Poster = styled.div`
-  height: 65vh;
+  height: 75vh;
   padding: 0.6rem;
   display: flex;
   flex-direction: column;

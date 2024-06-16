@@ -7,6 +7,7 @@ import { useSearchParams } from 'react-router-dom';
 import Empty from '../../ui/Empty';
 import { useUser } from '../authentication/useUser';
 import { useEventsAfterTodayNoPagination } from './useEventsAfterTodayNoPagination';
+import { respondToMobile } from '../../styles/mediaQueries';
 
 const GridContainer = styled.div`
   width: 100%;
@@ -17,7 +18,10 @@ const GridContainer = styled.div`
   column-gap: 1.2rem;
   row-gap: 4.8rem;
 
-  /* background-color: red; */
+  ${respondToMobile(`grid-template-columns: repeat(2, 1fr);
+  column-gap: 2.4rem;
+  
+  `)}
 `;
 
 function EventBoard() {

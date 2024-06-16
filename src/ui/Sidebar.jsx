@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import Logo from './Logo';
 import MainNav from './MainNav';
-import Button from './Button';
-import { HiMenu } from 'react-icons/hi';
+import { HiBars4 } from 'react-icons/hi2';
 import { motion } from 'framer-motion';
 import { respondToLandscapeTablets } from '../styles/mediaQueries';
+import { ButtonMenu } from './ButtonMenu';
 
 const StyledSidebar = styled.aside`
   background-color: var(--color-grey-0);
@@ -65,9 +65,9 @@ function Sidebar({ isOpen, setIsOpen }) {
       />
       <StyledSidebar isOpen={isOpen}>
         <ButtonContainer>
-          <Button onClick={setIsOpen} size='medium'>
-            <HiMenu />
-          </Button>
+          <ButtonMenu onClick={setIsOpen} size='medium'>
+            <HiBars4 />
+          </ButtonMenu>
         </ButtonContainer>
 
         <Logo />
