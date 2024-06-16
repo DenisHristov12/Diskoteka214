@@ -19,11 +19,17 @@ import {
   respondToLandscapeTablets,
   respondToMobile,
   respondToMobileSmall,
+  respondToSmallLaptop,
 } from '../../styles/mediaQueries';
 
 const userTypes = {
   user: css`
-    height: 50vh;
+    height: 55vh;
+
+    ${respondToSmallLaptop(`height: 45vh;`)}
+    ${respondToLandscapeTablets(`height: 35vh;`)}
+    ${respondToMobile(`height: 40vh;`)}
+    ${respondToMobileSmall(`height: 30vh;`)}
   `,
   admin: css`
     height: 75vh;
