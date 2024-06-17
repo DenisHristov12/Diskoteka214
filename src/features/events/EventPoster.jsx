@@ -24,12 +24,12 @@ import {
 
 const userTypes = {
   user: css`
-    height: 55vh;
+    height: 60vh;
 
-    ${respondToSmallLaptop(`height: 45vh;`)}
-    ${respondToLandscapeTablets(`height: 35vh;`)}
-    ${respondToMobile(`height: 40vh;`)}
-    ${respondToMobileSmall(`height: 30vh;`)}
+    ${respondToSmallLaptop(`height: 40vh;`)}
+    ${respondToLandscapeTablets(`height: 30vh;`)}
+    ${respondToMobile(`height: 35vh;`)}
+    ${respondToMobileSmall(`height: 25vh;`)}
   `,
   admin: css`
     height: 75vh;
