@@ -15,13 +15,6 @@ const Container = styled.div`
   gap: 2.4rem;
 `;
 
-const ContainerMobile = styled.div`
-  display: flex;
-  align-items: flex-start;
-
-  /* background-color: red; */
-`;
-
 function Events() {
   const { isAdmin } = useUser();
 
@@ -42,13 +35,13 @@ function Events() {
         {width < 500 && isAdmin && <AddEvent />}
       </Row>
 
-      <Row>
-        {width < 500 && (
-          <ContainerMobile>
+      {width < 500 && (
+        <Row>
+          <Container>
             <EventFilterSort />
-          </ContainerMobile>
-        )}
-      </Row>
+          </Container>
+        </Row>
+      )}
 
       <Row type='horizontal'>
         <EventBoard />

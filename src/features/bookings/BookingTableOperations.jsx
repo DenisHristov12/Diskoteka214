@@ -19,14 +19,6 @@ function BookingTableOperations() {
         options={[
           { value: 'date-desc', label: 'Sort by date (recent first)' },
           { value: 'date-asc', label: 'Sort by date (earlier first)' },
-          // {
-          //   value: 'peopleNum-desc',
-          //   label: 'Sort by people number (most first)',
-          // },
-          // {
-          //   value: 'peopleNum-asc',
-          //   label: 'Sort by people number (less first)',
-          // },
         ]}
       />
     </TableOperations>

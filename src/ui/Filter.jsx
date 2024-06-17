@@ -2,6 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
   respondToLandscapeTablets,
+  respondToMobileSmall,
   respondToSmallLaptop,
 } from '../styles/mediaQueries';
 
@@ -39,6 +40,7 @@ const FilterButton = styled.button`
 
   ${respondToSmallLaptop(`font-size: 1.2rem;`)}
   ${respondToLandscapeTablets(`font-size: 1rem;`)}
+  ${respondToMobileSmall(`font-size: 0.8rem;`)}
 `;
 
 function Filter({ filterField, options }) {

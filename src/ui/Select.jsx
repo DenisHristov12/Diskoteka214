@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
 import {
   respondToLandscapeTablets,
+  respondToMobileSmall,
   respondToSmallLaptop,
 } from '../styles/mediaQueries';
 
@@ -21,6 +22,7 @@ const StyledSelect = styled.select`
 
   ${respondToSmallLaptop(`font-size: 1.2rem;`)}
   ${respondToLandscapeTablets(`font-size: 1rem;`)}
+  ${respondToMobileSmall(`font-size: 0.8rem;`)}
 `;
 
 const Select = forwardRef(({ options, value, onChange, ...props }, ref) => (
