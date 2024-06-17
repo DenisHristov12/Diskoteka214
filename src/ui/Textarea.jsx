@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { respondToLandscapeTablets } from '../styles/mediaQueries';
 
 const Textarea = styled.textarea`
   padding: 0.8rem 1.2rem;
@@ -9,6 +10,10 @@ const Textarea = styled.textarea`
   width: 100%;
   height: 8rem;
   resize: none;
+
+  ${respondToLandscapeTablets(`
+    padding: 0.6rem 1rem;
+  `)}
 `;
 
 export default Textarea;

@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { respondToMobile } from '../styles/mediaQueries';
 
 const Form = styled.form`
   ${(props) =>
@@ -10,6 +11,12 @@ const Form = styled.form`
       background-color: var(--color-grey-0);
       border: 1px solid var(--color-grey-100);
       border-radius: var(--border-radius-md);
+
+      ${respondToMobile(`
+        padding: 2rem 1rem;
+
+        border: 0px solid var(--color-grey-100);
+      `)}
     `}
 
   ${(props) =>

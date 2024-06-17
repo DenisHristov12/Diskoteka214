@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import {
   respondToLandscapeTablets,
   respondToMobile,
+  respondToMobileSmall,
   respondToSmallLaptop,
 } from '../styles/mediaQueries';
 
@@ -22,6 +23,10 @@ const Heading = styled.h1`
     css`
       font-size: 2rem;
       font-weight: 600;
+
+      ${respondToLandscapeTablets(`font-size: 1.8rem;`)}
+      ${respondToMobile(`font-size: 1.4rem;`)}
+      ${respondToMobileSmall(`font-size: 1.2rem;`)}
     `}
     
     ${(props) =>
