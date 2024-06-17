@@ -21,6 +21,7 @@ import {
   respondToLandscapeTablets,
   respondToMobile,
   respondToMobileSmall,
+  respondToSmallLaptop,
 } from '../styles/mediaQueries';
 import useWidth from '../hooks/useWidth';
 
@@ -37,6 +38,8 @@ const Container = styled.div`
 
   ${respondToMobile(`
     grid-template-columns: 1fr;
+
+    justify-content: center;
   `)}
 `;
 
@@ -160,7 +163,13 @@ const Footer = styled.footer`
   color: var(--color-grey-500);
   text-align: right;
 
-  /* background-color: red; */
+  display: flex;
+  justify-content: center;
+
+  ${respondToMobileSmall(`
+    padding: 1rem 2.4rem;
+  font-size: 1rem;
+  `)}
 `;
 
 function Event() {
@@ -245,12 +254,12 @@ function Event() {
             </SectionDiv>
           </Section>
 
-          <ButtonGroup isEvent='true'>
+          <ButtonGroup>
             <Modal>
               {isUser && !isReservator ? (
                 <>
                   <Modal.Open opens='reserve'>
-                    <Button size='medium'>Reserve</Button>
+                    <Button>Reserve</Button>
                   </Modal.Open>
                   <Modal.Window name='reserve'>
                     <ReserveForm />
@@ -293,15 +302,15 @@ function Event() {
             <Button variation='secondary' onClick={moveBack}>
               Back
             </Button>
-
-            {isAdmin && (
-              <Footer>
-                <p>
-                  Created {format(new Date(created_at), 'EEE, MMM dd yyyy, p')}
-                </p>
-              </Footer>
-            )}
           </ButtonGroup>
+
+          {isAdmin && (
+            <Footer>
+              <p>
+                Created {format(new Date(created_at), 'EEE, MMM dd yyyy, p')}
+              </p>
+            </Footer>
+          )}
         </DataBox>
 
         {width > 430 && <Image src={image} alt='event poster' />}

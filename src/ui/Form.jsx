@@ -27,23 +27,18 @@ const Form = styled.form`
     props.type === 'modal' &&
     css`
       width: 100%;
-      /* width: 80rem; */
 
-      /* ${respondToLandscapeTablets(`
-        width: 45rem;
-      `)}
+      height: 80vh;
 
-      ${respondToMobile(`
-        width: 20rem;
-      `)}
-
-      ${respondToMobileSmall(`
-        width: 15rem;
-      `)} */
+      overflow: scroll;
     `}
     
-  overflow: hidden;
+  overflow: scroll;
   font-size: 1.4rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export default Form;

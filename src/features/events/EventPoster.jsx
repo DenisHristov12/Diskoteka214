@@ -34,8 +34,10 @@ const userTypes = {
   admin: css`
     height: 75vh;
 
-    ${respondToLandscapeTablets(`height: 55vh;`)}
-    ${respondToMobileSmall(`height: 45vh;`)}
+    ${respondToSmallLaptop(`height: 60vh;`)}
+    ${respondToLandscapeTablets(`height: 45vh;`)}
+    ${respondToMobile(`height: 50vh;`)}
+    ${respondToMobileSmall(`height: 40vh;`)}
   `,
 };
 

@@ -8,6 +8,8 @@ import FormRow from '../../ui/FormRow';
 import { useCreateEvent } from './useCreateEvent';
 import { useEditEvent } from './useEditEvent';
 import { useQueryClient } from '@tanstack/react-query';
+import useWidth from '../../hooks/useWidth';
+import FormRowVertical from '../../ui/FormRowVertical';
 
 function CreateEventForm({ eventToEdit = {}, onCloseModal }) {
   const queryClient = useQueryClient();
@@ -17,6 +19,8 @@ function CreateEventForm({ eventToEdit = {}, onCloseModal }) {
   const { register, handleSubmit, reset, formState } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
+
+  const width = useWidth();
 
   const { errors } = formState;
 
@@ -53,130 +57,261 @@ function CreateEventForm({ eventToEdit = {}, onCloseModal }) {
         }
       );
     }
-
-    // console.log(data);
-  }
-
-  function onError(errors) {
-    // console.log(errors);
   }
 
   return (
     <Form
-      onSubmit={handleSubmit(onSubmit, onError)}
+      onSubmit={handleSubmit(onSubmit)}
       type={onCloseModal ? 'modal' : 'regular'}>
-      <FormRow label='Event name' error={errors?.name?.message}>
-        <Input
-          type='text'
-          id='name'
-          disabled={isWorking}
-          {...register('name', {
-            required: 'This field is required',
-          })}
-        />
-      </FormRow>
+      {width > 1050 ? (
+        <FormRow label='Event name' error={errors?.name?.message}>
+          <Input
+            type='text'
+            id='name'
+            disabled={isWorking}
+            {...register('name', {
+              required: 'This field is required',
+            })}
+          />
+        </FormRow>
+      ) : (
+        <FormRowVertical label='Event name' error={errors?.name?.message}>
+          <Input
+            type='text'
+            id='name'
+            disabled={isWorking}
+            {...register('name', {
+              required: 'This field is required',
+            })}
+          />
+        </FormRowVertical>
+      )}
 
-      <FormRow label='Event date' error={errors?.date?.message}>
-        <Input
-          type='date'
-          id='date'
-          disabled={isWorking}
-          {...register('date', {
-            required: 'This field is required',
-          })}
-        />
-      </FormRow>
+      {width > 1050 ? (
+        <FormRow label='Event date' error={errors?.date?.message}>
+          <Input
+            type='date'
+            id='date'
+            disabled={isWorking}
+            {...register('date', {
+              required: 'This field is required',
+            })}
+          />
+        </FormRow>
+      ) : (
+        <FormRowVertical label='Event date' error={errors?.date?.message}>
+          <Input
+            type='date'
+            id='date'
+            disabled={isWorking}
+            {...register('date', {
+              required: 'This field is required',
+            })}
+          />
+        </FormRowVertical>
+      )}
 
-      <FormRow label='Entrance' error={errors?.entrance?.message}>
-        <Input
-          type='number'
-          id='entrance'
-          disabled={isWorking}
-          {...register('entrance', {
-            required: 'This field is required',
-            validate: (value) => value >= 0 || 'Entrance must be 0 or greater!',
-          })}
-        />
-      </FormRow>
+      {width > 1050 ? (
+        <FormRow label='Entrance' error={errors?.entrance?.message}>
+          <Input
+            type='number'
+            id='entrance'
+            disabled={isWorking}
+            {...register('entrance', {
+              required: 'This field is required',
+              validate: (value) =>
+                value >= 0 || 'Entrance must be 0 or greater!',
+            })}
+          />
+        </FormRow>
+      ) : (
+        <FormRowVertical label='Entrance' error={errors?.entrance?.message}>
+          <Input
+            type='number'
+            id='entrance'
+            disabled={isWorking}
+            {...register('entrance', {
+              required: 'This field is required',
+              validate: (value) =>
+                value >= 0 || 'Entrance must be 0 or greater!',
+            })}
+          />
+        </FormRowVertical>
+      )}
 
-      <FormRow label='Music type' error={errors?.musicType?.message}>
-        <Input
-          type='text'
-          id='musicType'
-          disabled={isWorking}
-          {...register('musicType', {
-            required: 'This field is required',
-          })}
-        />
-      </FormRow>
+      {width > 1050 ? (
+        <FormRow label='Music type' error={errors?.musicType?.message}>
+          <Input
+            type='text'
+            id='musicType'
+            disabled={isWorking}
+            {...register('musicType', {
+              required: 'This field is required',
+            })}
+          />
+        </FormRow>
+      ) : (
+        <FormRowVertical label='Music type' error={errors?.musicType?.message}>
+          <Input
+            type='text'
+            id='musicType'
+            disabled={isWorking}
+            {...register('musicType', {
+              required: 'This field is required',
+            })}
+          />
+        </FormRowVertical>
+      )}
 
-      <FormRow label='Alchohol type' error={errors?.alchoholType?.message}>
-        <Input
-          type='text'
-          id='alchoholType'
-          disabled={isWorking}
-          {...register('alchoholType', {
-            required: 'This field is required',
-          })}
-        />
-      </FormRow>
+      {width > 1050 ? (
+        <FormRow label='Alchohol type' error={errors?.alchoholType?.message}>
+          <Input
+            type='text'
+            id='alchoholType'
+            disabled={isWorking}
+            {...register('alchoholType', {
+              required: 'This field is required',
+            })}
+          />
+        </FormRow>
+      ) : (
+        <FormRowVertical
+          label='Alchohol type'
+          error={errors?.alchoholType?.message}>
+          <Input
+            type='text'
+            id='alchoholType'
+            disabled={isWorking}
+            {...register('alchoholType', {
+              required: 'This field is required',
+            })}
+          />
+        </FormRowVertical>
+      )}
 
-      <FormRow label='Promotions' error={errors?.promotions?.message}>
-        <Input
-          type='text'
-          id='promotions'
-          disabled={isWorking}
-          {...register('promotions', {
-            // required: 'This field is required',
-          })}
-        />
-      </FormRow>
+      {width > 1050 ? (
+        <FormRow label='Promotions' error={errors?.promotions?.message}>
+          <Input
+            type='text'
+            id='promotions'
+            disabled={isWorking}
+            {...register('promotions', {
+              // required: 'This field is required',
+            })}
+          />
+        </FormRow>
+      ) : (
+        <FormRowVertical label='Promotions' error={errors?.promotions?.message}>
+          <Input
+            type='text'
+            id='promotions'
+            disabled={isWorking}
+            {...register('promotions', {
+              // required: 'This field is required',
+            })}
+          />
+        </FormRowVertical>
+      )}
 
-      <FormRow label='Description' error={errors?.description?.message}>
-        <Textarea
-          type='text'
-          id='description'
-          disabled={isWorking}
-          defaultValue=''
-          {...register('description', {
-            required: 'This field is required',
-          })}
-        />
-      </FormRow>
+      {width > 1050 ? (
+        <FormRow label='Description' error={errors?.description?.message}>
+          <Textarea
+            type='text'
+            id='description'
+            disabled={isWorking}
+            defaultValue=''
+            {...register('description', {
+              required: 'This field is required',
+            })}
+          />
+        </FormRow>
+      ) : (
+        <FormRowVertical
+          label='Description'
+          error={errors?.description?.message}>
+          <Textarea
+            type='text'
+            id='description'
+            disabled={isWorking}
+            defaultValue=''
+            {...register('description', {
+              required: 'This field is required',
+            })}
+          />
+        </FormRowVertical>
+      )}
 
-      <FormRow label='Capacity' error={errors?.capacity?.message}>
-        <Input
-          type='number'
-          id='capacity'
-          disabled={isWorking}
-          {...register('capacity', {
-            required: 'This field is required',
-          })}
-        />
-      </FormRow>
+      {width > 1050 ? (
+        <FormRow label='Capacity' error={errors?.capacity?.message}>
+          <Input
+            type='number'
+            id='capacity'
+            disabled={isWorking}
+            {...register('capacity', {
+              required: 'This field is required',
+            })}
+          />
+        </FormRow>
+      ) : (
+        <FormRowVertical label='Capacity' error={errors?.capacity?.message}>
+          <Input
+            type='number'
+            id='capacity'
+            disabled={isWorking}
+            {...register('capacity', {
+              required: 'This field is required',
+            })}
+          />
+        </FormRowVertical>
+      )}
 
-      <FormRow label='Event poster'>
-        <FileInput
-          id='image'
-          accept='image/*'
-          {...register('image', {
-            required: isEditSession ? false : 'This field is required',
-          })}
-        />
-      </FormRow>
+      {width > 1050 ? (
+        <FormRow label='Event poster'>
+          <FileInput
+            id='image'
+            accept='image/*'
+            {...register('image', {
+              required: isEditSession ? false : 'This field is required',
+            })}
+          />
+        </FormRow>
+      ) : (
+        <FormRowVertical label='Event poster'>
+          <FileInput
+            id='image'
+            accept='image/*'
+            {...register('image', {
+              required: isEditSession ? false : 'This field is required',
+            })}
+          />
+        </FormRowVertical>
+      )}
 
-      <FormRow>
-        {/* type is an HTML attribute! */}
-        <Button
-          variation='secondary'
-          type='reset'
-          onClick={() => onCloseModal?.()}>
-          Cancel
-        </Button>
-        <Button disabled={isWorking}>
-          {isEditSession ? 'Edit event' : 'Add event'}
-        </Button>
-      </FormRow>
+      {width > 1050 ? (
+        <FormRow>
+          <Button
+            variation='secondary'
+            type='reset'
+            onClick={() => onCloseModal?.()}>
+            Cancel
+          </Button>
+          <Button disabled={isWorking}>
+            {isEditSession ? 'Edit event' : 'Add event'}
+          </Button>
+        </FormRow>
+      ) : (
+        <FormRowVertical>
+          <Button
+            variation='secondary'
+            type='reset'
+            onClick={() => onCloseModal?.()}>
+            Cancel
+          </Button>
+          <Button disabled={isWorking}>
+            {isEditSession ? 'Edit event' : 'Add event'}
+          </Button>
+        </FormRowVertical>
+      )}
     </Form>
   );
 }

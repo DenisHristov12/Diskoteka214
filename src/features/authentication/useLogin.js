@@ -2,22 +2,18 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { login as loginApi } from '../../services/apiAuth';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { useUser } from './useUser';
 
 export function useLogin() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { isAdmin } = useUser();
-
   const { mutate: login, isLoading } = useMutation({
     mutationFn: ({ email, password }) => loginApi({ email, password }),
     onSuccess: (user) => {
-      // console.log(user);
       localStorage.setItem('user', JSON.stringify(user));
       toast.success('You have succesfully loged in!');
       queryClient.setQueryData(['user'], { user });
-      isAdmin
+      user.role === 1
         ? navigate('/dashboard', { replace: true })
         : navigate('/home', { replace: true });
       queryClient.invalidateQueries({

@@ -42,10 +42,6 @@ function AppLayout() {
   const location = useLocation();
   const isHome = location.pathname === '/home';
 
-  // console.log(isHome);
-
-  // console.log(isOpen);
-
   const hideButton = isOpen;
 
   function setState() {

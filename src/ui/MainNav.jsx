@@ -103,18 +103,22 @@ function MainNav({ closeSidebar }) {
             Events
           </StyledNavLink>
         </li>
-        <li>
-          <StyledNavLink onClick={closeSidebar} to='/about'>
-            <HiInformationCircle />
-            About
-          </StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink onClick={closeSidebar} to='/contacts'>
-            <HiPhone />
-            Contacts
-          </StyledNavLink>
-        </li>
+        {!isAdmin && (
+          <li>
+            <StyledNavLink onClick={closeSidebar} to='/about'>
+              <HiInformationCircle />
+              About
+            </StyledNavLink>
+          </li>
+        )}
+        {!isAdmin && (
+          <li>
+            <StyledNavLink onClick={closeSidebar} to='/contacts'>
+              <HiPhone />
+              Contacts
+            </StyledNavLink>
+          </li>
+        )}
         {isAdmin && (
           <li>
             <StyledNavLink onClick={closeSidebar} to='/bookings'>
