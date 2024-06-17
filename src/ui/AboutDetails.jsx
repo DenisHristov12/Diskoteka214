@@ -1,4 +1,10 @@
 import styled from 'styled-components';
+import {
+  respondToLandscapeTablets,
+  respondToMobile,
+  respondToMobileSmall,
+  respondToSmallLaptop,
+} from '../styles/mediaQueries';
 
 const AboutContainer = styled.div`
   display: flex;
@@ -8,11 +14,19 @@ const AboutContainer = styled.div`
   background-color: var(--color-grey-0);
   color: var(--color-grey-900);
   text-align: left;
+
+  ${respondToLandscapeTablets(`
+    flex-direction: column;
+  `)}
 `;
 
 const AboutContent = styled.div`
   max-width: 60rem;
   padding: 2rem;
+
+  ${respondToMobileSmall(`
+    padding: 2rem 0rem;
+  `)}
 `;
 
 const AboutImage = styled.img`
@@ -25,11 +39,37 @@ const AboutImage = styled.img`
 const AboutTitle = styled.h2`
   font-size: 3rem;
   margin-bottom: 2rem;
+
+  ${respondToSmallLaptop(`
+    font-size: 2.6rem;
+  `)}
+
+  ${respondToMobile(`
+    font-size: 2rem;
+  `)}
+
+  ${respondToMobileSmall(`
+    font-size: 1.4rem;
+  `)}
 `;
 
 const AboutText = styled.p`
   font-size: 1.8rem;
   line-height: 1.6;
+
+  ${respondToSmallLaptop(`
+    font-size: 1.6rem;
+  `)}
+
+  ${respondToMobile(`
+    font-size: 1.4rem;
+
+    line-height: 1.4;
+  `)}
+
+  ${respondToMobile(`
+    font-size: 1rem;
+  `)}
 `;
 
 function AboutDetails() {

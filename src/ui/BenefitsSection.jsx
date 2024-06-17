@@ -5,6 +5,12 @@ import {
   HiPencil,
 } from 'react-icons/hi2';
 import styled from 'styled-components';
+import {
+  respondToLandscapeTablets,
+  respondToMobile,
+  respondToMobileSmall,
+  respondToSmallLaptop,
+} from '../styles/mediaQueries';
 
 const BenefitsContainer = styled.div`
   padding: 5rem 2rem;
@@ -17,6 +23,22 @@ const SectionTitle = styled.h2`
   margin-bottom: 4rem;
 
   color: var(--color-grey-900);
+
+  ${respondToSmallLaptop(`
+    font-size: 1.8rem;
+  `)}
+
+  ${respondToLandscapeTablets(`
+    font-size: 1.6rem;
+  `)}
+
+  ${respondToMobile(`
+    font-size: 1.4rem;
+  `)}
+
+  ${respondToMobileSmall(`
+    font-size: 1.2rem;
+  `)}
 `;
 
 const BenefitsWrapper = styled.div`
@@ -39,17 +61,46 @@ const BenefitCard = styled.div`
   &:hover {
     transform: translateY(-10px);
   }
+
+  ${respondToSmallLaptop(`
+    max-width: 20rem;
+    padding: 1rem;
+  `)}
 `;
 
 const IconWrapper = styled.div`
   font-size: 4.4rem;
   margin-bottom: 1.6rem;
   color: #eda641;
+
+  ${respondToSmallLaptop(`
+  font-size: 4rem;
+  `)}
+
+  ${respondToMobile(`
+  font-size: 3.6rem;
+  `)}
+
+  ${respondToMobileSmall(`
+  font-size: 3rem;
+  `)}
 `;
 
 const BenefitTitle = styled.h3`
   font-size: 2rem;
   margin-bottom: 1rem;
+
+  ${respondToSmallLaptop(`
+  font-size: 1.8rem;
+  `)}
+
+  ${respondToMobile(`
+  font-size: 1.6rem;
+  `)}
+
+  ${respondToMobileSmall(`
+  font-size: 1.4rem;
+  `)}
 `;
 
 const BenefitDescription = styled.p`
@@ -57,6 +108,18 @@ const BenefitDescription = styled.p`
   line-height: 1.4;
 
   color: var(--color-grey-500);
+
+  ${respondToSmallLaptop(`
+  font-size: 1.4rem;
+  `)}
+
+  ${respondToMobile(`
+  font-size: 1.3rem;
+  `)}
+
+  ${respondToMobileSmall(`
+  font-size: 1.2rem;
+  `)}
 `;
 
 const benefits = [

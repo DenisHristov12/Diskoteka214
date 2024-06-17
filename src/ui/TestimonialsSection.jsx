@@ -1,4 +1,10 @@
 import styled from 'styled-components';
+import {
+  respondToLandscapeTablets,
+  respondToMobile,
+  respondToMobileSmall,
+  respondToSmallLaptop,
+} from '../styles/mediaQueries';
 
 const TestimonialsContainer = styled.div`
   padding: 5rem 2rem;
@@ -10,6 +16,14 @@ const SectionTitle = styled.h2`
   font-size: 2.4rem;
   margin-bottom: 9rem;
   color: var(--color-grey-900);
+
+  ${respondToSmallLaptop(`font-size: 2rem;`)}
+
+  ${respondToLandscapeTablets(`font-size: 1.8rem;`)}
+  
+  ${respondToMobile(`font-size: 1.6rem;`)}
+
+  ${respondToMobileSmall(`font-size: 1.4rem;`)}
 `;
 
 const TestimonialsWrapper = styled.div`
@@ -23,11 +37,16 @@ const TestimonialCard = styled.div`
   background-color: var(--color-grey-200);
   border-radius: 10px;
   padding: 2rem 2rem 4rem;
-  max-width: 300px;
+
+  max-width: 30rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   position: relative;
   overflow: visible;
+
+  ${respondToSmallLaptop(`max-width: 25rem;`)}
+
+  ${respondToLandscapeTablets(`margin-bottom: 6.4rem;`)}
 `;
 
 const UserImage = styled.img`
@@ -39,24 +58,42 @@ const UserImage = styled.img`
   top: -4rem;
   left: 50%;
   transform: translateX(-50%);
+
+  ${respondToSmallLaptop(`width: 7rem;
+  height: 7rem;`)}
+
+  ${respondToMobile(`width: 6rem;
+  height: 6rem;`)}
 `;
 
 const UserName = styled.h3`
   font-size: 1.6rem;
   margin-top: 4.8rem;
   color: var(--color-grey-900);
+
+  ${respondToSmallLaptop(`font-size: 1.4rem;`)}
+
+  ${respondToMobile(`font-size: 1.2rem;`)}
 `;
 
 const UserTitle = styled.p`
   font-size: 1.2rem;
   color: var(--color-grey-600);
   margin-bottom: 2rem;
+
+  ${respondToSmallLaptop(`font-size: 1.2rem;`)}
+
+  ${respondToMobile(`font-size: 1rem;`)}
 `;
 
 const UserFeedback = styled.p`
   font-size: 1.4rem;
   line-height: 1.6;
   color: var(--color-grey-500);
+
+  ${respondToSmallLaptop(`font-size: 1.2rem;`)}
+
+  ${respondToMobile(`font-size: 1rem;`)}
 `;
 
 const testimonials = [
