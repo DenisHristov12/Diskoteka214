@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import {
+  respondToMobile,
   respondToMobileSmall,
   respondToSmallLaptop,
 } from '../styles/mediaQueries';
@@ -69,7 +70,6 @@ const variations = {
 };
 
 const Button = styled.button`
-  height: ${(props) => props.isEvent && '5rem'};
   border: none;
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);

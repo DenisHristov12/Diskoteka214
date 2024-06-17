@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { HiXMark } from 'react-icons/hi2';
 import styled from 'styled-components';
 import { useOutsideClick } from '../hooks/useOutsideClick';
+import { respondToLandscapeTablets } from '../styles/mediaQueries';
 
 const StyledModal = styled.div`
   position: fixed;
@@ -14,6 +15,10 @@ const StyledModal = styled.div`
   box-shadow: var(--shadow-lg);
   padding: 3.2rem 4rem;
   transition: all 0.5s;
+
+  ${respondToLandscapeTablets(`
+    width: 70%;
+  `)}
 `;
 
 const Overlay = styled.div`
@@ -46,9 +51,6 @@ const Button = styled.button`
   & svg {
     width: 2.4rem;
     height: 2.4rem;
-    /* Sometimes we need both */
-    /* fill: var(--color-grey-500);
-    stroke: var(--color-grey-500); */
     color: var(--color-grey-500);
   }
 `;

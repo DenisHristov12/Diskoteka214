@@ -9,7 +9,7 @@ import ButtonGroup from '../ui/ButtonGroup';
 import Button from '../ui/Button';
 import Modal from '../ui/Modal';
 import ConfirmDelete from '../ui/ConfirmDelete';
-import { format, isBefore, isToday } from 'date-fns';
+import { format, isToday } from 'date-fns';
 import { formatDistanceFromNow } from '../utils/helpers';
 import CreateEventForm from '../features/events/CreateEventForm';
 import { useUser } from '../features/authentication/useUser';
@@ -17,17 +17,41 @@ import { useUser } from '../features/authentication/useUser';
 import ReserveForm from '../features/events/ReserveForm';
 
 import { useReservators } from '../features/events/useReservators';
+import {
+  respondToLandscapeTablets,
+  respondToMobile,
+  respondToMobileSmall,
+} from '../styles/mediaQueries';
+import useWidth from '../hooks/useWidth';
 
 const Container = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
   column-gap: 12.8rem;
+
+  ${respondToLandscapeTablets(`
+    gap: 2.4rem;
+
+    grid-template-columns: 2fr 1.5fr;
+  `)}
+
+  ${respondToMobile(`
+    grid-template-columns: 1fr;
+  `)}
 `;
 
 const DataBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
+
+  ${respondToLandscapeTablets(`
+    gap: 1.6rem;
+  `)}
+
+  ${respondToMobile(`
+    gap: 1.4rem;
+  `)}
 `;
 
 const Header = styled.header`
@@ -39,6 +63,22 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  ${respondToLandscapeTablets(`
+    padding: 1.6rem 3.6rem;
+  `)}
+
+  ${respondToMobile(`
+    padding: 1.2rem 3rem;
+
+    font-size: 1.4rem;
+  `)}
+
+  ${respondToMobileSmall(`
+    padding: 1rem 1.4rem;
+
+    font-size: 1rem;
+  `)}
 `;
 
 const Image = styled.img`
@@ -47,6 +87,8 @@ const Image = styled.img`
 
   justify-self: center;
   align-self: center;
+
+  ${respondToMobile(`width: 90%;`)}
 `;
 
 const Section = styled.section`
@@ -57,6 +99,30 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
+
+  ${respondToLandscapeTablets(`
+    padding: 2.4rem 3rem;
+
+    gap: 2rem;
+
+     font-size: 1.6rem;
+  `)}
+
+  ${respondToMobile(`
+    gap: 1.4rem;
+
+    font-size: 1.4rem;
+
+    padding: 2rem 2.4rem;
+  `)}
+
+  ${respondToMobileSmall(`
+    gap: 1.2rem;
+
+    font-size: 1.2rem;
+
+    padding: 1.4rem 2rem;
+  `)}
 `;
 
 const SectionDiv = styled.div`
@@ -72,6 +138,20 @@ const SectionDiv = styled.div`
   & p {
     font-weight: 600;
   }
+
+  ${respondToLandscapeTablets(`
+     padding: 2rem;
+  `)}
+
+  ${respondToMobile(`
+     padding: 1.6rem;
+  `)}
+
+  ${respondToMobileSmall(`
+     padding: 1.2rem;
+
+     height: 4.5rem;
+  `)}
 `;
 
 const Footer = styled.footer`
@@ -79,6 +159,8 @@ const Footer = styled.footer`
   font-size: 1.2rem;
   color: var(--color-grey-500);
   text-align: right;
+
+  /* background-color: red; */
 `;
 
 function Event() {
@@ -89,6 +171,8 @@ function Event() {
   const { user, isAdmin, isUser } = useUser();
   const moveBack = useMoveBack();
   const navigate = useNavigate();
+
+  const width = useWidth();
 
   if (isLoading || isLoadingReservators) {
     return <Spinner />;
@@ -119,8 +203,6 @@ function Event() {
       res.eventId === eventId
   );
 
-  // console.log(isReservator);
-
   return (
     <>
       <Header>
@@ -131,27 +213,24 @@ function Event() {
         </p>
       </Header>
       <Container>
+        {width < 430 && <Image src={image} alt='event poster' />}
         <DataBox>
           <Section>
             <SectionDiv>
-              <p>What you will listen during the event</p>
+              <p>Music</p>
               <span>{musicType}</span>
             </SectionDiv>
             <SectionDiv>
-              <p>What you will drink during the event</p>
+              <p>Alchohol</p>
               <span>{alchoholType}</span>
             </SectionDiv>
             <SectionDiv>
-              <p>Promotions available for the event</p>
-              <span>
-                {promotions !== ''
-                  ? promotions
-                  : 'No promotions available for this event!'}
-              </span>
+              <p>Promotions</p>
+              <span>{promotions !== '' ? promotions : 'None'}</span>
             </SectionDiv>
             {description && (
               <SectionDiv>
-                <p>Event description</p>
+                <p>Description</p>
                 <span>{description}</span>
               </SectionDiv>
             )}
@@ -171,14 +250,14 @@ function Event() {
               {isUser && !isReservator ? (
                 <>
                   <Modal.Open opens='reserve'>
-                    <Button isEvent='true'>Reserve</Button>
+                    <Button size='medium'>Reserve</Button>
                   </Modal.Open>
                   <Modal.Window name='reserve'>
                     <ReserveForm />
                   </Modal.Window>
                 </>
               ) : (
-                <Button isEvent='true' disabled='true' variation='secondary'>
+                <Button disabled='true' variation='secondary'>
                   Reserved
                 </Button>
               )}
@@ -186,16 +265,14 @@ function Event() {
               {isAdmin && (
                 <>
                   <Modal.Open opens='edit'>
-                    <Button isEvent='true'>Edit</Button>
+                    <Button>Edit</Button>
                   </Modal.Open>
                   <Modal.Window name='edit'>
                     <CreateEventForm eventToEdit={event} />
                   </Modal.Window>
 
                   <Modal.Open opens='delete'>
-                    <Button variation='danger' isEvent='true'>
-                      Delete
-                    </Button>
+                    <Button variation='danger'>Delete</Button>
                   </Modal.Open>
 
                   <Modal.Window name='delete'>
@@ -213,7 +290,7 @@ function Event() {
               )}
             </Modal>
 
-            <Button isEvent='true' variation='secondary' onClick={moveBack}>
+            <Button variation='secondary' onClick={moveBack}>
               Back
             </Button>
 
@@ -227,7 +304,7 @@ function Event() {
           </ButtonGroup>
         </DataBox>
 
-        <Image src={image} alt='event poster' />
+        {width > 430 && <Image src={image} alt='event poster' />}
       </Container>
     </>
   );

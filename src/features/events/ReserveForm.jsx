@@ -11,15 +11,32 @@ import FormRow from '../../ui/FormRow';
 import Spinner from '../../ui/Spinner';
 import toast from 'react-hot-toast';
 import { useEditEvent } from './useEditEvent';
+import useWidth from '../../hooks/useWidth';
+import FormRowVertical from '../../ui/FormRowVertical';
+import styled from 'styled-components';
+import { respondToMobile } from '../../styles/mediaQueries';
+
+const Container = styled.div`
+  margin-top: 2.4rem;
+  display: flex;
+  gap: 2rem;
+
+  justify-content: flex-end;
+
+  ${respondToMobile(`justify-content: center;`)}
+`;
 
 function ReserveForm({ onCloseModal }) {
   const queryClient = useQueryClient();
 
   const { register, handleSubmit, reset, formState } = useForm();
 
+  const width = useWidth();
+
   const { errors } = formState;
 
   const { event, isLoading } = useEvent();
+
   const { isEditing, editEvent } = useEditEvent();
 
   const { user } = useUser();
@@ -34,13 +51,11 @@ function ReserveForm({ onCloseModal }) {
 
   const { id: eventId, date, capacity, image } = event;
 
-  if (isLoading) {
+  if (isLoading || isEditing) {
     return <Spinner />;
   }
 
   function onSubmit(data) {
-    // console.log(data.peopleNum);
-
     if (data.peopleNum > capacity) {
       toast.error('Exceeding event capacity!');
     } else {
@@ -69,7 +84,6 @@ function ReserveForm({ onCloseModal }) {
         eventId,
       };
 
-      // console.log(newReservator);
       createReservator(newReservator, {
         onSuccess: (reservator) => {
           const newBooking = {
@@ -80,7 +94,6 @@ function ReserveForm({ onCloseModal }) {
             eventId,
           };
 
-          // console.log(newBooking);
           createBooking(newBooking, {
             onSuccess: (data) => {
               reset();
@@ -99,42 +112,89 @@ function ReserveForm({ onCloseModal }) {
     <Form
       onSubmit={handleSubmit(onSubmit)}
       type={onCloseModal ? 'modal' : 'regular'}>
-      <FormRow label='Members' error={errors?.peopleNum?.message}>
-        <Input
-          type='number'
-          id='peopleNum'
-          disabled={isWorking}
-          {...register('peopleNum', {
-            required: 'This field is required',
-          })}
-        />
-      </FormRow>
+      {width > 900 ? (
+        <FormRow label='Members' error={errors?.peopleNum?.message}>
+          <Input
+            type='number'
+            id='peopleNum'
+            disabled={isWorking}
+            {...register('peopleNum', {
+              required: 'This field is required',
+            })}
+          />
+        </FormRow>
+      ) : (
+        <FormRowVertical
+          responsive={width < 770}
+          label='Members'
+          error={errors?.peopleNum?.message}>
+          <Input
+            type='number'
+            id='peopleNum'
+            disabled={isWorking}
+            {...register('peopleNum', {
+              required: 'This field is required',
+            })}
+          />
+        </FormRowVertical>
+      )}
 
-      <FormRow label='Phone number' error={errors?.number?.message}>
-        <Input
-          type='tel'
-          id='number'
-          disabled={isWorking}
-          {...register('number', {
-            required: 'This field is required',
-            pattern: {
-              value: /^(?:\+359|0)\d{9}$/,
-              message: 'Please provide a valid phone number',
-            },
-          })}
-        />
-      </FormRow>
+      {width > 900 ? (
+        <FormRow label='Phone number' error={errors?.number?.message}>
+          <Input
+            type='tel'
+            id='number'
+            disabled={isWorking}
+            {...register('number', {
+              required: 'This field is required',
+              pattern: {
+                value: /^(?:\+359|0)\d{9}$/,
+                message: 'Please provide a valid phone number',
+              },
+            })}
+          />
+        </FormRow>
+      ) : (
+        <FormRowVertical
+          responsive={width < 770}
+          label='Phone number'
+          error={errors?.number?.message}>
+          <Input
+            type='tel'
+            id='number'
+            disabled={isWorking}
+            {...register('number', {
+              required: 'This field is required',
+              pattern: {
+                value: /^(?:\+359|0)\d{9}$/,
+                message: 'Please provide a valid phone number',
+              },
+            })}
+          />
+        </FormRowVertical>
+      )}
 
-      <FormRow>
-        {/* type is an HTML attribute! */}
-        <Button
-          variation='secondary'
-          type='reset'
-          onClick={() => onCloseModal?.()}>
-          Cancel
-        </Button>
-        <Button disabled={isWorking}>Reserve</Button>
-      </FormRow>
+      {width > 900 ? (
+        <FormRow>
+          <Button
+            variation='secondary'
+            type='reset'
+            onClick={() => onCloseModal?.()}>
+            Cancel
+          </Button>
+          <Button disabled={isWorking}>Reserve</Button>
+        </FormRow>
+      ) : (
+        <Container>
+          <Button
+            variation='secondary'
+            type='reset'
+            onClick={() => onCloseModal?.()}>
+            Cancel
+          </Button>
+          <Button disabled={isWorking}>Reserve</Button>
+        </Container>
+      )}
     </Form>
   );
 }

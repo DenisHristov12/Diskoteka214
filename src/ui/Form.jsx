@@ -1,5 +1,9 @@
 import styled, { css } from 'styled-components';
-import { respondToMobile } from '../styles/mediaQueries';
+import {
+  respondToLandscapeTablets,
+  respondToMobile,
+  respondToMobileSmall,
+} from '../styles/mediaQueries';
 
 const Form = styled.form`
   ${(props) =>
@@ -22,7 +26,20 @@ const Form = styled.form`
   ${(props) =>
     props.type === 'modal' &&
     css`
-      width: 80rem;
+      width: 100%;
+      /* width: 80rem; */
+
+      /* ${respondToLandscapeTablets(`
+        width: 45rem;
+      `)}
+
+      ${respondToMobile(`
+        width: 20rem;
+      `)}
+
+      ${respondToMobileSmall(`
+        width: 15rem;
+      `)} */
     `}
     
   overflow: hidden;
