@@ -123,7 +123,6 @@ function EventPoster({ event }) {
 
       <ButtonBox>
         <Button size='fullWidth' onClick={() => navigate(`/events/${eventId}`)}>
-          {/* <HiInformationCircle /> */}
           Details
         </Button>
         {isAdmin && (
@@ -132,16 +131,12 @@ function EventPoster({ event }) {
               size='fullWidth'
               disabled={isCreating}
               onClick={handleDuplicate}>
-              {/* <HiSquare2Stack /> */}
               Duplicate
             </Button>
 
             <Modal>
               <Modal.Open opens='edit'>
-                <Button size='fullWidth'>
-                  {/* <HiPencil /> */}
-                  Edit
-                </Button>
+                <Button size='fullWidth'>Edit</Button>
               </Modal.Open>
               <Modal.Window name='edit'>
                 <CreateEventForm eventToEdit={event} />
@@ -149,7 +144,6 @@ function EventPoster({ event }) {
 
               <Modal.Open opens='delete'>
                 <Button size='fullWidth' variation='danger'>
-                  {/* <HiTrash /> */}
                   Delete
                 </Button>
               </Modal.Open>

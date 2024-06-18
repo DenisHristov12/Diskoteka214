@@ -21,7 +21,6 @@ import {
   respondToLandscapeTablets,
   respondToMobile,
   respondToMobileSmall,
-  respondToSmallLaptop,
 } from '../styles/mediaQueries';
 import useWidth from '../hooks/useWidth';
 
@@ -205,12 +204,15 @@ function Event() {
     capacity,
   } = event;
 
-  const isReservator = reservators.some(
-    (res) =>
-      res.fullName === user.fullName &&
-      res.number === user.number &&
-      res.eventId === eventId
-  );
+  const isReservator =
+    reservators.length !== 0
+      ? reservators.some(
+          (res) =>
+            res?.fullName === user?.fullName &&
+            res?.number === user?.number &&
+            res?.eventId === eventId
+        )
+      : false;
 
   return (
     <>
@@ -265,10 +267,12 @@ function Event() {
                     <ReserveForm />
                   </Modal.Window>
                 </>
-              ) : (
+              ) : isUser ? (
                 <Button disabled='true' variation='secondary'>
                   Reserved
                 </Button>
+              ) : (
+                <Button onClick={() => navigate('/login')}>Reserve</Button>
               )}
 
               {isAdmin && (

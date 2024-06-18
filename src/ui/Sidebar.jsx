@@ -26,6 +26,12 @@ const StyledSidebar = styled.aside`
   display: flex;
   z-index: 1000;
 
+  overflow: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   ${respondToLandscapeTablets(`
     padding: 1.2rem 0.8rem;
     width: 22rem;
