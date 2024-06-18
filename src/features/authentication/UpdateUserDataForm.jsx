@@ -6,6 +6,8 @@ import Form from '../../ui/Form';
 import FormRow from '../../ui/FormRow';
 import Input from '../../ui/Input';
 import { useUpdateUser } from './useUpdateUser';
+import useWidth from '../../hooks/useWidth';
+import FormRowVertical from '../../ui/FormRowVertical';
 
 function UpdateUserDataForm() {
   const { user } = useUser();
@@ -15,6 +17,8 @@ function UpdateUserDataForm() {
   const [avatar, setAvatar] = useState(null);
 
   const { updateUser, isUpdating } = useUpdateUser();
+
+  const width = useWidth();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -41,26 +45,58 @@ function UpdateUserDataForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormRow label='Email address'>
-        <Input value={email} disabled />
-      </FormRow>
-      <FormRow label='Full name'>
-        <Input
-          type='text'
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
-          disabled={isUpdating}
-          id='fullName'
-        />
-      </FormRow>
-      <FormRow label='Avatar image'>
-        <FileInput
-          disabled={isUpdating}
-          id='avatar'
-          accept='image/*'
-          onChange={(e) => setAvatar(e.target.files[0])}
-        />
-      </FormRow>
+      {width > 430 ? (
+        <FormRow label='Email address'>
+          <Input value={email} disabled />
+        </FormRow>
+      ) : (
+        <FormRowVertical label='Email address'>
+          <Input value={email} disabled />
+        </FormRowVertical>
+      )}
+
+      {width > 430 ? (
+        <FormRow label='Full name'>
+          <Input
+            type='text'
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            disabled={isUpdating}
+            id='fullName'
+          />
+        </FormRow>
+      ) : (
+        <FormRowVertical label='Full name'>
+          <Input
+            type='text'
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            disabled={isUpdating}
+            id='fullName'
+          />
+        </FormRowVertical>
+      )}
+
+      {width > 430 ? (
+        <FormRow label='Avatar image'>
+          <FileInput
+            disabled={isUpdating}
+            id='avatar'
+            accept='image/*'
+            onChange={(e) => setAvatar(e.target.files[0])}
+          />
+        </FormRow>
+      ) : (
+        <FormRowVertical label='Avatar image'>
+          <FileInput
+            disabled={isUpdating}
+            id='avatar'
+            accept='image/*'
+            onChange={(e) => setAvatar(e.target.files[0])}
+          />
+        </FormRowVertical>
+      )}
+
       <FormRow>
         <Button onClick={handleCancel} type='reset' variation='secondary'>
           Cancel

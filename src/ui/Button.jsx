@@ -32,6 +32,11 @@ const sizes = {
     padding: 1rem 1.4rem;
     `)}
 
+    ${respondToMobile(`
+      font-size: 1rem;
+    padding: 0.8rem 1.2rem;
+    `)}
+
     ${respondToMobileSmall(`
       font-size: 0.8rem;
     padding: 0.6rem 1rem;
