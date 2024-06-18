@@ -16,11 +16,18 @@ import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
 import Empty from '../../ui/Empty';
 import CheckoutButton from '../check-in-out/CheckoutButton';
+import useWidth from '../../hooks/useWidth';
+import { respondToMobile } from '../../styles/mediaQueries';
 
 const HeadingGroup = styled.div`
   display: flex;
   gap: 2.4rem;
   align-items: center;
+
+  ${respondToMobile(`
+  width: 100%;
+    justify-content: space-between;
+  `)}
 `;
 
 function BookingDetail() {
@@ -29,6 +36,8 @@ function BookingDetail() {
 
   const moveBack = useMoveBack();
   const navigate = useNavigate();
+
+  const width = useWidth();
 
   if (isLoading) {
     return <Spinner />;
@@ -50,10 +59,10 @@ function BookingDetail() {
     <>
       <Row type='horizontal'>
         <HeadingGroup>
-          <Heading type='h1'>Booking #{bookingId}</Heading>
+          <Heading as='h1'>Booking #{bookingId}</Heading>
           <Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag>
         </HeadingGroup>
-        <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
+        {width > 435 && <ButtonText onClick={moveBack}>&larr; Back</ButtonText>}
       </Row>
 
       <BookingDataBox booking={booking} />
@@ -69,7 +78,7 @@ function BookingDetail() {
 
         <Modal>
           <Modal.Open opens='delete'>
-            <Button variation='danger'>Delete booking</Button>
+            <Button variation='danger'>Delete</Button>
           </Modal.Open>
 
           <Modal.Window name='delete'>

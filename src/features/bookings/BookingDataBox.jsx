@@ -2,6 +2,11 @@ import styled from 'styled-components';
 import { format } from 'date-fns';
 import { formatDistanceFromNow } from '../../utils/helpers';
 import { isToday } from 'date-fns';
+import {
+  respondToLandscapeTablets,
+  respondToMobile,
+  respondToMobileSmall,
+} from '../../styles/mediaQueries';
 
 const StyledBookingDataBox = styled.section`
   overflow: hidden;
@@ -16,6 +21,26 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  ${respondToLandscapeTablets(`
+    font-size: 1.4rem;
+
+    padding: 1.8rem 3.6rem;
+  `)}
+
+  ${respondToMobile(`
+    flex-direction: column;
+
+    row-gap: 2.4rem;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 1.4rem 3rem;
+  `)}
+
+  ${respondToMobileSmall(`
+    font-size: 1rem;
+  `)}
 `;
 
 const Section = styled.section`
@@ -24,17 +49,11 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   gap: 3.6rem;
+
+  ${respondToMobile(`
+    font-size: 1rem;
+  `)}
 `;
-
-// const ImageContainer = styled.div`
-//   height: 20rem;
-//   width: 100%;
-// `;
-
-// const EventImage = styled.img`
-//   height: 100%;
-//   width: auto;
-// `;
 
 const Guest = styled.div`
   display: flex;
@@ -47,6 +66,11 @@ const Guest = styled.div`
     font-weight: 500;
     color: var(--color-grey-700);
   }
+
+  ${respondToMobile(`
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+  `)}
 `;
 
 const Footer = styled.footer`
@@ -54,14 +78,17 @@ const Footer = styled.footer`
   font-size: 1.2rem;
   color: var(--color-grey-500);
   text-align: right;
+
+  ${respondToMobile(`
+    font-size: 1rem;
+  `)}
 `;
 
 function BookingDataBox({ booking }) {
   const {
     created_at,
-    date,
     reservators: { fullName: reservatorName, peopleNum, number },
-    events: { name: eventName, image, date: eventDate },
+    events: { name: eventName, date: eventDate },
   } = booking;
 
   return (
@@ -85,10 +112,6 @@ function BookingDataBox({ booking }) {
       </Header>
 
       <Section>
-        {/* <ImageContainer>
-          <EventImage src={image} />
-        </ImageContainer> */}
-
         <Guest>
           <p>
             {reservatorName} {peopleNum > 1 ? `+ ${peopleNum - 1} guests` : ''}

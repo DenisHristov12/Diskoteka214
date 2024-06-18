@@ -14,7 +14,6 @@ import {
   HiPhone,
 } from 'react-icons/hi2';
 import { respondToMobile, respondToSmallLaptop } from '../styles/mediaQueries';
-import Logout from '../features/authentication/Logout';
 import { useLogout } from '../features/authentication/useLogout';
 
 const NavList = styled.ul`
@@ -170,7 +169,7 @@ function MainNav({ closeSidebar }) {
         )}
         {isUser && (
           <li>
-            <StyledNavLink onClick={handleLogout} to='#'>
+            <StyledNavLink onClick={handleLogout} to=''>
               <HiArrowRightOnRectangle />
               Logout
             </StyledNavLink>

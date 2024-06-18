@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { respondToMobile } from '../styles/mediaQueries';
 
 const ButtonText = styled.button`
   color: var(--color-brand-600);
@@ -13,6 +14,10 @@ const ButtonText = styled.button`
   &:active {
     color: var(--color-brand-700);
   }
+
+  ${respondToMobile(`
+    font-size: 1.2rem;
+  `)}
 `;
 
 export default ButtonText;
