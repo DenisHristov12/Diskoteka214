@@ -1,3 +1,4 @@
+import useWidth from '../../hooks/useWidth';
 import Empty from '../../ui/Empty';
 import Menus from '../../ui/Menus';
 import Pagination from '../../ui/Pagination';
@@ -10,6 +11,8 @@ import { useUsers } from './useUsers';
 function UsersTable() {
   const { usersData, isLoading, count } = useUsers();
 
+  const width = useWidth();
+
   if (isLoading) {
     return <Spinner />;
   }
@@ -20,11 +23,18 @@ function UsersTable() {
 
   return (
     <Menus>
-      <Table columns='0.8fr 1fr 1.2fr 0.4fr 1.2rem'>
+      <Table
+        columns={
+          width > 430
+            ? '0.8fr 1fr 1.2fr 0.4fr 1.2rem'
+            : width > 325
+            ? '0.6fr 1fr 0.4fr 1rem'
+            : '1.6fr 0.4fr 0.6rem'
+        }>
         <Table.Header>
-          <div>Avatar</div>
+          {width > 325 && <div>Avatar</div>}
           <div>User</div>
-          <div>Created</div>
+          {width > 430 && <div>Created</div>}
           <div>Role</div>
           <div></div>
         </Table.Header>
