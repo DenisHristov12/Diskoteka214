@@ -3,11 +3,6 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 import styled from 'styled-components';
 import { useState } from 'react';
-import {
-  respondToBiggerTablets,
-  respondToLandscapeTablets,
-  respondToMobile,
-} from '../styles/mediaQueries';
 
 const StyledAppLayout = styled.div`
   display: grid;

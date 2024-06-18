@@ -46,6 +46,10 @@ const Heading = styled.h1`
       font-size: 3rem;
       font-weight: 600;
       text-align: center;
+
+      ${respondToLandscapeTablets(`font-size: 2.4rem;`)}
+      ${respondToMobile(`font-size: 2rem;`)}
+      ${respondToMobileSmall(`font-size: 1.6rem;`)}
     `}
     
   line-height: 1.4;

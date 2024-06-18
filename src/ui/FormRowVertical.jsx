@@ -26,6 +26,14 @@ const Label = styled.label`
 const Error = styled.span`
   font-size: 1.4rem;
   color: var(--color-red-700);
+
+  ${respondToLandscapeTablets(`
+    font-size: 1.2rem;
+  `)}
+
+  ${respondToMobile(`
+    font-size: 1rem;
+  `)}
 `;
 
 function FormRowVertical({ label, error, children }) {

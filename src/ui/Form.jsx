@@ -1,9 +1,5 @@
 import styled, { css } from 'styled-components';
-import {
-  respondToLandscapeTablets,
-  respondToMobile,
-  respondToMobileSmall,
-} from '../styles/mediaQueries';
+import { respondToMobile } from '../styles/mediaQueries';
 
 const Form = styled.form`
   ${(props) =>

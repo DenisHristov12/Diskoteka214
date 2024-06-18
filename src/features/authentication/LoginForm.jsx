@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Button from '../../ui/Button';
-import Heading from '../../ui/Heading';
 import Form from '../../ui/Form';
 import Input from '../../ui/Input';
 import FormRowVertical from '../../ui/FormRowVertical';
@@ -55,6 +54,7 @@ function LoginForm() {
           disabled={isLoading || isUser}
         />
       </FormRowVertical>
+
       <FormRowVertical>
         <Button size='large' disabled={isLoading || isUser}>
           {!isLoading ? 'Log in' : <SpinnerMini />}

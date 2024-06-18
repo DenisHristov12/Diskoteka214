@@ -7,8 +7,8 @@ import { useSignup } from './useSignup';
 import { useUser } from './useUser';
 import { useUsers } from '../users/useUsers';
 import toast from 'react-hot-toast';
-
-// Email regex: /\S+@\S+\.\S+/
+import useWidth from '../../hooks/useWidth';
+import FormRowVertical from '../../ui/FormRowVertical';
 
 function SignupForm() {
   const { signUp, isLoading } = useSignup();
@@ -18,6 +18,8 @@ function SignupForm() {
   const { isUser } = useUser();
 
   const { usersData } = useUsers();
+
+  const width = useWidth();
 
   function onSubmit({ fullName, email, password }) {
     const isEmailUsed = usersData.some((user) => user.email === email);
@@ -36,16 +38,16 @@ function SignupForm() {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormRow label='Full name' error={errors?.fullName?.message}>
+      <FormRowVertical label='Full name' error={errors?.fullName?.message}>
         <Input
           type='text'
           id='fullName'
           disabled={isLoading || isUser}
           {...register('fullName', { required: 'This field is required' })}
         />
-      </FormRow>
+      </FormRowVertical>
 
-      <FormRow label='Email address' error={errors?.email?.message}>
+      <FormRowVertical label='Email address' error={errors?.email?.message}>
         <Input
           type='email'
           id='email'
@@ -58,9 +60,9 @@ function SignupForm() {
             },
           })}
         />
-      </FormRow>
+      </FormRowVertical>
 
-      <FormRow
+      <FormRowVertical
         label='Password (min 8 characters)'
         error={errors?.password?.message}>
         <Input
@@ -75,9 +77,11 @@ function SignupForm() {
             },
           })}
         />
-      </FormRow>
+      </FormRowVertical>
 
-      <FormRow label='Repeat password' error={errors?.passwordConfirm?.message}>
+      <FormRowVertical
+        label='Repeat password'
+        error={errors?.passwordConfirm?.message}>
         <Input
           type='password'
           id='passwordConfirm'
@@ -88,9 +92,10 @@ function SignupForm() {
               value === getValues().password || 'Passwords need to match',
           })}
         />
-      </FormRow>
+      </FormRowVertical>
 
-      <FormRow>
+      <FormRowVertical>
+        <Button disabled={isLoading || isUser}>Register</Button>
         <Button
           variation='secondary'
           type='reset'
@@ -98,8 +103,7 @@ function SignupForm() {
           onClick={reset}>
           Cancel
         </Button>
-        <Button disabled={isLoading || isUser}>Create new user</Button>
-      </FormRow>
+      </FormRowVertical>
     </Form>
   );
 }

@@ -2,20 +2,28 @@ import styled from 'styled-components';
 import SignupForm from '../features/authentication/SignupForm';
 import { useUser } from '../features/authentication/useUser';
 import Heading from '../ui/Heading';
+import { respondToMobile, respondToMobileSmall } from '../styles/mediaQueries';
 
 const RegisterLayout = styled.main`
-  min-height: 100vh;
+  height: 100vh;
   display: grid;
   grid-template-columns: 48rem;
   align-content: center;
   justify-content: center;
   gap: 3.2rem;
   background-color: var(--color-grey-50);
+
+  ${respondToMobile(`
+    grid-template-columns: 28rem;
+  `)}
+
+  ${respondToMobileSmall(`
+    grid-template-columns: 22rem;
+  `)}
 `;
 
 function Register() {
-  const { user } = useUser();
-  const isUser = Boolean(user);
+  const { isUser } = useUser();
 
   return (
     <RegisterLayout>
