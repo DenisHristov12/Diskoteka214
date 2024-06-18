@@ -9,13 +9,14 @@ import { useEditUser } from './useEditUser';
 import Select from '../../ui/Select';
 import { useUsers } from './useUsers';
 import toast from 'react-hot-toast';
+import useWidth from '../../hooks/useWidth';
+import FormRowVertical from '../../ui/FormRowVertical';
 
 function CreateEditUserForm({ userToEdit = {}, onCloseModal }) {
   const { id: editId, ...editValues } = userToEdit;
 
   const { usersData } = useUsers();
 
-  // console.log(editValues);
   const isEditSession = Boolean(editId);
 
   const { register, handleSubmit, getValues, formState } = useForm({
@@ -30,10 +31,9 @@ function CreateEditUserForm({ userToEdit = {}, onCloseModal }) {
 
   const isWorking = isCreating || isEditing;
 
-  function onSubmit(data) {
-    // console.log(Number(data.role));
-    // const avatarEdit = data.avatar;
+  const width = useWidth();
 
+  function onSubmit(data) {
     const isEmailUsed = usersData.some((user) => user.email === data.email);
 
     const avatar =
@@ -65,35 +65,43 @@ function CreateEditUserForm({ userToEdit = {}, onCloseModal }) {
 
       createUser(newUser, {
         onSuccess: (data) => {
-          console.log(data);
           onCloseModal?.();
         },
       });
     }
-
-    console.log(data);
-  }
-
-  function onError(errors) {
-    // console.log(errors);
   }
 
   return (
     <Form
-      onSubmit={handleSubmit(onSubmit, onError)}
+      onSubmit={handleSubmit(onSubmit)}
       type={onCloseModal ? 'modal' : 'regular'}>
-      <FormRow label='User full name' error={errors?.fullName?.message}>
-        <Input
-          type='text'
-          id='fullName'
-          disabled={isWorking}
-          {...register('fullName', {
-            required: 'This field is required',
-          })}
-        />
-      </FormRow>
+      {width > 770 ? (
+        <FormRow label='User full name' error={errors?.fullName?.message}>
+          <Input
+            type='text'
+            id='fullName'
+            disabled={isWorking}
+            {...register('fullName', {
+              required: 'This field is required',
+            })}
+          />
+        </FormRow>
+      ) : (
+        <FormRowVertical
+          label='User full name'
+          error={errors?.fullName?.message}>
+          <Input
+            type='text'
+            id='fullName'
+            disabled={isWorking}
+            {...register('fullName', {
+              required: 'This field is required',
+            })}
+          />
+        </FormRowVertical>
+      )}
 
-      {!isEditSession && (
+      {!isEditSession && width > 770 ? (
         <FormRow label='User email' error={errors?.email?.message}>
           <Input
             type='email'
@@ -108,9 +116,26 @@ function CreateEditUserForm({ userToEdit = {}, onCloseModal }) {
             })}
           />
         </FormRow>
+      ) : (
+        !isEditSession && (
+          <FormRowVertical label='User email' error={errors?.email?.message}>
+            <Input
+              type='email'
+              id='email'
+              disabled={isWorking}
+              {...register('email', {
+                required: 'This field is required',
+                pattern: {
+                  value: /\S+@\S+\.\S+/,
+                  message: 'Please provide a valid email address',
+                },
+              })}
+            />
+          </FormRowVertical>
+        )
       )}
 
-      {!isEditSession && (
+      {!isEditSession && width > 770 ? (
         <FormRow label='Password' error={errors?.password?.message}>
           <Input
             type='password'
@@ -125,9 +150,26 @@ function CreateEditUserForm({ userToEdit = {}, onCloseModal }) {
             })}
           />
         </FormRow>
+      ) : (
+        !isEditSession && (
+          <FormRowVertical label='Password' error={errors?.password?.message}>
+            <Input
+              type='password'
+              id='password'
+              disabled={isWorking}
+              {...register('password', {
+                required: 'This field is required',
+                minLength: {
+                  value: 8,
+                  message: 'Password needs a minimum of 8 characters',
+                },
+              })}
+            />
+          </FormRowVertical>
+        )
       )}
 
-      {!isEditSession && (
+      {!isEditSession && width > 770 ? (
         <FormRow
           label='Repeat password'
           error={errors?.passwordConfirm?.message}>
@@ -142,38 +184,82 @@ function CreateEditUserForm({ userToEdit = {}, onCloseModal }) {
             })}
           />
         </FormRow>
+      ) : (
+        !isEditSession && (
+          <FormRowVertical
+            label='Repeat password'
+            error={errors?.passwordConfirm?.message}>
+            <Input
+              type='password'
+              id='passwordConfirm'
+              disabled={isWorking}
+              {...register('passwordConfirm', {
+                required: 'This field is required',
+                validate: (value) =>
+                  value === getValues().password || 'Passwords need to match',
+              })}
+            />
+          </FormRowVertical>
+        )
       )}
 
-      <FormRow label='User role' error={errors?.role?.message}>
-        <Select
-          options={[
-            {
-              value: '1',
-              label: 'Admin',
-            },
-            {
-              value: '2',
-              label: 'Default user',
-            },
-          ]}
-          id='role'
-          type='white'
-          // value={choice}
-          // onChange={(e) => setChoice(e.target.value)}
-          {...register('role')}
-        />
-      </FormRow>
+      {width > 770 ? (
+        <FormRow label='User role' error={errors?.role?.message}>
+          <Select
+            options={[
+              {
+                value: '1',
+                label: 'Admin',
+              },
+              {
+                value: '2',
+                label: 'Default user',
+              },
+            ]}
+            id='role'
+            type='white'
+            {...register('role')}
+          />
+        </FormRow>
+      ) : (
+        <FormRowVertical label='User role' error={errors?.role?.message}>
+          <Select
+            options={[
+              {
+                value: '1',
+                label: 'Admin',
+              },
+              {
+                value: '2',
+                label: 'Default user',
+              },
+            ]}
+            id='role'
+            type='white'
+            {...register('role')}
+          />
+        </FormRowVertical>
+      )}
 
-      <FormRow label='Avatar'>
-        <FileInput
-          id='avatar'
-          accept='image/*'
-          {...register('avatar', { required: 'This field is required' })}
-        />
-      </FormRow>
+      {width > 770 ? (
+        <FormRow label='Avatar'>
+          <FileInput
+            id='avatar'
+            accept='image/*'
+            {...register('avatar', { required: 'This field is required' })}
+          />
+        </FormRow>
+      ) : (
+        <FormRowVertical label='Avatar'>
+          <FileInput
+            id='avatar'
+            accept='image/*'
+            {...register('avatar', { required: 'This field is required' })}
+          />
+        </FormRowVertical>
+      )}
 
       <FormRow>
-        {/* type is an HTML attribute! */}
         <Button
           variation='secondary'
           type='reset'

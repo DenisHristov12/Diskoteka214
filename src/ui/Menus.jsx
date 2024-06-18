@@ -30,7 +30,7 @@ const StyledToggle = styled.button`
   border-radius: var(--border-radius-sm);
   transform: translateX(0.8rem);
   transition: all 0.2s;
-  z-index: 9999;
+  z-index: 1000;
 
   &:hover {
     background-color: var(--color-grey-100);
@@ -53,7 +53,7 @@ const StyledList = styled.ul`
   right: ${(props) => props.position.x}px;
   top: ${(props) => props.position.y}px;
 
-  z-index: 9999;
+  z-index: 1000;
 `;
 
 const StyledButton = styled.button`
@@ -65,7 +65,7 @@ const StyledButton = styled.button`
   font-size: 1.4rem;
   transition: all 0.2s;
 
-  z-index: 9999;
+  z-index: 1000;
 
   display: flex;
   align-items: center;

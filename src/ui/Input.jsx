@@ -1,5 +1,10 @@
 import styled from 'styled-components';
-import { respondToLandscapeTablets } from '../styles/mediaQueries';
+import {
+  respondToLandscapeTablets,
+  respondToMobile,
+  respondToMobileSmall,
+  respondToSmallLaptop,
+} from '../styles/mediaQueries';
 
 const Input = styled.input`
   border: 1px solid var(--color-grey-300);
@@ -8,8 +13,18 @@ const Input = styled.input`
   padding: 0.8rem 1.2rem;
   box-shadow: var(--shadow-sm);
 
+  ${respondToSmallLaptop(`
+    font-size: 1.2rem;
+  `)}
+
   ${respondToLandscapeTablets(`
     padding: 0.6rem 1rem;
+
+    font-size: 1rem;
+  `)}
+
+  ${respondToMobileSmall(`
+    font-size: 0.8rem;
   `)}
 `;
 

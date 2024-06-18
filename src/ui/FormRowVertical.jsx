@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import {
   respondToLandscapeTablets,
   respondToMobile,
@@ -16,6 +16,10 @@ const Label = styled.label`
 
   ${respondToLandscapeTablets(`
     font-size: 1.2rem;
+  `)}
+
+  ${respondToMobile(`
+    font-size: 1rem;
   `)}
 `;
 

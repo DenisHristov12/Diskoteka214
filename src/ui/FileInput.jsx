@@ -1,4 +1,9 @@
 import styled from 'styled-components';
+import {
+  respondToLandscapeTablets,
+  respondToMobileSmall,
+  respondToSmallLaptop,
+} from '../styles/mediaQueries';
 
 const FileInput = styled.input.attrs({ type: 'file' })`
   font-size: 1.4rem;
@@ -19,6 +24,20 @@ const FileInput = styled.input.attrs({ type: 'file' })`
     &:hover {
       background-color: var(--color-brand-700);
     }
+
+    ${respondToSmallLaptop(`
+    font-size: 1.2rem;
+  `)}
+
+    ${respondToLandscapeTablets(`
+    padding: 0.6rem 1rem;
+
+    font-size: 1rem;
+  `)}
+
+  ${respondToMobileSmall(`
+    font-size: 0.8rem;
+  `)}
   }
 `;
 

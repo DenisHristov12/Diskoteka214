@@ -17,6 +17,10 @@ const sizes = {
       font-size: 1rem;
     padding: 0.4rem 0.8rem;
     `)}
+
+    ${respondToMobileSmall(`
+      font-size: 0.6rem;
+    `)}
   `,
   medium: css`
     font-size: 1.4rem;
@@ -37,6 +41,15 @@ const sizes = {
     font-size: 1.6rem;
     padding: 1.2rem 2.4rem;
     font-weight: 500;
+
+    ${respondToMobile(`
+      font-size: 1.2rem;
+    padding: 1rem 2rem;
+    `)}
+
+    ${respondToMobileSmall(`
+      font-size: 1rem;
+    `)}
   `,
   fullWidth: css`
     font-size: 1.4rem;
