@@ -6,6 +6,8 @@ import FormRowVertical from '../../ui/FormRowVertical';
 import SpinnerMini from '../../ui/SpinnerMini';
 import { useLogin } from './useLogin';
 import { useUser } from './useUser';
+import { StyledNavLink } from '../../ui/Link';
+import { StyledDiv } from '../../ui/LoginRegisterParagraph';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -56,6 +58,17 @@ function LoginForm() {
       </FormRowVertical>
 
       <FormRowVertical>
+        <StyledDiv>
+          Do not have an account?{' '}
+          <StyledNavLink
+            logReg
+            style={{
+              color: 'blue',
+            }}
+            to='/register'>
+            Register
+          </StyledNavLink>
+        </StyledDiv>
         <Button size='large' disabled={isLoading || isUser}>
           {!isLoading ? 'Log in' : <SpinnerMini />}
         </Button>

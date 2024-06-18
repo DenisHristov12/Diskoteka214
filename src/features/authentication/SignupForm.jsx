@@ -1,14 +1,14 @@
 import { useForm } from 'react-hook-form';
 import Button from '../../ui/Button';
 import Form from '../../ui/Form';
-import FormRow from '../../ui/FormRow';
 import Input from '../../ui/Input';
 import { useSignup } from './useSignup';
 import { useUser } from './useUser';
 import { useUsers } from '../users/useUsers';
 import toast from 'react-hot-toast';
-import useWidth from '../../hooks/useWidth';
 import FormRowVertical from '../../ui/FormRowVertical';
+import { StyledNavLink } from '../../ui/Link';
+import { StyledDiv } from '../../ui/LoginRegisterParagraph';
 
 function SignupForm() {
   const { signUp, isLoading } = useSignup();
@@ -18,8 +18,6 @@ function SignupForm() {
   const { isUser } = useUser();
 
   const { usersData } = useUsers();
-
-  const width = useWidth();
 
   function onSubmit({ fullName, email, password }) {
     const isEmailUsed = usersData.some((user) => user.email === email);
@@ -95,6 +93,17 @@ function SignupForm() {
       </FormRowVertical>
 
       <FormRowVertical>
+        <StyledDiv>
+          Already registered?{' '}
+          <StyledNavLink
+            logReg
+            style={{
+              color: 'blue',
+            }}
+            to='/login'>
+            Log in
+          </StyledNavLink>
+        </StyledDiv>
         <Button disabled={isLoading || isUser}>Register</Button>
         <Button
           variation='secondary'
