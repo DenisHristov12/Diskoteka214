@@ -12,6 +12,11 @@ const sizes = {
     text-transform: uppercase;
     font-weight: 600;
     text-align: center;
+
+    ${respondToMobile(`
+      font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+    `)}
   `,
   medium: css`
     font-size: 1.4rem;

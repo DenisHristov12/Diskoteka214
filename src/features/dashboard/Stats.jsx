@@ -9,20 +9,15 @@ import { formatCurrency } from '../../utils/helpers';
 
 function Stats({ bookings, confirmedStays, numDays, eventsCapacity }) {
   const numBookings = bookings.length;
-  // console.log(bookings);
 
   const sales = bookings.reduce((acc, cur) => acc + cur.events.entrance, 0);
 
   const checkins = confirmedStays.length;
 
-  // console.log(confirmedStays);
-
   const occupation =
     (confirmedStays.reduce((acc, cur) => acc + cur.reservators.peopleNum, 0) /
       eventsCapacity) *
     100;
-
-  // console.log(occupation);
 
   return (
     <>

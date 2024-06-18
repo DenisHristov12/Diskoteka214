@@ -118,7 +118,7 @@ export async function getStaysAfterDate(date) {
     .from('bookings')
     .select('*, reservators(*)')
     .gte('date', date)
-    .lte('date', getToday());
+    .lte('date', getToday({ end: true }));
 
   if (error) {
     console.error(error);
@@ -129,12 +129,14 @@ export async function getStaysAfterDate(date) {
 }
 
 export async function getStaysTodayActivity() {
+  const queryDate = new Date().toISOString();
+
   const { data, error } = await supabase
     .from('bookings')
     .select('*, reservators(*)')
-    .or(
-      `and(status.eq.unconfirmed,date.eq.${getToday()}),and(status.eq.checked-in)`
-    )
+    .or(`and(status.eq.unconfirmed),and(status.eq.checked-in)`)
+    .gte('date', queryDate)
+    .lte('date', getToday({ end: true }))
     .order('created_at');
 
   if (error) {

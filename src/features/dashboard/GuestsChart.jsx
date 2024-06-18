@@ -9,6 +9,12 @@ import {
 } from 'recharts';
 import styled from 'styled-components';
 import Heading from '../../ui/Heading';
+import {
+  respondToLandscapeTablets,
+  respondToMobile,
+  respondToSmallLaptop,
+} from '../../styles/mediaQueries';
+import useWidth from '../../hooks/useWidth';
 
 const ChartBox = styled.div`
   padding: 2.4rem 3.2rem;
@@ -21,10 +27,23 @@ const ChartBox = styled.div`
     font-weight: 600;
   }
 
-  /* A bit hack, but okay */
   & > *:first-child {
     margin-bottom: 1.6rem;
   }
+
+  ${respondToSmallLaptop(`
+    padding: 2rem 3rem;
+  `)}
+
+  ${respondToLandscapeTablets(`
+    grid-column: 2 / span 1;
+
+    padding: 2rem 3rem;
+  `)}
+
+  ${respondToMobile(`
+    grid-column: 1 / span 1;
+  `)}
 `;
 
 const startDataLight = [
@@ -92,19 +111,12 @@ function prepareData(startData, bookings) {
 
   const data = bookings
     .reduce((arr, cur) => {
-      // console.log(cur.reservators.peopleNum);
-
       const num = cur.reservators.peopleNum;
       if (num === 1) return incArrayValue(arr, '1 guest per booking');
       if (num === 2) return incArrayValue(arr, '2 guests per booking');
       if (num === 3) return incArrayValue(arr, '3 guests per booking');
       if (num === 4) return incArrayValue(arr, '4 guests');
       if (num === 5) return incArrayValue(arr, '5 guests per booking');
-      // if ([4, 5].includes(num)) return incArrayValue(arr, '4-5 nights');
-      // if ([6, 7].includes(num)) return incArrayValue(arr, '6-7 nights');
-      // if (num >= 8 && num <= 14) return incArrayValue(arr, '8-14 nights');
-      // if (num >= 15 && num <= 21) return incArrayValue(arr, '15-21 nights');
-      // if (num >= 21) return incArrayValue(arr, '21+ nights');
       return arr;
     }, startData)
     .filter((obj) => obj.value > 0);
@@ -117,20 +129,23 @@ function GuestsChart({ bookings }) {
   const startData = isDarkMode ? startDataDark : startDataLight;
   const data = prepareData(startData, bookings);
 
+  const width = useWidth();
+
   return (
     <ChartBox>
-      <Heading type='h2'>Guests atendency summary</Heading>
-      <ResponsiveContainer width='100%' height={240}>
+      <Heading as='h2'>Guests atendency summary</Heading>
+      <ResponsiveContainer
+        width='100%'
+        height={width < 321 ? 180 : width < 780 ? 270 : 240}>
         <PieChart>
           <Pie
             data={data}
-            // name='guests per booking'
             nameKey='guests'
             dataKey='value'
-            cx='40%'
+            cx={width > 780 ? '40%' : '50%'}
             cy='50%'
-            innerRadius={85}
-            outerRadius={110}
+            innerRadius={width > 320 ? 85 : 45}
+            outerRadius={width > 320 ? 110 : 60}
             fill='#4f46e5'
             paddingAngle={3}
             startAngle={180}
@@ -145,12 +160,19 @@ function GuestsChart({ bookings }) {
           </Pie>
           <Tooltip />
           <Legend
-            verticalAlign='middle'
-            align='right'
-            width='30%'
-            layout='vertical'
+            height={width < 780 ? 10 : 0}
+            verticalAlign={width > 780 ? 'middle' : 'bottom'}
+            align={width > 780 ? 'right' : 'center'}
+            width={width > 780 ? '30%' : '100%'}
+            layout={width > 780 ? 'vertical' : 'horizontal'}
             iconSize={15}
             iconType='circle'
+            wrapperStyle={
+              width < 780 && {
+                bottom: '0px',
+                top: '100%',
+              }
+            }
           />
         </PieChart>
       </ResponsiveContainer>

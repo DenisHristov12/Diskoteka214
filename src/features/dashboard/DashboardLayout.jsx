@@ -7,12 +7,34 @@ import { useEvents } from '../events/useEvents';
 import SalesChart from './SalesChart';
 import TodayActivity from '../check-in-out/TodayActivity';
 import GuestsChart from './GuestsChart';
+import {
+  respondToLandscapeTablets,
+  respondToMobile,
+  respondToSmallLaptop,
+} from '../../styles/mediaQueries';
 
 const StyledDashboardLayout = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: auto 34rem auto;
   gap: 2.4rem;
+
+  ${respondToSmallLaptop(`
+
+    grid-template-rows: auto 32rem auto;
+  `)}
+
+  ${respondToLandscapeTablets(`
+    grid-template-columns: 1fr 1fr ;
+
+    grid-template-rows: auto auto 46rem auto;
+  `)}
+
+  ${respondToMobile(`
+    grid-template-columns: 1fr ;
+
+    grid-template-rows: auto auto auto auto 34rem 44rem auto;
+  `)}
 `;
 
 function DashboardLayout() {
@@ -26,8 +48,6 @@ function DashboardLayout() {
   }
 
   const eventsCapacity = events.reduce((acc, cur) => acc + cur.capacity, 0);
-
-  // console.log(bookings.reservators.peopleNum);
 
   return (
     <StyledDashboardLayout>

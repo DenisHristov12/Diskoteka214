@@ -1,5 +1,4 @@
 import { useDarkMode } from '../../context/DarkModeContext';
-// import { eachDayOfInterval, format, isSameDay, subDays } from 'date-fns';
 import {
   Area,
   AreaChart,
@@ -13,13 +12,13 @@ import styled from 'styled-components';
 import Heading from '../../ui/Heading';
 import DashboardBox from './DashboardBox';
 import { eachDayOfInterval, format, isSameDay, subDays } from 'date-fns';
+import useWidth from '../../hooks/useWidth';
 
 const StyledSalesChart = styled(DashboardBox)`
   background-color: var(--color-grey-0);
 
   grid-column: 1 / -1;
 
-  /* Hack to change grid line colors */
   & .recharts-cartesian-grid-horizontal line,
   & .recharts-cartesian-grid-vertical line {
     stroke: var(--color-grey-300);
@@ -33,6 +32,8 @@ function SalesChart({ bookings, numDays }) {
     start: subDays(new Date(), numDays - 1),
     end: new Date(),
   });
+
+  const width = useWidth();
 
   const data = allDates.map((date) => {
     return {
