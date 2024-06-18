@@ -6,9 +6,12 @@ import Pagination from '../../ui/Pagination';
 import Empty from '../../ui/Empty';
 import Spinner from '../../ui/Spinner';
 import { PAGE_SIZE } from '../../utils/constants';
+import useWidth from '../../hooks/useWidth';
 
 function BookingTable() {
   const { bookings, isLoading, count } = useBookings();
+
+  const width = useWidth();
 
   if (isLoading) {
     return <Spinner />;
@@ -20,13 +23,20 @@ function BookingTable() {
 
   return (
     <Menus>
-      <Table columns='0.8fr 1.4fr 1fr 1.2fr 0.4fr 1.2rem'>
+      <Table
+        columns={
+          width > 430
+            ? '0.8fr 1.4fr 1fr 1.2fr 0.4fr 1.2rem'
+            : width > 325
+            ? '0.6fr 1fr 1fr 1rem'
+            : '1fr 1fr 1rem'
+        }>
         <Table.Header>
-          <div>Event</div>
+          {width > 325 && <div>Event</div>}
           <div>Reservator</div>
-          <div>Date</div>
+          {width > 430 && <div>Date</div>}
           <div>Status</div>
-          <div>People</div>
+          {width > 430 && <div>People</div>}
           <div></div>
         </Table.Header>
 

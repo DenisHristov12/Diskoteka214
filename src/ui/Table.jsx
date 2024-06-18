@@ -1,5 +1,6 @@
 import { createContext, useContext } from 'react';
 import styled from 'styled-components';
+import { respondToMobile } from '../styles/mediaQueries';
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -8,6 +9,10 @@ const StyledTable = styled.div`
   background-color: var(--color-grey-0);
   border-radius: 7px;
   overflow: hidden;
+
+  ${respondToMobile(`
+    font-size: 1rem;
+  `)}
 `;
 
 const CommonRow = styled.div`
@@ -16,6 +21,10 @@ const CommonRow = styled.div`
   column-gap: 2.4rem;
   align-items: center;
   transition: none;
+
+  ${respondToMobile(`
+    column-gap: 2rem;
+  `)}
 `;
 
 const StyledHeader = styled(CommonRow)`
@@ -47,7 +56,6 @@ const Footer = styled.footer`
   justify-content: center;
   padding: 1.2rem;
 
-  /* This will hide the footer when it contains no child elements. Possible thanks to the parent selector :has 🎉 */
   &:not(:has(*)) {
     display: none;
   }

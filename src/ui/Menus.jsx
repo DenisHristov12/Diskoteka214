@@ -3,11 +3,24 @@ import { createPortal } from 'react-dom';
 import { HiEllipsisVertical } from 'react-icons/hi2';
 import styled from 'styled-components';
 import { useOutsideClick } from '../hooks/useOutsideClick';
+import { respondToMobile, respondToMobileSmall } from '../styles/mediaQueries';
+import { motion } from 'framer-motion';
 
 const Menu = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+`;
+
+const Backdrop = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.03);
+  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  z-index: 999;
 `;
 
 const StyledToggle = styled.button`
@@ -17,6 +30,7 @@ const StyledToggle = styled.button`
   border-radius: var(--border-radius-sm);
   transform: translateX(0.8rem);
   transition: all 0.2s;
+  z-index: 9999;
 
   &:hover {
     background-color: var(--color-grey-100);
@@ -38,6 +52,8 @@ const StyledList = styled.ul`
 
   right: ${(props) => props.position.x}px;
   top: ${(props) => props.position.y}px;
+
+  z-index: 9999;
 `;
 
 const StyledButton = styled.button`
@@ -49,6 +65,8 @@ const StyledButton = styled.button`
   font-size: 1.4rem;
   transition: all 0.2s;
 
+  z-index: 9999;
+
   display: flex;
   align-items: center;
   gap: 1.6rem;
@@ -57,11 +75,31 @@ const StyledButton = styled.button`
     background-color: var(--color-grey-50);
   }
 
+  ${respondToMobile(`
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+    `)}
+
+  ${respondToMobileSmall(`
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+    `)}
+
   & svg {
     width: 1.6rem;
     height: 1.6rem;
     color: var(--color-grey-400);
     transition: all 0.3s;
+
+    ${respondToMobile(`
+  width: 1.4rem;
+    height: 1.4rem;
+    `)}
+
+    ${respondToMobileSmall(`
+  width: 1.2rem;
+    height: 1.2rem;
+    `)}
   }
 `;
 
@@ -98,9 +136,19 @@ function Toggle({ id }) {
   }
 
   return (
-    <StyledToggle onClick={handleClick}>
-      <HiEllipsisVertical />
-    </StyledToggle>
+    <>
+      <Backdrop
+        initial={false}
+        animate={openId !== '' ? 'open' : 'closed'}
+        variants={{ open: { opacity: 1 }, closed: { opacity: 0 } }}
+        transition={{ duration: 0.3 }}
+        isOpen={openId !== ''}
+        onClick={() => close()}
+      />
+      <StyledToggle isOpen={openId !== ''} onClick={handleClick}>
+        <HiEllipsisVertical />
+      </StyledToggle>
+    </>
   );
 }
 

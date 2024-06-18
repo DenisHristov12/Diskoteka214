@@ -12,7 +12,7 @@ const Tag = styled.span`
   color: var(--color-${(props) => props.type}-700);
   background-color: var(--color-${(props) => props.type}-100);
 
-  ${respondToMobile(`font-size: 1rem;`)}
+  ${respondToMobile(`font-size: 0.8rem;`)}
 `;
 
 export default Tag;

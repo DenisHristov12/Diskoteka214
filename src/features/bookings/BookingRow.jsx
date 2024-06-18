@@ -14,16 +14,21 @@ import ConfirmDelete from '../../ui/ConfirmDelete';
 import Table from '../../ui/Table';
 
 import { useDeleteBooking } from './useDeleteBooking';
-import { formatCurrency } from '../../utils/helpers';
 import { formatDistanceFromNow } from '../../utils/helpers';
 import { useCheckout } from '../check-in-out/useCheckout';
 import { format, isToday } from 'date-fns';
+import { respondToMobile } from '../../styles/mediaQueries';
+import useWidth from '../../hooks/useWidth';
 
 const Event = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--color-grey-600);
   font-family: 'Sono';
+
+  ${respondToMobile(`
+  font-size: 1.2rem;
+  `)}
 `;
 
 const Stacked = styled.div`
@@ -38,6 +43,8 @@ const Stacked = styled.div`
   & span:last-child {
     color: var(--color-grey-500);
     font-size: 1.2rem;
+
+    ${respondToMobile(`font-size: 1rem;`)}
   }
 `;
 
@@ -48,10 +55,6 @@ const People = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  /* background-color: red; */
-
-  /* text-align: center; */
 `;
 
 function BookingRow({
@@ -70,6 +73,8 @@ function BookingRow({
 
   const navigate = useNavigate();
 
+  const width = useWidth();
+
   const statusToTagName = {
     unconfirmed: 'blue',
     'checked-in': 'green',
@@ -78,19 +83,21 @@ function BookingRow({
 
   return (
     <Table.Row role='row'>
-      <Event>{eventName}</Event>
+      {width > 325 && <Event>{eventName}</Event>}
       <Stacked>
         <span>{reservatorName}</span>
         <span>{number}</span>
       </Stacked>
-      <Stacked>
-        <span>
-          {isToday(new Date(date)) ? 'Today' : formatDistanceFromNow(date)}
-        </span>
-        <span>{format(new Date(date), 'MMM dd yyyy')} </span>
-      </Stacked>
+      {width > 430 && (
+        <Stacked>
+          <span>
+            {isToday(new Date(date)) ? 'Today' : formatDistanceFromNow(date)}
+          </span>
+          <span>{format(new Date(date), 'MMM dd yyyy')} </span>
+        </Stacked>
+      )}
       <Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag>
-      <People>{peopleNum}</People>
+      {width > 430 && <People>{peopleNum}</People>}
 
       <Modal>
         <Menus.Menu>
