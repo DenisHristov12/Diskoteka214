@@ -18,12 +18,11 @@ import Events from './pages/Events';
 import Booking from './pages/Booking';
 import Event from './pages/Event';
 import Checkin from './pages/Checkin';
-import ProtectedRoute from './ui/ProtectedRoute';
+// import ProtectedRoute from './ui/ProtectedRoute';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contacts from './pages/Contacts';
 import { DarkModeProvider } from './context/DarkModeContext';
-// import 'leaflet/dist/leaflet.css';
 
 const queryClient = new QueryClient({
   defaultOptions: {

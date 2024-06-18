@@ -9,10 +9,13 @@ import {
   HiLockClosed,
   HiOutlineCalendarDays,
   HiOutlineHome,
+  HiOutlineUser,
   HiOutlineUsers,
   HiPhone,
 } from 'react-icons/hi2';
 import { respondToMobile, respondToSmallLaptop } from '../styles/mediaQueries';
+import Logout from '../features/authentication/Logout';
+import { useLogout } from '../features/authentication/useLogout';
 
 const NavList = styled.ul`
   display: flex;
@@ -86,6 +89,12 @@ const StyledNavLink = styled(NavLink)`
 
 function MainNav({ closeSidebar }) {
   const { isUser, isAdmin } = useUser();
+  const { logout } = useLogout();
+
+  function handleLogout() {
+    closeSidebar();
+    logout();
+  }
 
   return (
     <nav>
@@ -148,6 +157,22 @@ function MainNav({ closeSidebar }) {
             <StyledNavLink onClick={closeSidebar} to='/register'>
               <HiArrowRightOnRectangle />
               Register
+            </StyledNavLink>
+          </li>
+        )}
+        {isUser && (
+          <li>
+            <StyledNavLink onClick={closeSidebar} to='/account'>
+              <HiOutlineUser />
+              Account
+            </StyledNavLink>
+          </li>
+        )}
+        {isUser && (
+          <li>
+            <StyledNavLink onClick={handleLogout} to='#'>
+              <HiArrowRightOnRectangle />
+              Logout
             </StyledNavLink>
           </li>
         )}
