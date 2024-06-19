@@ -1,7 +1,6 @@
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import emailjs from '@emailjs/browser';
 import styled from 'styled-components';
-import FormRow from './FormRow';
 import Button from './Button';
 import { useForm } from 'react-hook-form';
 import Input from './Input';
@@ -394,7 +393,7 @@ function ContactsForm() {
             <span>Bulgaria</span>
           </Address>
           <ContactInfo>
-            <span>Email: info@diskoteka214.com</span>
+            <span>Email: denishrstv1@gmail.com</span>
             <span>Phone: +359 877 193 786</span>
           </ContactInfo>
           <Socials>

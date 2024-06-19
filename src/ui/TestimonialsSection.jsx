@@ -99,14 +99,14 @@ const UserFeedback = styled.p`
 const testimonials = [
   {
     name: 'Ivan Nikolov',
-    title: 'Profesionalna Utaika',
+    title: 'Party Animal',
     feedback:
       'Dude, my birthday was straight-up legendary! The vibes were electric, the tunes were fire, and the party never stopped! Massive shoutout to the squad for turning my special day into an unforgettable fiesta. You guys rock!',
     image: 'default-user.jpg',
   },
   {
     name: 'Kiril Kirilov',
-    title: 'Mafiot pod prikritie',
+    title: 'Regular Customer',
     feedback:
       'OMG, hosting my sweet 20  was an absolute blast! The venue was decked out with all the latest trends, the food was off the charts delish, and the DJ had us lit all night long. Thanks for making my big day totally lit!',
     image: 'default-user.jpg',
