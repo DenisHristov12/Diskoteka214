@@ -71,7 +71,7 @@ const BenefitCard = styled.div`
 const IconWrapper = styled.div`
   font-size: 4.4rem;
   margin-bottom: 1.6rem;
-  color: #eda641;
+  color: var(--color-brand-500);
 
   ${respondToSmallLaptop(`
   font-size: 4rem;

@@ -55,7 +55,7 @@ const HeroButton = styled.button`
   padding: 1rem 2rem;
   font-size: 1.2rem;
   color: #fff;
-  background-color: #ff7f50;
+  background-color: var(--color-brand-900);
   border: none;
   border-radius: 5px;
   cursor: pointer;

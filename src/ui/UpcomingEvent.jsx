@@ -5,12 +5,10 @@ import { useReservators } from '../features/events/useReservators';
 import { useUser } from '../features/authentication/useUser';
 import Spinner from './Spinner';
 import {
-  respondToLandscapeTablets,
   respondToMobile,
   respondToMobileSmall,
   respondToSmallLaptop,
 } from '../styles/mediaQueries';
-import { useEffect, useState } from 'react';
 import useWidth from '../hooks/useWidth';
 
 const EventContainer = styled.div`

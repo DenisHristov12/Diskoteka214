@@ -3,9 +3,9 @@ import { useEventsAfterToday } from '../features/events/useEventsAfterToday';
 import Spinner from './Spinner';
 import UpcomingEvent from './UpcomingEvent';
 import Heading from './Heading';
-import Pagination from './Pagination';
-import { PAGE_SIZE_EVENTS } from '../utils/constants';
 import { respondToMobile, respondToMobileSmall } from '../styles/mediaQueries';
+import Button from './Button';
+import { useNavigate } from 'react-router-dom';
 
 const Layout = styled.div`
   margin-top: 6.4rem;
@@ -27,20 +27,40 @@ const Layout = styled.div`
   `)}
 `;
 
+const HeadingContainer = styled.div`
+  margin: 9.6rem auto 0;
+`;
+
+const StyledSpan = styled.span`
+  margin: 2.4rem auto;
+`;
+
 function UpcomingEvents() {
-  const { isLoading, eventsAfterToday, count } = useEventsAfterToday();
+  const { isLoading, eventsAfterToday } = useEventsAfterToday();
+
+  const navigate = useNavigate();
 
   if (isLoading) {
     return <Spinner />;
   }
 
   return (
-    <Layout>
-      {eventsAfterToday.map((event) => (
-        <UpcomingEvent event={event} key={event.id} />
-      ))}
-      <Pagination count={count} pageSize={PAGE_SIZE_EVENTS} />
-    </Layout>
+    <>
+      <HeadingContainer>
+        <Heading as='h1'>See some of our upcoming events</Heading>
+      </HeadingContainer>
+      <Layout>
+        {eventsAfterToday.map((event) => (
+          <UpcomingEvent event={event} key={event.id} />
+        ))}
+
+        <StyledSpan>
+          <Button onClick={() => navigate('/events')} size='medium'>
+            See all upcoming events
+          </Button>
+        </StyledSpan>
+      </Layout>
+    </>
   );
 }
 

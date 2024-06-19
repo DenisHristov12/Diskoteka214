@@ -226,68 +226,74 @@ function ContactsForm() {
         </ContactsContainerMobile>
       )}
 
-      <ContactFormWrapperMobile>
-        <Form type='regular' onSubmit={handleSubmit(onSubmit)}>
-          <FormRowVertical label='Full name' error={errors?.fullName?.message}>
-            <Input
-              type='text'
-              id='fullName'
-              // disabled={isLoading || isUser}
-              {...register('fullName', {
-                required: 'This field is required',
-              })}
-            />
-          </FormRowVertical>
+      {width < 430 && (
+        <ContactFormWrapperMobile>
+          <Form type='regular' onSubmit={handleSubmit(onSubmit)}>
+            <FormRowVertical
+              label='Full name'
+              error={errors?.fullName?.message}>
+              <Input
+                type='text'
+                id='fullName'
+                // disabled={isLoading || isUser}
+                {...register('fullName', {
+                  required: 'This field is required',
+                })}
+              />
+            </FormRowVertical>
 
-          <FormRowVertical label='Email address' error={errors?.email?.message}>
-            <Input
-              type='email'
-              id='email'
-              // disabled={isLoading || isUser}
-              {...register('email', {
-                required: 'This field is required',
-                pattern: {
-                  value: /\S+@\S+\.\S+/,
-                  message: 'Please provide a valid email address',
-                },
-              })}
-            />
-          </FormRowVertical>
+            <FormRowVertical
+              label='Email address'
+              error={errors?.email?.message}>
+              <Input
+                type='email'
+                id='email'
+                // disabled={isLoading || isUser}
+                {...register('email', {
+                  required: 'This field is required',
+                  pattern: {
+                    value: /\S+@\S+\.\S+/,
+                    message: 'Please provide a valid email address',
+                  },
+                })}
+              />
+            </FormRowVertical>
 
-          <FormRowVertical label='Subject' error={errors?.subject?.message}>
-            <Input
-              type='text'
-              id='subject'
-              // disabled={isLoading || isUser}
-              {...register('subject', {
-                required: 'This field is required',
-              })}
-            />
-          </FormRowVertical>
+            <FormRowVertical label='Subject' error={errors?.subject?.message}>
+              <Input
+                type='text'
+                id='subject'
+                // disabled={isLoading || isUser}
+                {...register('subject', {
+                  required: 'This field is required',
+                })}
+              />
+            </FormRowVertical>
 
-          <FormRowVertical label='Message' error={errors?.message?.message}>
-            <Textarea
-              id='message'
-              // disabled={isLoading || isUser}
-              {...register('message', {
-                required: 'This field is required',
-                minLength: {
-                  value: 10,
-                  message: 'Message must be at least 10 characters long',
-                },
-              })}
-            />
-          </FormRowVertical>
+            <FormRowVertical label='Message' error={errors?.message?.message}>
+              <Textarea
+                id='message'
+                // disabled={isLoading || isUser}
+                {...register('message', {
+                  required: 'This field is required',
+                  minLength: {
+                    value: 10,
+                    message: 'Message must be at least 10 characters long',
+                  },
+                })}
+              />
+            </FormRowVertical>
 
-          <FormRowVertical>
-            <Button
-            // disabled={isLoading || isUser}
-            >
-              Submit
-            </Button>
-          </FormRowVertical>
-        </Form>
-      </ContactFormWrapperMobile>
+            <FormRowVertical>
+              <Button
+              // disabled={isLoading || isUser}
+              >
+                Submit
+              </Button>
+            </FormRowVertical>
+          </Form>
+        </ContactFormWrapperMobile>
+      )}
 
       <ContactsContainer>
         {width > 430 && (

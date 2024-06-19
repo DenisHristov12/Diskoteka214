@@ -57,7 +57,7 @@ const DataBox = styled.div`
 const Header = styled.header`
   background-color: var(--color-brand-500);
   padding: 2rem 4rem;
-  color: #e0e7ff;
+  color: var(--color-grey-0);
   font-size: 1.8rem;
   font-weight: 500;
   display: flex;

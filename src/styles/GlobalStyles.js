@@ -81,14 +81,23 @@ const GlobalStyles = createGlobalStyle`
   }
   
   /* Indigo */
-  --color-brand-50: #eef2ff;
-  --color-brand-100: #e0e7ff;
-  --color-brand-200: #c7d2fe;
-  --color-brand-500: #6366f1;
-  --color-brand-600: #4f46e5;
-  --color-brand-700: #4338ca;
-  --color-brand-800: #3730a3;
-  --color-brand-900: #312e81;
+    /* --color-brand-50: #eef2ff;
+    --color-brand-100: #e0e7ff;
+    --color-brand-200: #c7d2fe;
+    --color-brand-500: #6366f1;
+    --color-brand-600: #4f46e5;
+    --color-brand-700: #4338ca;
+    --color-brand-800: #3730a3;
+    --color-brand-900: #312e81; */
+
+    --color-brand-50: #FFF3E0;
+    --color-brand-100: #FFE0B2;
+    --color-brand-200: #FFCC80;
+    --color-brand-500: #FF9800;
+    --color-brand-600: #FB8C00;
+    --color-brand-700: #F57C00;
+    --color-brand-800: #EF6C00;
+    --color-brand-900: #E65100;
   
   --border-radius-tiny: 3px;
   --border-radius-sm: 5px;
