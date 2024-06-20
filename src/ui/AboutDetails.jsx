@@ -75,7 +75,7 @@ const AboutText = styled.p`
 function AboutDetails() {
   return (
     <AboutContainer>
-      <AboutImage src='party.jpg' alt='About Us' />
+      <AboutImage src='party3.jpg' alt='About Us' />
       <AboutContent>
         <AboutTitle>What we do</AboutTitle>
         <AboutText>

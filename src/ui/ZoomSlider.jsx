@@ -144,12 +144,12 @@ const Dot = styled.div`
 
 const images = [
   {
-    title: 'Test image 1',
-    image: '/nature1.jpg',
+    title: '',
+    image: '/party1.jpg',
   },
   {
-    title: 'Test image 2',
-    image: '/nature2.jpg',
+    title: '',
+    image: '/party2.jpg',
   },
 ];
 

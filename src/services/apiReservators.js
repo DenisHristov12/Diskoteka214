@@ -12,8 +12,6 @@ export async function getReservators() {
 }
 
 export async function createReservator(obj) {
-  // console.log(obj.id);
-
   const { data, error } = await supabase
     .from('reservators')
     .insert([obj])
@@ -24,8 +22,6 @@ export async function createReservator(obj) {
     console.error(error);
     throw new Error('Reservator could not be created');
   }
-
-  console.log(data);
 
   return data;
 }

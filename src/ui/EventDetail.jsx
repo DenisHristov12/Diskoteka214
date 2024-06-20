@@ -202,15 +202,12 @@ function EventDetail() {
     capacity,
   } = event;
 
-  const isReservator =
-    reservators.length !== 0
-      ? reservators.some(
-          (res) =>
-            res?.fullName === user?.fullName &&
-            res?.number === user?.number &&
-            res?.eventId === eventId
-        )
-      : false;
+  const isReservator = reservators.some(
+    (res) =>
+      res?.fullName === user?.fullName &&
+      res?.number === user?.number &&
+      res?.eventId === eventId
+  );
 
   return (
     <>
@@ -265,12 +262,12 @@ function EventDetail() {
                     <ReserveForm />
                   </Modal.Window>
                 </>
-              ) : isUser ? (
+              ) : !isUser ? (
+                <Button onClick={() => navigate('/login')}>Reserve</Button>
+              ) : (
                 <Button disabled='true' variation='secondary'>
                   Reserved
                 </Button>
-              ) : (
-                <Button onClick={() => navigate('/login')}>Reserve</Button>
               )}
 
               {isAdmin && (
