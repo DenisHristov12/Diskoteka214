@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
 import styled, { css, keyframes } from 'styled-components';
-import {
-  respondToBiggerTablets,
-  respondToLandscapeTablets,
-} from '../styles/mediaQueries';
+import { respondToLandscapeTablets } from '../styles/mediaQueries';
 
 const slideIn = keyframes`
  

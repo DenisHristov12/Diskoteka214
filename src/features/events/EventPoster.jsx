@@ -3,12 +3,6 @@ import styled, { css } from 'styled-components';
 import { useDeleteEvent } from './useDeleteEvent';
 import Button from '../../ui/Button';
 import CreateEventForm from './CreateEventForm';
-import {
-  HiInformationCircle,
-  HiPencil,
-  HiSquare2Stack,
-  HiTrash,
-} from 'react-icons/hi2';
 import { useCreateEvent } from './useCreateEvent';
 import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
@@ -50,7 +44,6 @@ const Poster = styled.div`
   align-items: center;
 
   box-shadow: var(--shadow-md);
-  /* background-color: red; */
 
   filter: ${({ grayScale }) => (grayScale ? 'grayscale(100%)' : 'none')};
 
@@ -64,8 +57,6 @@ Poster.defaultProps = {
 const Img = styled.img`
   height: auto;
   width: 100%;
-
-  /* filter: ${({ grayScale }) => (grayScale ? 'grayscale(100%)' : 'none')}; */
 `;
 
 const ButtonBox = styled.div`

@@ -1,11 +1,9 @@
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { PAGE_SIZE, PAGE_SIZE_EVENTS } from '../utils/constants';
 import {
   respondToLandscapeTablets,
   respondToMobile,
-  respondToSmallLaptop,
 } from '../styles/mediaQueries';
 
 const StyledPagination = styled.div`

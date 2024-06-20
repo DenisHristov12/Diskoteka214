@@ -12,7 +12,6 @@ import styled from 'styled-components';
 import Heading from '../../ui/Heading';
 import DashboardBox from './DashboardBox';
 import { eachDayOfInterval, format, isSameDay, subDays } from 'date-fns';
-import useWidth from '../../hooks/useWidth';
 
 const StyledSalesChart = styled(DashboardBox)`
   background-color: var(--color-grey-0);
@@ -32,8 +31,6 @@ function SalesChart({ bookings, numDays }) {
     start: subDays(new Date(), numDays - 1),
     end: new Date(),
   });
-
-  const width = useWidth();
 
   const data = allDates.map((date) => {
     return {

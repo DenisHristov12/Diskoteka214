@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import {
   respondToLandscapeTablets,
-  respondToMobile,
   respondToMobileSmall,
   respondToSmallLaptop,
 } from '../styles/mediaQueries';

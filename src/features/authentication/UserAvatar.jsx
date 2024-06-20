@@ -1,11 +1,7 @@
 import styled from 'styled-components';
 import { useUser } from './useUser';
 import SpinnerMini from '../../ui/SpinnerMini';
-import {
-  respondToLandscapeTablets,
-  respondToMobile,
-  respondToSmallLaptop,
-} from '../../styles/mediaQueries';
+import { respondToSmallLaptop } from '../../styles/mediaQueries';
 
 const StyledUserAvatar = styled.div`
   display: flex;
